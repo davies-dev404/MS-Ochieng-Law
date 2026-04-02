@@ -79,16 +79,17 @@ export default function Home() {
 
         <div className="z-10 flex flex-col items-center text-center px-4 max-w-6xl mx-auto w-full pt-24 pb-32">
           <motion.div
-            initial={{ scale: 0.8, opacity: 0, rotateX: 15 }}
-            animate={{ scale: 1, opacity: 1, rotateX: 0 }}
+            initial={{ scale: 0.85, opacity: 0, y: 30 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 2, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-16"
+            className="mb-12"
           >
-            <div className="w-52 h-52 md:w-72 md:h-72 rounded-full embossed-seal flex items-center justify-center mx-auto relative">
-              <div className="absolute inset-2 border border-primary/15 rounded-full" />
-              <div className="absolute inset-5 border border-primary/08 rounded-full" />
-              <span className="font-serif-heading text-6xl md:text-9xl embossed-logo tracking-tighter">MSO</span>
-            </div>
+            <img
+              src="/mso-logo-transparent.png"
+              alt="M.S Ochieng Legal — Bold Law. Refined Strategy."
+              className="w-64 md:w-80 lg:w-96 h-auto object-contain mx-auto drop-shadow-2xl"
+              style={{ filter: "drop-shadow(0 0 40px rgba(212,175,55,0.18))" }}
+            />
           </motion.div>
 
           <motion.div
@@ -97,14 +98,8 @@ export default function Home() {
             transition={{ delay: 0.7, duration: 1.4, ease: [0.25, 0.1, 0.25, 1] }}
             className="flex flex-col items-center"
           >
-            <h1 className="font-serif-heading text-5xl md:text-7xl lg:text-[6rem] font-normal text-white tracking-tight mb-6 leading-none">
-              M.S Ochieng Law
-            </h1>
-            <div className="divider-gold w-64 my-6 opacity-60" />
-            <p className="font-serif-sub text-lg md:text-2xl tracking-[0.45em] uppercase text-primary font-light mt-2 mb-6">
-              Bold Law. Refined Strategy.
-            </p>
-            <p className="font-sans text-muted-foreground text-base md:text-lg font-light max-w-xl leading-relaxed mt-4 mb-14">
+            <div className="divider-gold w-48 mb-8 opacity-50" />
+            <p className="font-sans text-muted-foreground text-base md:text-lg font-light max-w-xl leading-relaxed text-center mb-14">
               An elite legal practice commanding authority at the intersection of corporate power, complex litigation, and strategic counsel — trusted by boards, institutions, and individuals across the continent and beyond.
             </p>
           </motion.div>

@@ -60,14 +60,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
       <nav className={`fixed top-0 w-full z-50 transition-all duration-700 ${isScrolled ? "bg-black/90 backdrop-blur-md py-4 border-b border-primary/20" : "bg-transparent py-7"}`}>
         <div className="px-8 max-w-7xl mx-auto flex justify-between items-center">
-          <Link href="/" className="flex items-center gap-4 cursor-pointer group no-underline">
-            <div className="w-10 h-10 rounded-full embossed-seal flex items-center justify-center flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
-              <span className="font-serif-heading text-[10px] embossed-logo tracking-tight">MSO</span>
-            </div>
-            <div className="flex flex-col leading-none">
-              <span className="font-serif-heading text-base text-white tracking-wider">M.S Ochieng</span>
-              <span className="font-serif-sub text-[9px] tracking-[0.35em] uppercase text-primary/80">Law Chambers</span>
-            </div>
+          <Link href="/" className="flex items-center gap-3 cursor-pointer group no-underline">
+            <img
+              src="/mso-logo-transparent.png"
+              alt="M.S Ochieng Legal"
+              className="h-12 w-auto object-contain transition-all duration-300 group-hover:scale-105 group-hover:brightness-110"
+            />
           </Link>
 
           <div className="hidden md:flex gap-10 items-center">
@@ -114,13 +112,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             {/* Brand */}
             <div className="lg:w-1/3">
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-full embossed-seal flex items-center justify-center flex-shrink-0">
-                  <span className="font-serif-heading text-xs embossed-logo tracking-tight">MSO</span>
-                </div>
-                <div>
-                  <div className="font-serif-heading text-xl text-white tracking-tight">M.S Ochieng Law</div>
-                  <div className="font-serif-sub text-primary tracking-[0.35em] uppercase text-[9px]">Bold Law. Refined Strategy.</div>
-                </div>
+                <img
+                  src="/mso-logo-transparent.png"
+                  alt="M.S Ochieng Legal"
+                  className="h-20 w-auto object-contain"
+                />
               </div>
               <p className="font-sans text-muted-foreground text-sm font-light leading-relaxed mb-8 max-w-xs">
                 An elite legal practice offering bespoke counsel to corporations, institutions, and high-net-worth individuals across East Africa and beyond.
