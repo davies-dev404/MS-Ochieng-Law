@@ -184,14 +184,20 @@
   border-color: #F0D080;
 }
 
-.gold-text-gradient {
-  background: linear-gradient(to right, #C9A84C, #F0D080, #C9A84C);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
 .divider-gold {
   height: 1px;
   background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.5), transparent);
   width: 100%;
+}
+
+.gold-text-gradient {
+  background: linear-gradient(to right, #C9A84C, #F0D080, #C9A84C);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-gradient-radial {
+  background-image: radial-gradient(circle at center, var(--tw-gradient-stops));
 }
