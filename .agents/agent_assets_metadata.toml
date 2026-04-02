@@ -1,0 +1,20 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "SoUu8jG7yPWMKZX3_kPKF"
+uri = "file://artifacts/ms-ochieng-law/public/marble-texture.png"
+type = "image"
+title = "Dark marble texture background"
+
+[[generated]]
+id = "CAoG4IyLoTklmHT9iJWeM"
+uri = "file://artifacts/ms-ochieng-law/public/office-interior.png"
+type = "image"
+title = "Legal office luxury interior"
+
+[[generated]]
+id = "wAjUiICx8lTIXjzlAweVh"
+uri = "file://artifacts/ms-ochieng-law/public/scales-abstract.png"
+type = "image"
+title = "Abstract golden scales of justice"
