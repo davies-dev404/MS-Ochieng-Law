@@ -11,6 +11,14 @@ The aesthetic foundation includes:
 - **Classic Typography:** Crisp, commanding serifs paired with highly legible body text, engineered for clarity and executive presence.
 - **Strategic Micro-Animations:** Fluid, meticulously timed Framer Motion reveals that bring the firm's philosophy to life without sacrificing solemnity.
 
+### Technology Stack
+This application leverages modern web technologies to achieve its high-performance, responsive aesthetic:
+- **Core Language:** JavaScript (ES6+), leveraging JSX for component structure.
+- **Framework:** React.js via Vite for lightning-fast hot module replacement and optimized production builds.
+- **Styling:** TailwindCSS for precision styled utility classes.
+- **Animations:** Framer Motion for liquid-smooth, professional transitions.
+- **Routing:** Wouter for a lightweight, hook-based routing approach.
+
 ### Digital Masterpiece
 ![M.S Ochieng Elite Law Firm Theme - Home](./screenshot.png)
 
