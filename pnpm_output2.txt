@@ -1,0 +1,17 @@
+Scope: all 8 workspace projects
+Progress: resolved 0, reused 1, downloaded 0, added 0
+Progress: resolved 229, reused 224, downloaded 0, added 0
+Packages: +388 -37
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-------
+Progress: resolved 447, reused 441, downloaded 0, added 0
+Progress: resolved 447, reused 441, downloaded 0, added 0, done
+.../esbuild@0.27.3/node_modules/esbuild postinstall$ node install.js
+.../esbuild@0.27.3/node_modules/esbuild postinstall: C:\Users\HomePC\Desktop\MSO-Legal-Branding\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\install.js:136
+.../esbuild@0.27.3/node_modules/esbuild postinstall:     throw new Error(`Expected ${JSON.stringify(versionFromPackageJSON)} but got ${JSON.stringify(stdout)}`);
+.../esbuild@0.27.3/node_modules/esbuild postinstall:           ^
+.../esbuild@0.27.3/node_modules/esbuild postinstall: Error: Expected "0.27.3" but got "0.25.11"
+.../esbuild@0.27.3/node_modules/esbuild postinstall:     at validateBinaryVersion (C:\Users\HomePC\Desktop\MSO-Legal-Branding\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\install.js:136:11)
+.../esbuild@0.27.3/node_modules/esbuild postinstall:     at C:\Users\HomePC\Desktop\MSO-Legal-Branding\node_modules\.pnpm\esbuild@0.27.3\node_modules\esbuild\install.js:285:5
+.../esbuild@0.27.3/node_modules/esbuild postinstall: Node.js v22.19.0
+.../esbuild@0.27.3/node_modules/esbuild postinstall: Failed
+ΓÇëELIFECYCLEΓÇë Command failed with exit code 1.

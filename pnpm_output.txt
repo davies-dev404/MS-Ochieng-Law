@@ -1,0 +1,8 @@
+Scope: all 8 workspace projects
+Progress: resolved 0, reused 1, downloaded 0, added 0
+C:\Users\HomePC\Desktop\MSO-Legal-Branding\artifacts\api-server:
+ΓÇëERR_PNPM_WORKSPACE_PKG_NOT_FOUNDΓÇë In artifacts\api-server: "@workspace/db@workspace:*" is in the dependencies but no package named "@workspace/db" is present in the workspace
+
+This error happened while installing a direct dependency of C:\Users\HomePC\Desktop\MSO-Legal-Branding\artifacts\api-server
+
+Packages found in the workspace: 
