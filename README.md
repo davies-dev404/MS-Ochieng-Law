@@ -1,5 +1,7 @@
 # M.S. Ochieng Law - Brand & Website Identity
 
+![M.S Ochieng Elite Law Firm Theme - Home](./screenshot.png)
+
 A modern, professional web presence for the M.S. Ochieng Law Firm. 
 
 ## Institutional Aesthetic
@@ -19,12 +21,37 @@ This application leverages modern web technologies to achieve its high-performan
 - **Animations:** Framer Motion for liquid-smooth, professional transitions.
 - **Routing:** Wouter for a lightweight, hook-based routing approach.
 
-### Digital Masterpiece
-![M.S Ochieng Elite Law Firm Theme - Home](./screenshot.png)
+## Installation & Local Development
 
-## Installation & Setup
+To run the project locally, ensure you have Node.js installed, then execute:
 
-1. `npm install`
-2. `npm run dev`
+```bash
+# Install all required dependencies
+npm install
 
-Runs locally on Vite default port.
+# Start the Vite development server
+npm run dev
+```
+
+The application will run locally on Vite's default port.
+
+## Deployment to Vercel
+
+This repository is strictly configured to be **Deploy-Ready for Vercel** natively. 
+
+It is completely zero-configuration. The root contains the `package.json` and `vite.config.js` files naturally expected by automation platforms.
+
+### Quick Deploy
+1. Commit all your latest code and push to your GitHub repository.
+2. Sign in to your [Vercel account](https://vercel.com/).
+3. Click **Add New** → **Project**.
+4. Import this repository. 
+5. Vercel will automatically detect `Vite` as the framework. Leave all build settings to their auto-detected defaults.
+6. Click **Deploy**.
+
+## Building for Production
+To manually build the front-end application without deploying, simply run:
+```bash
+npm run build
+```
+This will compile the optimized application assets into the `/dist` directory.
