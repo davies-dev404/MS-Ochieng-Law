@@ -1,55 +1,23 @@
 import { useState, useEffect } from "react";
 import { useLocation, Link } from "wouter";
-import BrandMark from "./BrandMark";
 import { motion, AnimatePresence } from "framer-motion";
-import { Phone, Mail } from "lucide-react";
+import { Phone, Mail, MapPin, Home as HomeIcon, Headphones } from "lucide-react";
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
+import BrandMark from "./BrandMark";
+import FloatingWhatsApp from "./FloatingWhatsApp";
+import AIChatBox from "./AIChatBox";
 
+// Exact links from the provided nav structure screenshot
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/practice", label: "Practice Areas" },
-  { href: "/philosophy", label: "Philosophy" },
-  { href: "/why-us", label: "Why Us" },
+  { href: "/about-us", label: "About Us" },
+  { href: "/practice", label: "Our Expertise" },
+  { href: "/charter", label: "Service Charter" },
+  { href: "/people", label: "Our People" },
   { href: "/blog", label: "Blog" },
-  { href: "/consultation", label: "Consultation" },
+  { href: "/consultation", label: "Contact Us" },
 ];
-
-const SocialIcons = () => (
-  <div className="flex items-center gap-5">
-    <a
-      href="https://linkedin.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="LinkedIn"
-      className="text-muted-foreground hover:text-primary transition-colors duration-300"
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-      </svg>
-    </a>
-    <a
-      href="https://twitter.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="X / Twitter"
-      className="text-muted-foreground hover:text-primary transition-colors duration-300"
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.213 5.567zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    </a>
-    <a
-      href="https://instagram.com"
-      target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Instagram"
-      className="text-muted-foreground hover:text-primary transition-colors duration-300"
-    >
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
-      </svg>
-    </a>
-  </div>
-);
 
 export default function Layout({ children }) {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -67,180 +35,162 @@ export default function Layout({ children }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);
 
-  const isHome = location === "/";
-
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans relative">
-      {/* Background Texture */}
-      <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03] mix-blend-overlay">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <filter id="noise">
-            <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#noise)" />
-        </svg>
-      </div>
+    <div className="min-h-screen bg-background text-foreground font-sans relative flex flex-col">
+    <header id="heda" className={`w-full z-50 flex flex-col fixed top-0 transition-all duration-300 pointer-events-none ${isScrolled ? 'pt-0 px-0' : 'pt-3 px-3 md:px-6 md:pt-4'}`}>
+        <div className={`w-full mx-auto max-w-[1240px] flex flex-col transition-all duration-500 pointer-events-auto ${
+          isScrolled 
+            ? 'bg-white rounded-none md:rounded-b-xl shadow-md border-b border-gray-200' 
+            : 'bg-white/90 backdrop-blur-md rounded-[12px] shadow-[0_15px_40px_rgba(0,0,0,0.12)] overflow-hidden ring-1 ring-black/5 mt-4'
+        }`}>
+            <div className="header-top-section bg-[#1c2f54] text-white py-[10px] w-full hidden md:block">
+                <div className="row">
+                    <div className="container mx-auto px-4 lg:px-6">
+                        <div className="contact-details-top flex flex-col md:flex-row justify-between items-center text-[13px] tracking-wide">
+                            <div className="phone-email flex gap-8">
+                                <a href="mailto:info@msochienglaw.co.ke" className="flex items-center gap-2 hover:text-gray-300 transition-colors"><Mail size={14} fill="white" className="text-[#1c2f54]" /> info@msochienglaw.co.ke</a>
+                                <a href="tel:+254732575066" className="flex items-center gap-2 hover:text-gray-300 transition-colors"><Phone size={14} fill="white" className="text-white" /> +254 732 575 066</a>
+                            </div>
+                            <div className="social-links flex items-center gap-4 mt-2 md:mt-0">
+                                <div id="search">
+                                  <form role="search" method="get" className="search-form flex h-8 shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]" action="/">
+                                    <label className="m-0">
+                                        <input type="search" className="search-field form-control px-3 h-full text-gray-700 text-[13px] outline-none w-[200px] bg-white border-none rounded-none" placeholder="Search..." name="s" title="Search for:" />
+                                    </label>
+                                    <input type="submit" className="search-submit bg-[#cc2027] text-white px-5 font-bold text-xs h-full border-none cursor-pointer hover:bg-red-800 tracking-wider rounded-none transition-colors" value="SEARCH" />
+                                  </form>
+                                </div> 
+                                <ul className="flex items-center gap-2 m-0 p-0 list-none text-white socials-active">
+                                    <li className="flex gap-2">                                        
+                                        <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61551090343152" className="w-[30px] h-[30px] rounded-full border border-white/60 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] transition-all text-white shadow-sm" title="Facebook"><FaFacebookF size={12} /></a>
+                                        <a target="_blank" rel="noreferrer" href="https://x.com/pakadvocates" className="w-[30px] h-[30px] rounded-full border border-white/60 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white shadow-sm" title="X (Twitter)"><FaXTwitter size={12} /></a>
+                                        <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-[30px] h-[30px] rounded-full border border-white/60 flex items-center justify-center hover:bg-gradient-to-tr hover:from-[#f9ce34] hover:to-[#ee2a7b] hover:border-transparent transition-all text-white shadow-sm" title="Instagram"><FaInstagram size={12} /></a>
+                                        <a target="_blank" rel="noreferrer" href="tel:+254732575066" className="w-[30px] h-[30px] rounded-full border border-white/60 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all text-white shadow-sm" title="Call Us"><Phone size={12} /></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-      <header className="fixed top-0 w-full z-50 flex flex-col">
-        {/* Global Top Bar */}
-        <div className="bg-secondary text-white/70 py-2 px-8 text-[10px] uppercase font-serif-sub tracking-[0.2em] hidden lg:flex justify-between items-center border-b border-white/10 shadow-sm relative z-50">
-          <div className="flex items-center gap-8">
-            <span className="flex items-center gap-2 hover:text-white transition-colors"><Phone size={12} strokeWidth={2} className="text-primary" /> +254 700 000 001</span>
-            <span className="flex items-center gap-2 hover:text-white transition-colors"><Mail size={12} strokeWidth={2} className="text-primary" /> counsel@msochieng.law</span>
-          </div>
-          
-          <div className="flex items-center gap-6">
-             <SocialIcons />
-             <div className="w-px h-3 bg-white/20" />
-             <div className="flex items-center gap-2 font-bold">
-                <button className="text-primary hover:text-white transition-colors">EN</button>
-                <span className="text-white/30 font-light">|</span>
-                <button className="hover:text-white transition-colors">SW</button>
-             </div>
-          </div>
+        <div className="header-main-section bg-white pb-4 pt-3">
+            <div className="row">
+                <div className="container mx-auto px-4 lg:px-6 flex justify-between items-center">
+                    <div className="logo shrink-0 pt-1 lg:pt-0">
+                        <Link href="/">
+                            <BrandMark variant="gold" size="small" className="drop-shadow-sm" />
+                        </Link>
+                    </div>
+                    
+                    <nav id="menu-desktop" className="hidden lg:flex w-full justify-end pt-3">
+                        <div className="menu-main-menu-container">
+                          <ul id="menu-main-menu" className="menu flex items-center gap-6 m-0 p-0 list-none tracking-wide text-[13px] font-bold">
+                            <li className="menu-item"><Link href="/" className={`hover:text-[#1c2f54] uppercase transition-colors ${location === '/' ? 'text-[#1c2f54]' : 'text-[#cc2027]'}`}>Home</Link></li>
+                            <li className="menu-item"><Link href="/about-us" className={`hover:text-[#1c2f54] uppercase transition-colors ${location === '/about-us' ? 'text-[#1c2f54]' : 'text-[#cc2027]'}`}>About Us</Link></li>
+                            <li className="menu-item"><Link href="/practice" className={`hover:text-[#1c2f54] uppercase transition-colors ${location.startsWith('/practice') ? 'text-[#1c2f54]' : 'text-[#cc2027]'}`}>Our Expertise</Link></li>
+                            <li className="menu-item"><Link href="/service-charter" className={`hover:text-[#1c2f54] uppercase transition-colors ${location === '/service-charter' ? 'text-[#1c2f54]' : 'text-[#cc2027]'}`}>Service Charter</Link></li>
+                            <li className="menu-item"><Link href="/people" className={`hover:text-[#1c2f54] uppercase transition-colors ${location === '/people' ? 'text-[#1c2f54]' : 'text-[#cc2027]'}`}>Our People</Link></li>
+                            <li className="menu-item"><Link href="/blog" className={`hover:text-[#1c2f54] uppercase transition-colors ${location.startsWith('/blog') ? 'text-[#1c2f54]' : 'text-[#cc2027]'}`}>Blog</Link></li>
+                            <li className="menu-item"><Link href="/consultation" className={`hover:text-[#1c2f54] uppercase transition-colors ${location === '/consultation' ? 'text-[#1c2f54]' : 'text-[#cc2027]'}`}>Contact Us</Link></li>
+                          </ul>
+                        </div>
+                    </nav>
+
+                    <button className="lg:hidden text-[#cc2027] pt-2" onClick={() => setMenuOpen(!menuOpen)}>
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                        {menuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
+                      </svg>
+                    </button>
+                </div>
+            </div>
+
+            <AnimatePresence>
+                {menuOpen && (
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="lg:hidden bg-white border-t border-gray-100 flex flex-col shadow-lg overflow-hidden absolute w-full top-full left-0 z-40 rounded-b-xl"
+                  >
+                    <ul id="menu-mobile-menu" className="menu flex flex-col m-0 p-0 list-none tracking-wide text-sm font-bold">
+                        <li className="menu-item"><Link href="/" className={`block px-8 py-4 border-b border-gray-50 uppercase transition-colors ${location === '/' ? 'bg-gray-50 text-[#1c2f54]' : 'text-[#cc2027]'}`}>Home</Link></li>
+                        <li className="menu-item"><Link href="/about-us" className={`block px-8 py-4 border-b border-gray-50 uppercase transition-colors ${location === '/about-us' ? 'bg-gray-50 text-[#1c2f54]' : 'text-[#cc2027]'}`}>About Us</Link></li>
+                        <li className="menu-item"><Link href="/practice" className={`block px-8 py-4 border-b border-gray-50 uppercase transition-colors ${location.startsWith('/practice') ? 'bg-gray-50 text-[#1c2f54]' : 'text-[#cc2027]'}`}>Our Expertise</Link></li>
+                        <li className="menu-item"><Link href="/service-charter" className={`block px-8 py-4 border-b border-gray-50 uppercase transition-colors ${location === '/service-charter' ? 'bg-gray-50 text-[#1c2f54]' : 'text-[#cc2027]'}`}>Service Charter</Link></li>
+                        <li className="menu-item"><Link href="/people" className={`block px-8 py-4 border-b border-gray-50 uppercase transition-colors ${location === '/people' ? 'bg-gray-50 text-[#1c2f54]' : 'text-[#cc2027]'}`}>Our People</Link></li>
+                        <li className="menu-item"><Link href="/blog" className={`block px-8 py-4 border-b border-gray-50 uppercase transition-colors ${location.startsWith('/blog') ? 'bg-gray-50 text-[#1c2f54]' : 'text-[#cc2027]'}`}>Blog</Link></li>
+                        <li className="menu-item"><Link href="/consultation" className={`block px-8 py-4 border-b border-gray-50 uppercase transition-colors ${location === '/consultation' ? 'bg-gray-50 text-[#1c2f54]' : 'text-[#cc2027]'}`}>Contact Us</Link></li>
+                    </ul>
+                  </motion.div>
+                )}
+            </AnimatePresence>
         </div>
-
-        <nav className={`w-full transition-all duration-500 relative z-40 ${isScrolled || !isHome ? "bg-white/95 backdrop-blur-md py-3 border-b border-border shadow-sm" : "bg-white/90 backdrop-blur-xs py-4 border-b border-white/10 shadow-lg"}`}>
-        <div className="px-8 max-w-7xl mx-auto flex justify-between items-center relative">
-          {/* logo only for internal pages */}
-          <div className={`transition-all duration-500 flex items-center ${!isHome || isScrolled ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"}`}>
-             <Link href="/" className="no-underline">
-               <BrandMark variant="maroon" size="small" />
-             </Link>
-          </div>
-
-          <div className="hidden md:flex gap-10 items-center absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`font-serif-sub text-[11px] tracking-[0.2em] uppercase transition-colors duration-300 no-underline pb-1 border-b-2 ${location === link.href ? "text-primary border-primary" : "text-foreground/80 border-transparent hover:text-primary"}`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-
-          <div className="hidden md:block">
-            <Link
-              href="/consultation"
-              className="font-serif-sub text-[11px] tracking-[0.2em] uppercase bg-primary text-white px-6 py-2.5 hover:bg-white hover:text-secondary transition-all duration-500 font-bold no-underline shadow-sm border border-primary"
-            >
-              Engage
-            </Link>
-          </div>
-
-          <button className="md:hidden text-primary" onClick={() => setMenuOpen(!menuOpen)}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              {menuOpen ? <path d="M6 18L18 6M6 6l12 12" /> : <path d="M4 6h16M4 12h16M4 18h16" />}
-            </svg>
-          </button>
         </div>
+    </header>
 
-        {/* Mobile Menu */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div 
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="md:hidden bg-white border-t border-border px-8 py-8 flex flex-col gap-6 shadow-xl relative overflow-hidden"
-            >
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="font-serif-sub text-sm tracking-widest uppercase text-foreground/80 hover:text-primary transition-colors no-underline"
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <Link
-                href="/consultation"
-                className="font-serif-sub text-sm tracking-widest uppercase bg-primary text-white px-6 py-4 text-center font-bold hover:bg-secondary transition-colors no-underline"
-              >
-                Request Consultation
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
-        </nav>
-      </header>
+      {/* spacer to account for fixed header - remove on home page for full-screen hero */}
+      {location !== '/' && (
+        <div className="h-[120px] lg:h-[148px] w-full shrink-0 bg-white" />
+      )}
 
-      <main className="relative z-10">
+      <main className="relative z-10 grow">
         {children}
       </main>
 
-      <footer className="pt-24 pb-12 px-6 border-t border-border bg-secondary text-white relative z-10">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row justify-between items-start gap-16 mb-20">
-            <div className="lg:w-1/3">
-              <div className="flex items-center mb-10 overflow-hidden">
-                <BrandMark variant="gold" size="medium" />
+      <FloatingWhatsApp />
+      <AIChatBox />
+
+      <footer className="bg-[#1c2f54] text-white pt-16 pb-6 px-6 relative z-10 mt-auto">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+            
+            <div>
+              <div className="bg-transparent inline-block mb-6 pt-2">
+                 <BrandMark variant="gold" size="medium" />
               </div>
-              <p className="font-sans text-white/70 text-sm font-light leading-relaxed mb-8 max-w-xs">
-                A distinguished legal practice offering unyielding representation and accessible counsel to every citizen, enterprise, and institution across the Republic and beyond.
+              <p className="font-sans text-white text-[13px] leading-relaxed font-bold tracking-wide">
+                M.S. OCHIENG LAW FIRM is a top law firm in Nairobi where innovative legal strategies meets relentless commitment. We're not just another law firm—we're passionate advocates, trusted advisors, and your dedicated partners in the journey toward your success.
               </p>
-              <SocialIcons />
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-x-16 gap-y-12">
-              <div>
-                <p className="font-serif-sub text-accent tracking-[0.35em] uppercase text-[10px] mb-6 font-semibold">
-                  The Firm
-                </p>
-                <div className="flex flex-col gap-4">
-                  {navLinks.map((l) => (
-                    <Link
-                      key={l.href}
-                      href={l.href}
-                      className="font-serif-sub tracking-widest text-[11px] uppercase text-white/60 hover:text-white transition-colors no-underline"
-                    >
-                      {l.label}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <p className="font-serif-sub text-accent tracking-[0.35em] uppercase text-[10px] mb-6 font-semibold">
-                  Connect
-                </p>
-                <div className="flex flex-col gap-4">
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="font-serif-sub tracking-widest text-[11px] uppercase text-white/60 hover:text-white transition-colors no-underline">LinkedIn</a>
-                  <a href="https://x.com" target="_blank" rel="noopener noreferrer" className="font-serif-sub tracking-widest text-[11px] uppercase text-white/60 hover:text-white transition-colors no-underline">X</a>
-                  <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="font-serif-sub tracking-widest text-[11px] uppercase text-white/60 hover:text-white transition-colors no-underline">Instagram</a>
-                  <Link href="/blog" className="font-serif-sub tracking-widest text-[11px] uppercase text-white/60 hover:text-white transition-colors no-underline">Legal Journal</Link>
-                </div>
-              </div>
-              <div>
-                <p className="font-serif-sub text-accent tracking-[0.35em] uppercase text-[10px] mb-6 font-semibold">
-                  Contact
-                </p>
-                <div className="flex flex-col gap-4 font-sans text-white/60 text-xs font-light leading-relaxed">
-                  <a href="mailto:counsel@msochieng.law" className="hover:text-white transition-colors">counsel@msochieng.law</a>
-                  <a href="tel:+2540700000001" className="hover:text-white transition-colors">+254 (0) 700 000 001</a>
-                  <address className="not-italic text-white/50">
-                    Suite 1401, Upper Hill Complex<br />
-                    Nairobi, Kenya
-                  </address>
-                  <p className="text-white/40 text-[10px]">
-                    Mon – Fri: 08:00 – 18:00 EAT<br />
-                    Emergency line 24/7
-                  </p>
-                </div>
+            <div>
+              <h3 className="font-sans text-lg font-bold mb-6 tracking-wide underline underline-offset-8 decoration-2 decoration-white/80 whitespace-nowrap">PRACTICE AREAS</h3>
+              <div className="flex flex-col gap-3">
+                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Family Law</Link>
+                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Conveyancing & Real Estate</Link>
+                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Commercial & Business Law</Link>
+                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Employment & Labour Law</Link>
+                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Intellectual Property</Link>
+                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Legal Audit & Compliance</Link>
+                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Litigation & Dispute Resolution</Link>
               </div>
             </div>
+
+            <div>
+              <h3 className="font-sans text-lg font-bold mb-6 tracking-wide underline underline-offset-8 decoration-2 decoration-white/80">CONTACT US</h3>
+              <div className="flex flex-col gap-5">
+                 <div className="flex gap-4 items-start">
+                   <div className="bg-white text-[#1c2f54] p-1.5 rounded-[2px] mt-0.5"><HomeIcon size={14} strokeWidth={2.5} /></div>
+                   <p className="font-sans text-[13px] font-bold leading-tight">Suite 1401, Upper Hill Complex<br/>Nairobi, Kenya</p>
+                 </div>
+                 <div className="flex gap-4 items-center">
+                   <div className="bg-white text-[#1c2f54] p-1.5 rounded-[2px]"><Headphones size={14} strokeWidth={2.5} /></div>
+                   <p className="font-sans text-[13px] font-bold tracking-wide">Tel: (+254) 732 575066</p>
+                 </div>
+                 <div className="flex gap-4 items-center">
+                   <div className="bg-white text-[#1c2f54] p-1.5 rounded-[2px]"><Mail size={14} strokeWidth={2.5} /></div>
+                   <p className="font-sans text-[13px] font-bold tracking-wide">info@msochienglaw.co.ke</p>
+                 </div>
+              </div>
+            </div>
+
           </div>
-
-          <div className="border-t border-white/10 pt-8 mt-8 flex flex-col md:flex-row justify-between gap-6">
-            <p className="font-sans text-[10px] text-white/40 uppercase tracking-widest">
-              © {new Date().getFullYear()} M.S. Ochieng Legal Chambers. All Rights Reserved.
+          
+          <div className="border-t border-white/30 pt-6 text-center">
+            <p className="font-sans text-[11px] font-bold italic tracking-wide">
+              © Copyright {new Date().getFullYear()} M.S. Ochieng Law Firm. All Rights Reserved.
             </p>
-            <div className="flex gap-8 font-sans text-[10px] text-white/40 uppercase tracking-widest">
-              <Link href="/privacy" className="hover:text-white transition-colors no-underline">Privacy Policy</Link>
-              <Link href="/terms" className="hover:text-white transition-colors no-underline">Terms of Engagement</Link>
-              <span className="hidden md:inline">Attorney Advertising</span>
-            </div>
           </div>
         </div>
       </footer>

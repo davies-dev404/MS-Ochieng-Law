@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/Home";
+import AboutUs from "@/pages/AboutUs";
 import Practice from "@/pages/Practice";
 import Philosophy from "@/pages/Philosophy";
 import WhyUs from "@/pages/WhyUs";
@@ -12,6 +13,8 @@ import Blog from "@/pages/Blog";
 import BlogPost from "@/pages/BlogPost";
 import Privacy from "@/pages/Privacy";
 import Terms from "@/pages/Terms";
+import ServiceCharter from "@/pages/ServiceCharter";
+import OurPeople from "@/pages/OurPeople";
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
 
 const queryClient = new QueryClient();
@@ -22,6 +25,7 @@ function Router() {
     _jsxs(Switch, {
       children: [
         /*#__PURE__*/ _jsx(Route, { path: "/", component: Home }) /*#__PURE__*/,
+        _jsx(Route, { path: "/about-us", component: AboutUs }) /*#__PURE__*/,
         _jsx(Route, { path: "/practice", component: Practice }) /*#__PURE__*/,
         _jsx(Route, {
           path: "/philosophy",
@@ -35,6 +39,14 @@ function Router() {
         _jsx(Route, {
           path: "/blog",
           component: Blog,
+        }) /*#__PURE__*/,
+        _jsx(Route, {
+          path: "/service-charter",
+          component: ServiceCharter,
+        }) /*#__PURE__*/,
+        _jsx(Route, {
+          path: "/people",
+          component: OurPeople,
         }) /*#__PURE__*/,
         _jsx(Route, {
           path: "/blog/:id",

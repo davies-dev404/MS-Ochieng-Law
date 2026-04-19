@@ -33,7 +33,7 @@ export default function Consultation() {
               <span className="w-16 h-px bg-primary block" />
             </motion.p>
             <motion.h1 variants={fadeUp} className="font-serif-heading text-5xl lg:text-7xl xl:text-8xl text-white mb-10 leading-none font-bold uppercase tracking-tighter flex items-center justify-center gap-4 whitespace-nowrap">
-              Legal <span className="text-primary italic">Counsel.</span>
+              Legal <span className="text-[#cc2027] italic">Counsel.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="font-sans text-white/50 text-xl font-light max-w-2xl leading-relaxed mb-12 mx-auto">
               Your commercial success is our mandate. We offer a dedicated, high-fidelity channel for formal engagement, ensuring your legal challenges are met with surgical strategic foresight.
@@ -51,7 +51,7 @@ export default function Consultation() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="font-serif-heading text-4xl md:text-6xl text-secondary mb-12 leading-tight font-bold uppercase tracking-tight">A Mandate <br /><span className="text-primary italic">for Excellence.</span></h2>
+              <h2 className="font-serif-heading text-4xl md:text-6xl text-[#1c2f54] mb-12 leading-tight font-bold uppercase tracking-tight">A Mandate <br /><span className="text-[#cc2027] italic">for Excellence.</span></h2>
               <div className="space-y-12">
                 {[
                   { title: "Institutional Advisory", desc: "Comprehensive counsel for corporations and regulatory bodies across regional and international jurisdictions." },
@@ -76,7 +76,7 @@ export default function Consultation() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="bg-secondary p-12 md:p-20 border-l-12 border-primary shadow-2xl rounded-sm relative overflow-hidden"
+              className="bg-[#1c2f54] p-12 md:p-20 border-l-12 border-[#cc2027] shadow-2xl rounded-sm relative overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 -translate-y-1/2 translate-x-1/2 rotate-45" />
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
@@ -124,23 +124,37 @@ export default function Consultation() {
         </div>
       </section>
 
-      {/* Strategic Privileges - NEW SECTION */}
+      {/* Map Section */}
+      <section className="py-0 px-0 bg-white border-t border-border relative overflow-hidden h-[500px] grayscale hover:grayscale-0 transition-all duration-700">
+         <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m7!1s0x182f1090333d0261:0xa7d82506eabb7115!2sUpper+Hill+Chambers!5e0!3m2!1sen!2ske!4v1713460000000!5m2!1sen!2ske" 
+            width="100%" 
+            height="100%" 
+            style={{ border: 0 }} 
+            allowFullScreen="" 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade"
+            title="M.S. Ochieng Law Firm Location"
+         ></iframe>
+      </section>
+
+      {/* Strategic Privileges */}
       <section className="py-40 px-6 bg-muted/5 border-t border-border relative overflow-hidden">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-24">
            <div className="md:w-1/3 text-center md:text-left">
-              <p className="font-serif-sub text-primary tracking-[0.4em] uppercase text-[10px] mb-6 font-bold">Sovereign Privacy</p>
-              <h2 className="font-serif-heading text-3xl md:text-5xl font-bold text-secondary uppercase tracking-tight">Privileges & Secrecy.</h2>
+              <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[10px] mb-6 font-bold">Sovereign Privacy</p>
+              <h2 className="font-serif-heading text-3xl md:text-5xl font-bold text-[#1c2f54] uppercase tracking-tight">Privileges & Secrecy.</h2>
            </div>
            
            <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="p-12 bg-white border border-border shadow-sm hover:border-primary/40 transition-all group">
-                 <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-secondary mb-6 font-bold">Attorney-Client Privilege</h4>
+              <div className="p-12 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
+                 <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-[#1c2f54] mb-6 font-bold">Attorney-Client Privilege</h4>
                  <p className="font-sans text-foreground/50 text-xs font-light leading-relaxed">
                    All communications and mandates are protected under the most stringent professional secrecy laws of the relevant jurisdiction.
                  </p>
               </div>
-              <div className="p-12 bg-white border border-border shadow-sm hover:border-primary/40 transition-all group">
-                 <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-secondary mb-6 font-bold">Global Data Standards</h4>
+              <div className="p-12 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
+                 <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-[#1c2f54] mb-6 font-bold">Global Data Standards</h4>
                  <p className="font-sans text-foreground/50 text-xs font-light leading-relaxed">
                    Using encrypted Practice Management Systems compliant with GDPR and regional Data Protection Acts to ensure absolute mandates integrity.
                  </p>

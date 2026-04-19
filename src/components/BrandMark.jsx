@@ -11,16 +11,16 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
   // Logical styling based on size prop
   const sizeStyles = {
     small: {
-      svgWidth: 40,
-      svgHeight: 35,
-      nameSize: 'text-[10px]',
-      legalGap: 'gap-2',
-      legalText: 'text-[6px]',
-      taglineSize: 'text-[7px]',
-      containerGap: 'gap-0.5',
+      svgWidth: 58,
+      svgHeight: 52,
+      nameSize: 'text-[13px]',
+      legalGap: 'gap-3',
+      legalText: 'text-[8px]',
+      taglineSize: 'text-[9px]',
+      containerGap: 'gap-1',
       nameMargin: 'mb-0',
       legalMargin: 'mb-0',
-      svgMargin: 'mb-0.5'
+      svgMargin: 'mb-1'
     },
     medium: {
       svgWidth: 80,
@@ -50,9 +50,9 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
 
   const style = sizeStyles[size] || sizeStyles.medium;
   
-  // Colors based on theme
-  const primaryColor = isGold ? '#C5A059' : '#800000';
-  const textColor = isGold ? '#F1E1C6' : '#800000';
+  // Colors based on theme - switched to higher contrast golds for legibility on white
+  const primaryColor = isGold ? '#996515' : '#800000'; // Deep Golden Brown
+  const textColor = isGold ? '#7A5901' : '#800000';    // Dark Rich Gold
   
   return (
     <div className={`flex flex-col items-center select-none ${className} ${style.containerGap}`}>
@@ -86,10 +86,10 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
         
         <g 
           stroke={isGold ? "url(#goldGradient)" : "url(#maroonGradient)"} 
-          strokeWidth="2" 
+          strokeWidth={size === 'small' ? "3" : "2"} // Thicker stroke for small size
           strokeLinecap="round" 
           strokeLinejoin="round"
-          filter={isGold ? "url(#goldGlow)" : "none"}
+          filter={isGold && size !== 'small' ? "url(#goldGlow)" : "none"} // Disable glow on small for crispness
         >
           <path d="M10 80V20L35 55L60 20V80" />
           <path d="M40 30C25 30 20 40 20 50C20 65 70 65 70 80C70 90 60 95 45 95" />
@@ -102,7 +102,7 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
         className={`font-serif-heading font-normal tracking-[0.25em] ${style.nameSize} ${style.nameMargin} whitespace-nowrap`}
         style={{ 
           color: textColor,
-          textShadow: isGold ? '0 15px 30px rgba(0,0,0,0.6)' : 'none'
+          textShadow: isGold && size !== 'small' ? '0 15px 30px rgba(0,0,0,0.6)' : 'none'
         }}
       >
         M. S. OCHIENG

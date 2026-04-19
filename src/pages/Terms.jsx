@@ -90,16 +90,29 @@ const termsData = [
 export default function Terms() {
   return (
     <Layout>
-      <section className="pt-48 pb-24 px-6 bg-secondary text-white relative overflow-hidden border-b border-border">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-linear-to-br from-secondary via-secondary/95 to-primary/20" />
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0)', backgroundSize: '48px 48px' }} />
-        </div>
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-            <p className="font-serif-sub tracking-[0.3em] uppercase text-[10px] mb-6 font-bold text-primary">Client Protocol</p>
-            <h1 className="font-serif-heading text-5xl md:text-7xl mb-8 font-bold uppercase tracking-tight">Terms of Use.</h1>
-            <p className="font-sans text-white/50 font-light max-w-2xl mx-auto">Effective Date: April 2024</p>
+      {/* Hero Section with Legal Excellence branding */}
+      <section className="pt-48 pb-20 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
+        {/* Decorative Background Element */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-white/5 to-transparent pointer-none" />
+        
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
+          <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.12 } } }} className="max-w-4xl">
+            {/* Legal Protocol Label */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="h-px w-12 bg-[#cc2027]" />
+              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">
+                Protocol
+              </span>
+              <div className="h-px w-12 bg-[#cc2027]" />
+            </div>
+
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase">
+              TERMS OF <span className="text-[#cc2027]">USE.</span>
+            </motion.h1>
+            
+            <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
+              Establishing the regulatory framework and institutional standards for digital engagement with M.S. Ochieng Law Firm.
+            </motion.p>
           </motion.div>
         </div>
       </section>
@@ -117,12 +130,12 @@ export default function Terms() {
               <motion.div 
                 key={term.id}
                 variants={fadeUp}
-                className="bg-white p-12 border border-border shadow-sm hover:shadow-2xl hover:border-primary/40 transition-all duration-500 rounded-sm relative group"
+                className="bg-white p-12 border border-border shadow-sm hover:shadow-2xl hover:border-[#cc2027]/40 transition-all duration-500 rounded-sm relative group"
               >
-                <div className="absolute top-0 right-0 p-6 opacity-5 font-serif-heading text-8xl font-bold translate-x-4 -translate-y-4 group-hover:text-primary group-hover:opacity-10 transition-all duration-500">
+                <div className="absolute top-0 right-0 p-6 opacity-5 font-serif-heading text-8xl font-bold translate-x-4 -translate-y-4 group-hover:text-[#cc2027] group-hover:opacity-10 transition-all duration-500">
                   {term.id}
                 </div>
-                <div className="w-14 h-14 bg-primary/5 text-primary flex items-center justify-center rounded-sm mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-500">
+                <div className="w-14 h-14 bg-[#cc2027]/5 text-[#cc2027] flex items-center justify-center rounded-sm mb-8 group-hover:bg-[#cc2027] group-hover:text-white transition-colors duration-500">
                   {term.icon}
                 </div>
                 <h3 className="font-serif-heading text-2xl text-secondary mb-6 font-bold uppercase">{term.title}</h3>
@@ -136,7 +149,7 @@ export default function Terms() {
           <div className="mt-32 pt-16 border-t border-border text-center">
             <p className="font-sans text-foreground/50 text-sm">
               For formal engagement requests, please utilize our <br className="md:hidden" />
-              <Link href="/consultation" className="text-primary font-bold ml-2 hover:underline decoration-primary">Strategic Briefing Portal</Link>.
+              <Link href="/consultation" className="text-[#cc2027] font-bold ml-2 hover:underline decoration-[#cc2027]">Strategic Briefing Portal</Link>.
             </p>
           </div>
         </div>

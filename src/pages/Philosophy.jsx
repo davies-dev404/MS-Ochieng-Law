@@ -55,29 +55,28 @@ const pillars = [
 export default function Philosophy() {
   return (
     <Layout>
-      <section className="pt-48 pb-24 px-6 relative overflow-hidden border-b border-border bg-secondary">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1505664194779-8beaceb93744?auto=format&fit=crop&w=1920&q=80" 
-            alt="Legal library" 
-            className="w-full h-full object-cover opacity-40 grayscale" 
-          />
-          <div className="absolute inset-0 bg-linear-to-br from-secondary via-secondary/95 to-primary/15" />
-          <div className="absolute inset-0 bg-linear-to-t from-secondary to-transparent" />
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.02) 1px, transparent 0)', backgroundSize: '48px 48px' }} />
-        </div>
-        <div className="max-w-7xl mx-auto relative z-10 text-center">
-          <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-3xl mx-auto">
-            <motion.p variants={fadeUp} className="font-serif-sub text-primary tracking-[0.5em] uppercase text-[10px] mb-8 flex items-center justify-center gap-5 font-bold">
-              <span className="w-16 h-px bg-primary block" />
-              The M.S. Ochieng Ethos
-              <span className="w-16 h-px bg-primary block" />
-            </motion.p>
-            <motion.h1 variants={fadeUp} className="font-serif-heading text-4xl lg:text-5xl xl:text-7xl text-white mb-10 leading-none font-bold uppercase tracking-tighter flex items-center justify-center gap-4 whitespace-nowrap">
-              The Architecture <span className="text-primary italic">of Strategy.</span>
+      {/* Hero Section with Legal Excellence branding */}
+      <section className="pt-48 pb-20 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
+        {/* Decorative Background Element */}
+        <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-white/5 to-transparent pointer-none" />
+        
+        <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
+          <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.12 } } }} className="max-w-4xl">
+            {/* Legal Excellence Label */}
+            <div className="flex items-center justify-center gap-4 mb-8">
+              <div className="h-px w-12 bg-[#cc2027]" />
+              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">
+                The Ethos
+              </span>
+              <div className="h-px w-12 bg-[#cc2027]" />
+            </div>
+
+            <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase">
+              THE <span className="text-[#cc2027]">ETHOS.</span>
             </motion.h1>
-            <motion.p variants={fadeUp} className="font-sans text-white/50 text-xl font-light max-w-2xl leading-relaxed mb-12 mx-auto">
-              Our philosophy is rooted in the belief that excellence is not an act, but a habit. We approach every mandate as a unique architectural challenge requiring bespoke structural precision and uncompromising intellectual depth.
+            
+            <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
+              Our philosophy is rooted in the belief that excellence is not an act, but a habit. We approach every mandate as a bespoke architectural challenge requiring structural precision.
             </motion.p>
           </motion.div>
         </div>
@@ -97,33 +96,33 @@ export default function Philosophy() {
               >
                 <motion.div 
                   variants={fadeUp}
-                  className="p-10 border border-border bg-white shadow-sm hover:shadow-2xl hover:border-primary/40 transition-all duration-500 rounded-sm relative overflow-hidden group"
+                  className="p-10 border border-border bg-white shadow-sm hover:shadow-2xl hover:border-[#cc2027]/40 transition-all duration-500 rounded-sm relative overflow-hidden group"
                 >
-                  <div className="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-500" />
-                  <div className="text-primary mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-0 left-0 w-1 h-0 bg-[#cc2027] group-hover:h-full transition-all duration-500" />
+                  <div className="text-[#cc2027] mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
                     <Scale size={32} strokeWidth={1.5} />
                   </div>
                   <h3 className="font-serif-heading text-3xl md:text-3xl text-secondary mb-6 font-bold">Substantive Precision</h3>
                   <p className="font-sans text-foreground/60 text-base font-light leading-relaxed mb-6">
                     In the legal arena, the difference between victory and compromise often lies in the finest details. We apply rigorous analytical frameworks to every case, ensuring that every tactical maneuver is grounded in deep legal substance.
                   </p>
-                  <p className="font-sans text-foreground/50 text-sm font-light leading-relaxed italic border-l-2 border-primary/20 pl-4 group-hover:border-primary/50 transition-colors">
+                  <p className="font-sans text-foreground/50 text-sm font-light leading-relaxed italic border-l-2 border-[#cc2027]/20 pl-4 group-hover:border-[#cc2027]/50 transition-colors">
                     Our methodology transcends the conventional; we seek the foundational principles that govern each matter, building strategies that are as resilient as they are effective.
                   </p>
                 </motion.div>
                 <motion.div 
                   variants={fadeUp}
-                  className="p-10 border border-border bg-white shadow-sm hover:shadow-2xl hover:border-primary/40 transition-all duration-500 rounded-sm relative overflow-hidden group"
+                  className="p-10 border border-border bg-white shadow-sm hover:shadow-2xl hover:border-[#cc2027]/40 transition-all duration-500 rounded-sm relative overflow-hidden group"
                 >
-                  <div className="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-500" />
-                  <div className="text-primary mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
+                  <div className="absolute top-0 left-0 w-1 h-0 bg-[#cc2027] group-hover:h-full transition-all duration-500" />
+                  <div className="text-[#cc2027] mb-6 opacity-80 group-hover:opacity-100 transition-opacity">
                     <Shield size={32} strokeWidth={1.5} />
                   </div>
                   <h3 className="font-serif-heading text-3xl md:text-3xl text-secondary mb-6 font-bold">Uncompromising Advocacy</h3>
                   <p className="font-sans text-foreground/60 text-base font-light leading-relaxed mb-6">
                     We do not merely represent; we champion. Our advocacy is relentless, driven by a commitment to protect the foundations of our clients' interests with strategic firepower and ethical integrity.
                   </p>
-                  <p className="font-sans text-foreground/50 text-sm font-light leading-relaxed italic border-l-2 border-primary/20 pl-4 group-hover:border-primary/50 transition-colors">
+                  <p className="font-sans text-foreground/50 text-sm font-light leading-relaxed italic border-l-2 border-[#cc2027]/20 pl-4 group-hover:border-[#cc2027]/50 transition-colors">
                     This commitment ensures that our clients are not just heard, but are dominant in their respective legal forums, whether in the boardroom or the supreme court.
                   </p>
                 </motion.div>
@@ -138,20 +137,20 @@ export default function Philosophy() {
                 viewport={{ once: true }}
                 className="relative"
               >
-                <div className="absolute -inset-6 border border-primary/20 -z-10 translate-x-3 translate-y-3 transition-transform group-hover:translate-x-6 gap-6 group-hover:translate-y-6 duration-700" />
+                <div className="absolute -inset-6 border border-[#cc2027]/20 -z-10 translate-x-3 translate-y-3 transition-transform group-hover:translate-x-6 gap-6 group-hover:translate-y-6 duration-700" />
                 <div className="relative aspect-3/4 overflow-hidden rounded-sm shadow-2xl skew-y-1">
                   <img 
                     src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=80" 
                     alt="Modern board room" 
-                    className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0" 
+                    className="w-full h-full object-cover transition-all duration-1000" 
                   />
                   <div className="absolute inset-0 bg-secondary/30 mix-blend-multiply" />
                 </div>
                 
                 {/* Stats floating overlay */}
-                <div className="absolute -bottom-10 -left-10 bg-secondary p-2 shadow-2xl border-l-4 border-primary rounded-r-sm lg:block hidden">
+                <div className="absolute -bottom-10 -left-10 bg-secondary p-2 shadow-2xl border-l-4 border-[#cc2027] rounded-r-sm lg:block hidden">
                    <div className="w-40 h-48 overflow-hidden rounded-sm relative group/img">
-                      <img src="/ms-ochieng.jpg" alt="M.S. Ochieng" className="w-full h-full object-cover grayscale transition-all duration-700 group-hover/img:grayscale-0 group-hover/img:scale-110" />
+                      <img src="/ms-ochieng.jpg" alt="M.S. Ochieng" className="w-full h-full object-cover transition-all duration-700 group-hover/img:scale-110" />
                       <div className="absolute inset-0 border border-white/10" />
                    </div>
                 </div>
@@ -165,7 +164,7 @@ export default function Philosophy() {
       <section className="py-40 px-6 bg-muted/5 border-t border-border relative overflow-hidden">
         <div className="max-w-7xl mx-auto">
            <div className="text-center mb-32">
-              <p className="font-serif-sub text-primary tracking-[0.4em] uppercase text-[10px] mb-6 font-bold">Core Foundations</p>
+              <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[10px] mb-6 font-bold">Core Foundations</p>
               <h2 className="font-serif-heading text-4xl md:text-7xl font-bold text-secondary uppercase tracking-tight">Guiding Principles.</h2>
            </div>
            
@@ -177,11 +176,11 @@ export default function Philosophy() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, delay: idx * 0.15 }}
-                  className="p-12 border border-border bg-white shadow-sm hover:shadow-2xl hover:border-primary/40 transition-all duration-500 rounded-sm"
+                  className="p-12 border border-border bg-white shadow-sm hover:shadow-2xl hover:border-[#cc2027]/40 transition-all duration-500 rounded-sm"
                 >
                    <div className="flex items-center gap-5 mb-8">
-                     <div className="text-primary opacity-80">{pillar.icon}</div>
-                     <div className="flex-1 h-px bg-border group-hover:bg-primary/30 transition-colors" />
+                     <div className="text-[#cc2027] opacity-80">{pillar.icon}</div>
+                     <div className="flex-1 h-px bg-border group-hover:bg-[#cc2027]/30 transition-colors" />
                    </div>
                    <h3 className="font-serif-heading text-3xl text-secondary mb-6 font-bold">{pillar.title}</h3>
                    <p className="font-sans text-foreground/70 leading-relaxed mb-6 font-light">{pillar.desc}</p>
@@ -193,17 +192,17 @@ export default function Philosophy() {
       </section>
 
       <section className="py-40 px-6 bg-secondary text-white relative overflow-hidden border-t border-white/5">
-        <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-1/2" />
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-[#cc2027]/5 -skew-x-12 translate-x-1/2" />
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
             <motion.h2 variants={fadeUp} className="font-serif-heading text-4xl md:text-7xl mb-16 leading-tight font-bold">
               Ready to align your interest <br />
-              <span className="text-primary italic">with mastery?</span>
+              <span className="text-[#cc2027] italic">with mastery?</span>
             </motion.h2>
             <motion.div variants={fadeUp}>
               <Link 
                 href="/consultation" 
-                className="inline-block font-serif-sub tracking-[0.3em] uppercase text-xs bg-primary text-white border-2 border-primary px-20 py-8 hover:bg-white hover:text-secondary hover:border-white transition-all duration-500 font-bold no-underline shadow-2xl rounded-sm"
+                className="inline-block font-serif-sub tracking-[0.3em] uppercase text-xs bg-[#cc2027] text-white border-2 border-[#cc2027] px-20 py-8 hover:bg-white hover:text-secondary hover:border-white transition-all duration-500 font-bold no-underline shadow-2xl rounded-sm"
               >
                 Request Strategic Counsel
               </Link>

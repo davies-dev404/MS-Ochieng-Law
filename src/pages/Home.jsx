@@ -1,370 +1,423 @@
-import { motion } from "framer-motion";
-import { Link } from "wouter";
-import Layout from "@/components/Layout";
-import BrandMark from "@/components/BrandMark";
-import { Building2, Target, Map } from "lucide-react";
+import React, { useState, useEffect, useCallback } from 'react';
+import { Link } from 'wouter';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight, ChevronRight, ChevronLeft, Calendar, User, Scale, Shield, Landmark, BookOpen, Users, Gavel, Briefcase, FileCheck, Home as HomeIcon, UserCheck, Target, Compass } from "lucide-react";
+import useEmblaCarousel from 'embla-carousel-react';
+import Layout from '../components/Layout';
 
-const fadeUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 1, ease: [0.25, 0.1, 0.25, 1] },
-  },
-};
-
-const stagger = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.18, delayChildren: 0.05 },
-  },
-};
-
-const sectors = [
+const heroSlides = [
   {
-    name: "Financial Services",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" y1="1" x2="12" y2="23" />
-        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-      </svg>
-    )
+    image: "hero/integrity.jpg",
+    title: "Integrity.",
+    subtitle: "We develop solutions and strategies that guarantee our clients the best possible results."
   },
   {
-    name: "Private Equity",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="22 7 13.5 15.5 8.5 10.5 2 17" />
-        <polyline points="16 7 22 7 22 13" />
-      </svg>
-    )
+    image: "hero/excellence.jpg",
+    title: "Excellence.",
+    subtitle: "Our Advocates bring with them a decade of experience in legal practice."
   },
   {
-    name: "Real Estate",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
-      </svg>
-    )
+    image: "hero/innovation.jpg",
+    title: "Innovation.",
+    subtitle: "We are eager and keen to find innovative solutions to address emerging legal issues."
   },
   {
-    name: "Energy & Infrastructure",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-      </svg>
-    )
-  },
-  {
-    name: "Tech & Innovation",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" ry="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    )
-  },
-  {
-    name: "Government",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 2L2 7l10 5 10-5-10-5z" />
-        <path d="M2 17l10 5 10-5" />
-        <path d="M2 12l10 5 10-5" />
-      </svg>
-    )
+    image: "hero/innovation.jpg",
+    title: "Commitment.",
+    subtitle: "We are passionate advocates, trusted advisors, and your dedicated partners toward your success."
   }
 ];
 
-const insights = [
+const expertiseAreas = [
+  { title: "Family Law", img: "/practice/family-law.jpg", icon: Users },
+  { title: "Conveyancing & Real Estate", img: "/practice/conveyancing.jpg", icon: HomeIcon },
+  { title: "Commercial & Business Law", img: "/practice/commercial.jpg", icon: Briefcase },
+  { title: "Employment & Labour Law", img: "/practice/employment.jpg", icon: UserCheck },
+  { title: "Intellectual Property", img: "/practice/intellectual-property.jpg", icon: Scale },
+  { title: "Legal Audit & Compliance", img: "/practice/legal-audit.jpg", icon: FileCheck },
+  { title: "Litigation & Dispute Resolution", img: "/practice/litigation.jpg", icon: Gavel }
+];
+
+const blogPosts = [
   {
-    title: "Regional Trade Compliance",
-    date: "Dec 2025",
-    link: "/blog/1"
+    title: "Family Trusts in Kenya: How to Protect Your Wealth and Secure Your Legacy",
+    img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070&auto=format&fit=crop",
+    date: "12 Oct, 2026",
+    link: "/blog/family-trusts-in-kenya"
   },
   {
-    title: "Capital Gains Tax Shift",
-    date: "Nov 2025",
-    link: "/blog/2"
+    title: "Beyond the Will: Why a Registered Family Trust is the Ultimate Legacy Tool",
+    img: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=2070&auto=format&fit=crop",
+    date: "05 Sep, 2026",
+    link: "/blog/registered-family-trust"
   },
   {
-    title: "Employment Act Update",
-    date: "Oct 2025",
-    link: "/blog/3"
+    title: "Understanding Corporate Governance in East Africa",
+    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2070&auto=format&fit=crop",
+    date: "18 Aug, 2026",
+    link: "#"
   }
 ];
 
 export default function Home() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  // Embla setup for Carousels
+  const [expertiseRef, expertiseApi] = useEmblaCarousel({ loop: true, align: 'start' });
+  const [insightsRef, insightsApi] = useEmblaCarousel({ loop: true, align: 'start' });
+
+  const scrollPrevExpertise = useCallback(() => expertiseApi && expertiseApi.scrollPrev(), [expertiseApi]);
+  const scrollNextExpertise = useCallback(() => expertiseApi && expertiseApi.scrollNext(), [expertiseApi]);
+
+  const scrollPrevInsights = useCallback(() => insightsApi && insightsApi.scrollPrev(), [insightsApi]);
+  const scrollNextInsights = useCallback(() => insightsApi && insightsApi.scrollNext(), [insightsApi]);
+
+  // Autoplay for Expertise Carousel
+  useEffect(() => {
+    if (!expertiseApi) return;
+    const interval = setInterval(() => {
+      expertiseApi.scrollNext();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [expertiseApi]);
+
+  // Autoplay for Expertise Carousel
+  useEffect(() => {
+    if (!expertiseApi) return;
+    const interval = setInterval(() => {
+      expertiseApi.scrollNext();
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [expertiseApi]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
+  };
+
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative h-screen min-h-[900px] flex items-center justify-center overflow-hidden bg-secondary">
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?auto=format&fit=crop&w=1920&q=80" 
-            alt="M.S. Ochieng Legal Cityscape" 
-            className="w-full h-full object-cover opacity-50 scale-105 animate-ken-burns" 
-          />
-          <div className="absolute inset-0 bg-linear-to-b from-black/90 via-black/40 to-black/90" />
-          <div className="absolute inset-0 bg-primary/10 mix-blend-overlay" />
-        </div>
- 
-        <div className="relative z-10 w-full px-6">
-          <motion.div 
-            initial="hidden" 
-            animate="visible" 
-            variants={stagger} 
-            className="max-w-6xl mx-auto flex flex-col items-center text-center"
+      {/* Hero Slider Section */}
+      <section className="relative h-screen w-full bg-[#1c2f54] overflow-hidden">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={!hasMounted ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: hasMounted ? 1.5 : 0, ease: "easeInOut" }}
+            className="absolute inset-0 z-0"
+            style={{
+              backgroundImage: `url('${heroSlides[currentSlide].image}')`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
+            }}
           >
-            <motion.div variants={fadeUp} className="mb-20">
-              <div className="transition-transform duration-700 hover:scale-[1.01]">
-                <BrandMark variant="gold" size="large" />
-              </div>
-            </motion.div>
- 
-            <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-6 mt-10">
-              <Link 
-                href="/consultation" 
-                className="font-serif-sub tracking-[0.25em] uppercase text-xs bg-primary text-white px-14 py-6 hover:bg-white hover:text-secondary transition-all duration-500 font-bold no-underline text-center shadow-[0_0_40px_rgba(128,0,32,0.4)]"
-              >
-                Secure Strategic Counsel
-              </Link>
-              <Link 
-                href="/practice" 
-                className="font-serif-sub tracking-[0.25em] uppercase text-xs bg-transparent border border-white/20 text-white px-14 py-6 hover:border-primary hover:bg-primary/20 transition-all duration-500 no-underline text-center backdrop-blur-sm"
-              >
-                Our Solutions
-              </Link>
-            </motion.div>
+            <div className="absolute inset-0 bg-black/60" />
           </motion.div>
+        </AnimatePresence>
+
+        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 max-w-5xl mx-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentSlide}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.8 }}
+              className="flex flex-col items-center"
+            >
+              <h1 className="text-5xl md:text-7xl font-sans text-white mb-6 font-extrabold tracking-tight">
+                {heroSlides[currentSlide].title}
+              </h1>
+              <p className="text-lg md:text-2xl text-white/90 font-medium max-w-3xl mb-12">
+                {heroSlides[currentSlide].subtitle}
+              </p>
+              <Link href="/consultation">
+                <button className="bg-transparent text-white border-2 border-white rounded-full px-10 py-3.5 flex items-center gap-3 transition-all duration-300 font-bold text-[15px] uppercase tracking-widest hover:bg-white hover:text-[#1c2f54] shadow-lg">
+                  Contact Us Now <ChevronRight size={18} strokeWidth={3} />
+                </button>
+              </Link>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Navigation Arrows */}
+        <button 
+          onClick={prevSlide}
+          className="absolute left-6 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-white transition-colors"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft size={48} strokeWidth={1} />
+        </button>
+        <button 
+          onClick={nextSlide}
+          className="absolute right-6 top-1/2 -translate-y-1/2 z-20 text-white/70 hover:text-white transition-colors"
+          aria-label="Next slide"
+        >
+          <ChevronRight size={48} strokeWidth={1} />
+        </button>
+
+        {/* Bullet Navigators */}
+        <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-1.5">
+          {heroSlides.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentSlide(idx)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-white' : 'bg-white/40 hover:bg-white/80'}`}
+              aria-label={`Go to slide ${idx + 1}`}
+            />
+          ))}
         </div>
       </section>
 
-      {/* Firm Overview */}
-      <section className="bg-white py-48 px-6 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-muted/5 -skew-x-12 translate-x-1/2" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <motion.div 
-            initial="hidden" 
-            whileInView="visible" 
-            viewport={{ once: true, margin: "-100px" }} 
-            variants={stagger} 
-            className="flex flex-col lg:flex-row justify-between items-start gap-20"
-          >
-            <div className="lg:w-1/2">
-              <p className="font-serif-sub text-primary tracking-[0.35em] uppercase text-[10px] mb-8 flex items-center gap-4">
-                <span className="w-12 h-px bg-primary" />
-                Firm Overview
+      {/* About Us Section */}
+      <section className="py-24 px-6 bg-white">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="text-center mb-16">
+            <h4 className="text-[14px] italic text-[#1c2f54] mb-2 font-serif tracking-wide">About Us</h4>
+            <h2 className="text-[32px] md:text-[38px] font-sans text-[#1c2f54] mb-4 font-extrabold tracking-tight">M.S. OCHIENG LAW FIRM.</h2>
+            <p className="text-[#444] max-w-[900px] mx-auto text-[15px] leading-[1.8] font-medium mb-8">
+              Welcome to M.S. OCHIENG LAW FIRM, a Law Firm in Nairobi, KENYA where innovative legal strategies <br className="hidden md:block"/>
+              meets relentless commitment. We're not just another law firm—we're passionate advocates, trusted advisors, and <br className="hidden md:block"/>
+              your dedicated partners in the journey toward your success.
+            </p>
+            <Link href="/about-us">
+              <button className="bg-[#1c2f54] text-white rounded-[30px] px-8 py-3.5 font-extrabold text-[12px] tracking-widest uppercase hover:bg-[#111c33] transition-colors shadow-sm">
+                KNOW MORE
+              </button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            <div className="text-center p-8 bg-gray-50 border-b-4 border-[#1c2f54] hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-md">
+              <div className="w-16 h-16 mx-auto bg-white rounded-full flex items-center justify-center mb-6 text-[#b42025] shadow-sm">
+                <Compass size={32} strokeWidth={2} />
+              </div>
+              <h3 className="text-xl font-sans text-[#1c2f54] mb-4 font-bold uppercase">Vision</h3>
+              <p className="text-gray-600 leading-relaxed text-sm font-medium">
+                To be a leading and all round legal firm providing cutting edge solutions in the constantly evolving legal landscape.
               </p>
-              <h2 className="font-serif-heading text-5xl md:text-7xl text-secondary leading-tight font-bold mb-10">
-                Uncompromising standards <br /> <span className="text-primary italic">in every mandate.</span>
-              </h2>
-              <div className="h-1 w-24 bg-primary/20 mb-12" />
-              <p className="font-sans text-foreground/70 text-lg md:text-xl font-light leading-relaxed mb-8 max-w-xl">
-                We recognize that our clients operate in an increasingly complex regulatory and commercial environment. Our approach is preemptive, strategic, and resolutely focused on commercial outcomes.
+            </div>
+            <div className="text-center p-8 bg-gray-50 border-b-4 border-[#b42025] hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-md">
+              <div className="w-16 h-16 mx-auto bg-[#b42025] rounded-full flex items-center justify-center mb-6 text-white shadow-sm">
+                <Target size={32} strokeWidth={2} />
+              </div>
+              <h3 className="text-xl font-sans text-[#1c2f54] mb-4 font-bold uppercase">Mission</h3>
+              <p className="text-gray-600 leading-relaxed text-sm font-medium">
+                To provide our clientele with innovative and excellent legal representation and solutions with an eye on results.
               </p>
+            </div>
+            <div className="text-center p-8 bg-gray-50 border-b-4 border-[#1c2f54] hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-md">
+              <div className="w-16 h-16 mx-auto bg-white rounded-full flex items-center justify-center mb-6 text-[#b42025] shadow-sm">
+                <Shield size={32} strokeWidth={2} />
+              </div>
+              <h3 className="text-xl font-sans text-[#1c2f54] mb-4 font-bold uppercase">Core Values</h3>
+              <p className="text-gray-600 leading-relaxed text-sm font-medium">
+                Integrity, Excellence, and Innovation.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Expertise Carousel Section */}
+      <section id="expertise-section" className="py-24 bg-[#1c2f54] text-white overflow-hidden relative border-t border-white/5">
+        {/* Decorative Background Element */}
+        <div className="absolute top-0 right-0 w-1/2 h-full bg-linear-to-l from-white/5 to-transparent pointer-none" />
+        
+        <div className="max-w-[1240px] mx-auto px-6 relative z-10">
+          <div className="flex flex-col mb-16">
+            {/* Legal Excellence Label */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px w-12 bg-[#cc2027]" />
+              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">
+                Legal Excellence
+              </span>
+            </div>
+
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+              <div className="max-w-3xl">
+                <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-nowrap">
+                  PRACTICE <span className="text-[#cc2027]">AREAS.</span>
+                </h2>
+                <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">
+                  Eight domains of preeminent legal advisory, each crafted with the structural precision and strategic foresight that defines the M.S. Ochieng standard.
+                </p>
+              </div>
+              
+              <div className="flex gap-3">
+                <button onClick={scrollPrevExpertise} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all duration-300">
+                  <ChevronLeft size={24} strokeWidth={1.5} />
+                </button>
+                <button onClick={scrollNextExpertise} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all duration-300">
+                  <ChevronRight size={24} strokeWidth={1.5} />
+                </button>
+              </div>
+            </div>
+
+            {/* Stats Bar */}
+            <div className="mt-16 pt-12 border-t border-white/10 flex flex-wrap gap-x-16 gap-y-8">
+              <div className="flex flex-col">
+                <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">08</span>
+                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Practice Areas</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">15+</span>
+                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Jurisdictions</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">99%</span>
+                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Client Retention</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="embla overflow-hidden" ref={expertiseRef}>
+            <div className="embla__container flex">
+              {expertiseAreas.map((area, idx) => (
+                <div key={idx} className="embla__slide flex-[0_0_100%] sm:flex-[0_0_50%] md:flex-[0_0_33.333%] pl-6">
+                    <div className="relative h-[450px] group cursor-pointer overflow-hidden rounded-sm border border-white/5 bg-white/5 backdrop-blur-sm">
+                      <img src={area.img} alt={area.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-100" />
+                      
+                      {/* Glassmorphic Overlay */}
+                      <div className="absolute inset-0 bg-linear-to-t from-[#1c2f54] via-[#1c2f54]/20 to-transparent group-hover:via-[#1c2f54]/40 transition-all duration-700"></div>
+                      
+                      {/* Icon Bubble */}
+                      <div className="absolute top-8 left-8 w-14 h-14 bg-[#cc2027] text-white flex items-center justify-center rounded-sm shadow-2xl transform -translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
+                         <area.icon size={24} strokeWidth={1.5} />
+                      </div>
+
+                      <div className="absolute bottom-8 left-8 right-8 z-20">
+                         <div className="flex items-center gap-3 mb-4">
+                            <div className="h-px w-6 bg-[#cc2027]" />
+                            <span className="text-[#cc2027] font-sans font-bold tracking-[0.2em] uppercase text-[10px]">
+                              Expertise {String(idx + 1).padStart(2, '0')}
+                            </span>
+                         </div>
+                         <h3 className="text-2xl font-serif-heading mb-6 group-hover:text-[#cc2027] transition-colors leading-tight">{area.title}</h3>
+                         <Link href="/practice" className="inline-flex items-center text-[10px] font-bold uppercase tracking-[0.2em] gap-3 text-white/50 hover:text-white transition-all">
+                            Explore Area <ArrowRight size={14} className="group-hover:translate-x-2 transition-transform" />
+                         </Link>
+                      </div>
+                    </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>      {/* Latest Insights Section */}
+      <section id="blog-section" className="py-32 bg-[#1c2f54] text-white relative overflow-hidden border-t border-white/5">
+        <div className="absolute top-0 left-0 w-1/3 h-full bg-linear-to-r from-white/5 to-transparent pointer-none" />
+        
+        <div className="max-w-[1240px] mx-auto px-6 relative z-10">
+          <div className="flex flex-col mb-16">
+            {/* Legal Excellence Label for Blog */}
+            <div className="flex items-center gap-4 mb-8">
+              <div className="h-px w-12 bg-[#cc2027]" />
+              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">
+                Legal Excellence
+              </span>
+            </div>
+
+            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+              <div className="max-w-3xl">
+                <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-nowrap overflow-visible">
+                  LATEST <span className="text-[#cc2027]">INSIGHTS.</span>
+                </h2>
+                <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">
+                  Strategic perspectives and legal thought leadership directly from our front-line advocates and advisors.
+                </p>
+              </div>
+              
+              <Link href="/blog">
+                <button className="flex items-center gap-4 text-white/60 hover:text-white transition-colors py-4 group cursor-pointer">
+                  <span className="font-bold tracking-widest uppercase text-xs">View All Insights</span>
+                  <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#cc2027] group-hover:border-[#cc2027] transition-all">
+                    <ChevronRight size={18} />
+                  </div>
+                </button>
+              </Link>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {blogPosts.slice(0, 2).map((post, idx) => (
+              <Link key={idx} href={post.link}>
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.98 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  className="group flex flex-col md:flex-row bg-[#152340] border border-white/5 rounded-none overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-white/20 h-full cursor-pointer"
+                >
+                   <div className="w-full md:w-[40%] h-[240px] md:h-auto shrink-0 relative overflow-hidden">
+                     <img src={post.img} alt={post.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                     <div className="absolute inset-0 bg-[#1c2f54]/20 group-hover:bg-transparent transition-colors"></div>
+                   </div>
+                   <div className="w-full md:w-[60%] p-8 md:p-10 flex flex-col justify-center">
+                     <div className="text-[#cc2027] text-[10px] font-bold uppercase tracking-[0.2em] mb-4">{post.category}</div>
+                     <h3 className="text-xl md:text-2xl font-serif-heading text-white leading-tight mb-6 group-hover:text-[#cc2027] transition-colors line-clamp-2 italic">{post.title}</h3>
+                     <div className="inline-flex items-center text-[11px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">
+                       Read Insight <ArrowRight size={14} className="ml-2" />
+                     </div>
+                   </div>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Exact Match CTA Section with Overlap Effect */}
+      <section className="relative w-full overflow-hidden">
+        {/* Split Background to create overlap illusion */}
+        <div className="absolute inset-0 flex flex-col pointer-events-none z-0">
+          <div className="h-1/2 bg-gray-50"></div>
+          <div className="h-1/2 bg-[#1c2f54]"></div>
+        </div>
+        
+        <div className="relative px-6 py-12 md:py-20 flex justify-center z-20">
+          <div className="w-full max-w-[1200px] flex flex-col md:flex-row shadow-2xl bg-white min-h-[400px] rounded-sm overflow-hidden">
+            {/* Left side: Full-bleed image */}
+            <div className="w-full md:w-1/2 min-h-[350px] bg-gray-100">
+               <img 
+                 src="/cta-law.png" 
+                 alt="Digital Law Gavel" 
+                 className="w-full h-full object-cover" 
+               />
             </div>
             
-            <div className="lg:w-1/3 grid grid-cols-1 gap-12 pt-20">
-               {[
-                 { label: "Institutional Focus", desc: "Dedicated to the needs of tier-1 corporations and government entities.", icon: Building2 },
-                 { label: "Strategic Finesse", desc: "Navigating complex legal landscapes with surgical precision.", icon: Target },
-                 { label: "Regional Supremacy", desc: "Unmatched depth across East African jurisdictions.", icon: Map }
-               ].map((item, i) => (
-                 <motion.div variants={fadeUp} key={i} className="p-8 border border-border bg-white shadow-sm hover:shadow-2xl hover:border-primary/40 transition-all duration-500 rounded-sm relative overflow-hidden group">
-                    <div className="absolute top-0 left-0 w-1 h-0 bg-primary group-hover:h-full transition-all duration-500" />
-                    <div className="text-primary mb-4 opacity-70 group-hover:opacity-100 transition-opacity">
-                      <item.icon size={28} strokeWidth={1.5} />
-                    </div>
-                    <h4 className="font-serif-heading text-xl text-secondary mb-3 font-bold group-hover:text-primary transition-colors">{item.label}</h4>
-                    <p className="font-sans text-foreground/50 text-sm font-light leading-relaxed">{item.desc}</p>
-                 </motion.div>
-               ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Market Leadership Sectors */}
-      <section className="bg-secondary py-40 px-6 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-primary/5 mix-blend-overlay" />
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="text-center mb-28">
-            <p className="font-serif-sub text-primary tracking-[0.4em] uppercase text-[10px] mb-6 font-bold">Industry Reach</p>
-            <h2 className="font-serif-heading text-4xl md:text-6xl font-bold">Strategic Sectors.</h2>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-12">
-            {sectors.map((sector, idx) => (
-              <motion.div 
-                key={sector.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: idx * 0.1 }}
-                viewport={{ once: true }}
-                className="group flex flex-col items-center gap-8 p-8 border border-white/5 hover:border-primary/50 transition-all duration-500 rounded-sm hover:bg-white/5"
-              >
-                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center font-serif-heading text-xl text-primary group-hover:bg-primary group-hover:text-white transition-all">
-                  {sector.icon}
-                </div>
-                <p className="font-serif-sub tracking-widest uppercase text-[9px] text-white/60 group-hover:text-white text-center font-bold">
-                  {sector.name}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Institutional Impact (Firm Metrics) */}
-      <section className="py-40 px-6 bg-white overflow-hidden relative">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-24">
-             <div className="lg:w-1/2">
-                <div className="relative group">
-                   <div className="absolute -inset-4 border border-primary/10 translate-x-4 translate-y-4 -z-10" />
-                   <div className="aspect-16/10 overflow-hidden rounded-sm shadow-2xl relative">
-                      <img 
-                        src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1200&q=80" 
-                        alt="Corporate Excellence" 
-                        className="w-full h-full object-cover grayscale transition-all duration-1000 group-hover:grayscale-0 group-hover:scale-105" 
-                      />
-                      <div className="absolute inset-0 bg-primary/20 mix-blend-multiply" />
-                   </div>
-                </div>
-             </div>
-             <div className="lg:w-1/2 grid grid-cols-2 gap-12">
-                {[
-                  { val: "15+", label: "Regional Jurisdictions" },
-                  { val: "250+", label: "Fortune Global 500 Mandates" },
-                  { val: "$4B+", label: "Structured Asset Value" },
-                  { val: "99%", label: "Client Retainment Rate" }
-                ].map((stat, i) => (
-                  <div key={i} className="flex flex-col gap-4">
-                    <span className="font-serif-heading text-4xl md:text-6xl text-primary font-bold">{stat.val}</span>
-                    <span className="font-serif-sub tracking-widest uppercase text-[10px] text-secondary font-bold">{stat.label}</span>
-                    <div className="h-px w-12 bg-primary/20" />
-                  </div>
-                ))}
-             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Success / Selling Points */}
-      <section className="py-40 px-6 bg-secondary text-white relative overflow-hidden">
-        <div className="max-w-7xl mx-auto relative z-10">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-24 gap-8">
-            <div className="max-w-2xl">
-              <p className="font-serif-sub text-primary tracking-[0.4em] uppercase text-[10px] mb-6 font-bold">Featured Mandates</p>
-              <h2 className="font-serif-heading text-4xl md:text-6xl font-bold uppercase tracking-tight">Proven Outcomes.</h2>
-            </div>
-            <p className="font-sans text-white/40 text-sm font-light max-w-xs mb-2">
-              Confidentiality is our bedrock; performance is our signature. These anonymized mandates represent our recent success across the Republic.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              { 
-                title: "$200M Regional Infrastructure Merger", 
-                category: "Corporate Advisory", 
-                impact: "Successful synthesis of multi-jurisdictional regulatory requirements within a record 90-day window." 
-              },
-              { 
-                title: "Precedent-Setting Tax Victory", 
-                category: "Litigation", 
-                impact: "Secured a complete dismissal of a $45M tax claim for a Tier-1 regional manufacturing enterprise." 
-              },
-              { 
-                title: "Sovereign Debt Restructuring", 
-                category: "Finance", 
-                impact: "Architected the legal framework for a critical $1.2B financing mandate for state-linked entities." 
-              },
-              { 
-                title: "Nation-Wide Compliance Audit", 
-                category: "Regulatory", 
-                impact: "Mitigated structural risks for a retail conglomerate across 150+ operational sites in record time." 
-              }
-            ].map((mandate, idx) => (
-              <motion.div 
-                key={idx}
-                initial={{ opacity: 0, x: idx % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="p-10 border border-white/10 bg-white/5 hover:bg-white/10 hover:border-primary/40 transition-all duration-500 rounded-sm relative group"
-              >
-                <div className="flex justify-between items-start mb-6">
-                  <span className="font-serif-sub text-primary tracking-widest uppercase text-[9px] font-bold">{mandate.category}</span>
-                  <div className="h-px w-8 bg-white/20 group-hover:w-16 group-hover:bg-primary transition-all duration-700" />
-                </div>
-                <h3 className="font-serif-heading text-2xl mb-6 font-bold leading-tight">{mandate.title}</h3>
-                <p className="font-sans text-white/50 text-sm font-light leading-relaxed mb-8">
-                  {mandate.impact}
-                </p>
-                <Link href="/consultation" className="font-serif-sub tracking-[0.2em] uppercase text-[9px] text-primary/60 hover:text-white transition-colors no-underline font-bold">
-                  Request Case Briefing →
+            {/* Right side: Content */}
+            <div className="w-full md:w-1/2 flex flex-col justify-center bg-[#f8f9fa] p-10 md:p-16 relative">
+              <h2 className="text-[36px] md:text-[46px] font-extrabold mb-8 text-black leading-[1.1] font-sans tracking-tight max-w-[400px]">
+                SPEAK WITH OUR EXPERTS TODAY!
+              </h2>
+              <div>
+                <Link href="/contact-us">
+                  <button className="bg-[#b42025] text-white rounded-full px-8 py-3.5 font-bold text-[14px] hover:bg-red-800 transition-colors shadow-lg hover:shadow-xl inline-block mt-2">
+                    CONTACT US
+                  </button>
                 </Link>
-              </motion.div>
-            ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Latest Briefings (Blog Preview) */}
-      <section className="py-40 px-6 bg-muted/5 border-t border-border">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex justify-between items-end mb-24">
-             <div className="max-w-xl">
-                <p className="font-serif-sub text-primary tracking-[0.4em] uppercase text-[10px] mb-6 font-bold">Knowledge Capital</p>
-                <h2 className="font-serif-heading text-4xl md:text-5xl text-secondary font-bold uppercase tracking-tight">Latest Briefings.</h2>
-             </div>
-             <Link 
-               href="/blog" 
-               className="font-serif-sub tracking-[0.2em] text-[10px] uppercase text-primary border-b border-primary/30 hover:border-primary pb-1 no-underline font-bold transition-all"
-             >
-               View All Journal Records →
-             </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-             {insights.map((article, idx) => (
-               <article key={idx} className="bg-white border border-border p-12 hover:shadow-2xl hover:border-primary/30 transition-all duration-500 rounded-sm flex flex-col items-start min-h-[400px]">
-                  <p className="font-serif-sub tracking-[0.3em] uppercase text-primary text-[9px] mb-8 font-bold">{article.date}</p>
-                  <h3 className="font-serif-heading text-3xl text-secondary mb-10 leading-tight font-bold grow">{article.title}</h3>
-                  <Link 
-                    href={article.link} 
-                    className="font-serif-sub tracking-[0.2em] text-[10px] uppercase text-secondary/60 hover:text-primary transition-colors no-underline font-bold"
-                  >
-                    Read Analysis →
-                  </Link>
-               </article>
-             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Final Call to Action */}
-      <section className="py-40 px-6 bg-secondary text-white relative overflow-hidden text-center">
-        <div className="max-w-4xl mx-auto relative z-10">
-          <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-             <motion.h2 variants={fadeUp} className="font-serif-heading text-3xl lg:text-5xl xl:text-6xl mb-12 leading-tight font-bold flex flex-wrap md:flex-nowrap items-center justify-center gap-3 md:gap-4 whitespace-nowrap">
-               <span>Refining the standard of</span> <span className="text-primary italic">legal mastery.</span>
-             </motion.h2>
-             <motion.div variants={fadeUp}>
-               <Link 
-                 href="/consultation" 
-                 className="inline-block font-serif-sub tracking-[0.3em] uppercase text-xs bg-primary text-white border-2 border-primary px-16 py-6 hover:bg-white hover:text-secondary hover:border-white transition-all duration-500 font-bold no-underline shadow-2xl"
-               >
-                 Request Strategic Audit
-               </Link>
-             </motion.div>
-          </motion.div>
-        </div>
-      </section>
     </Layout>
   );
 }
