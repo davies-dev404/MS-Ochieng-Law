@@ -173,6 +173,28 @@ export default function Practice() {
   const [activeId, setActiveId] = useState(1);
   const activePractice = practices.find(p => p.id === activeId);
 
+  const handleSelect = (id) => {
+    setActiveId(id);
+    // Smooth scroll to details on mobile only
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        const detailSection = document.getElementById('practice-detail');
+        if (detailSection) {
+          const offset = 140; // Account for the fixed header
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = detailSection.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  };
+
   return (
     <Layout>
       {/* Hero Section with Legal Excellence branding */}
@@ -227,7 +249,7 @@ export default function Practice() {
               return (
                 <button
                   key={p.id}
-                  onClick={() => setActiveId(p.id)}
+                  onClick={() => handleSelect(p.id)}
                   className={`flex items-start gap-6 px-10 py-8 border-b border-border transition-all duration-500 text-left group relative ${isActive ? 'bg-white shadow-xl z-10' : 'hover:bg-white/60'}`}
                 >
                   {/* Active left border accent */}
@@ -252,7 +274,7 @@ export default function Practice() {
           </div>
 
           {/* Detail Panel */}
-          <div className="grow bg-white p-12 md:p-20 lg:p-28 relative overflow-hidden">
+          <div id="practice-detail" className="grow bg-white p-12 md:p-20 lg:p-28 relative overflow-hidden">
             {/* Background image for the active practice */}
             <div className="absolute inset-0 z-0">
               <img

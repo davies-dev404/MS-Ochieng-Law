@@ -49,6 +49,28 @@ const categories = ["All", "Commercial and Corporate Law", "Conveyancing and Pro
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState("All");
 
+  const handleCategoryChange = (cat) => {
+    setActiveCategory(cat);
+    // Smooth scroll to blog list on mobile only
+    if (window.innerWidth < 768) {
+      setTimeout(() => {
+        const blogList = document.getElementById('blog-list');
+        if (blogList) {
+          const offset = 140; // Account for the fixed header
+          const bodyRect = document.body.getBoundingClientRect().top;
+          const elementRect = blogList.getBoundingClientRect().top;
+          const elementPosition = elementRect - bodyRect;
+          const offsetPosition = elementPosition - offset;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 100);
+    }
+  };
+
   const filteredPosts = blogPosts.filter(post => 
     activeCategory === "All" || post.category === activeCategory
   );
@@ -71,11 +93,11 @@ export default function Blog() {
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
 
-            <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase whitespace-nowrap">
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-8 md:mb-10 leading-[0.9] tracking-tighter uppercase">
               LEGAL <span className="text-[#cc2027]">JOURNAL.</span>
             </motion.h1>
             
-            <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
+            <motion.p variants={fadeUp} className="font-sans text-white/70 text-base md:text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide px-4">
               Preeminent legal perspectives from our leading practitioners. We distil the most complex legislative changes into actionable strategic intelligence.
             </motion.p>
           </motion.div>
@@ -91,7 +113,7 @@ export default function Blog() {
               return (
                 <button
                   key={cat}
-                  onClick={() => setActiveCategory(cat)}
+                  onClick={() => handleCategoryChange(cat)}
                   className={`flex items-center gap-6 px-10 py-10 border-b border-border transition-all duration-300 text-left relative ${
                     isActive ? "bg-white shadow-sm z-10" : "hover:bg-white/50"
                   }`}
@@ -108,8 +130,8 @@ export default function Blog() {
             })}
           </div>
 
-          {/* Main Blog Grid */}
-          <div className="md:w-2/3 lg:w-3/4 bg-white p-10 md:p-20 relative overflow-hidden">
+          {/* Blog Posts List */}
+          <div id="blog-list" className="md:w-2/3 lg:w-3/4 bg-white p-10 md:p-20 relative overflow-hidden">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCategory}
@@ -136,12 +158,12 @@ export default function Blog() {
                       <p className="font-serif-sub tracking-[0.3em] uppercase text-[#cc2027] text-[10px] mb-6 font-bold">
                         {post.category}
                       </p>
-                      <h2 className="font-serif-heading text-3xl text-secondary mb-8 leading-tight group-hover:text-[#cc2027] transition-colors font-bold">
+                      <h3 className="font-serif-heading text-xl md:text-2xl leading-tight text-secondary group-hover:text-[#cc2027] transition-colors font-bold">
                         <Link href={`/blog/${post.id}`} className="no-underline text-inherit">
                           {post.title}
                         </Link>
-                      </h2>
-                      <p className="font-sans text-foreground/50 text-sm font-light leading-relaxed mb-10 grow">
+                      </h3>
+                      <p className="font-sans text-foreground/50 text-[11px] md:text-xs font-light leading-relaxed mt-4 line-clamp-2 md:line-clamp-none">
                         {post.snippet}
                       </p>
                       <div className="flex justify-between items-center border-t border-border pt-10 mt-auto">

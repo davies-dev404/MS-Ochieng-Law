@@ -72,7 +72,7 @@ export default function BlogPost() {
                 <span className="w-px h-10 bg-white/20" />
                 <span className="font-serif-sub tracking-[0.4em] uppercase text-[11px] text-white/50 font-bold">{post.date}</span>
               </motion.div>
-              <motion.h1 variants={fadeUp} className="font-serif-heading text-5xl md:text-8xl text-white mb-12 leading-tight font-bold uppercase tracking-tight">
+              <motion.h1 variants={fadeUp} className="font-serif-heading text-3xl sm:text-5xl md:text-7xl lg:text-8xl text-white mb-8 md:mb-12 leading-[1.1] font-bold uppercase tracking-tight">
                 {post.title}
               </motion.h1>
               <motion.div variants={fadeUp} className="flex justify-center items-center gap-6">
@@ -118,7 +118,7 @@ export default function BlogPost() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 1 }}
-                className="prose prose-2xl prose-slate max-w-none"
+                className="prose prose-lg md:prose-xl lg:prose-2xl prose-slate max-w-none prose-p:font-light prose-headings:font-serif-heading prose-headings:uppercase prose-headings:tracking-tight"
               >
                 <p className="font-sans font-light leading-relaxed text-foreground/80 first-letter:text-8xl first-letter:font-serif-heading first-letter:text-[#cc2027] first-letter:mr-5 first-letter:float-left mb-12">
                   {post.content}
