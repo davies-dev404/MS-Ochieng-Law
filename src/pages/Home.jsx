@@ -190,7 +190,7 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto">
           <div className="text-center mb-16">
             <h4 className="text-[14px] italic text-[#1c2f54] mb-2 font-serif tracking-wide">About Us</h4>
-            <h2 className="text-[32px] md:text-[38px] font-sans text-[#1c2f54] mb-4 font-extrabold tracking-tight">M.S. OCHIENG LAW FIRM.</h2>
+            <h2 className="text-[32px] md:text-[38px] font-sans text-[#1c2f54] mb-4 font-extrabold tracking-tight">M.S. OCHIENG LEGAL.</h2>
             <p className="text-[#444] max-w-[900px] mx-auto text-[15px] leading-[1.8] font-medium mb-8">
               Welcome to M.S. OCHIENG LAW FIRM, a Law Firm in Nairobi, KENYA where innovative legal strategies <br className="hidden md:block"/>
               meets relentless commitment. We're not just another law firm—we're passionate advocates, trusted advisors, and <br className="hidden md:block"/>
@@ -403,13 +403,16 @@ export default function Home() {
             
             {/* Right side: Content */}
             <div className="w-full md:w-1/2 flex flex-col justify-center bg-[#f8f9fa] p-10 md:p-16 relative">
-              <h2 className="text-[36px] md:text-[46px] font-extrabold mb-8 text-black leading-[1.1] font-sans tracking-tight max-w-[400px]">
-                SPEAK WITH OUR EXPERTS TODAY!
+              <h2 className="text-[36px] md:text-[46px] font-extrabold mb-4 text-black leading-[1.1] font-sans tracking-tight max-w-[420px]">
+                Your Trusted Legal Partner in Nairobi.
               </h2>
+              <p className="text-[#1c2f54]/60 font-sans font-light text-sm leading-relaxed max-w-sm mb-8">
+                We are advocates, advisors, and partners committed to protecting your interests. Get reliable, client-focused legal services that achieve real results.
+              </p>
               <div>
-                <Link href="/contact-us">
-                  <button className="bg-[#b42025] text-white rounded-full px-8 py-3.5 font-bold text-[14px] hover:bg-red-800 transition-colors shadow-lg hover:shadow-xl inline-block mt-2">
-                    CONTACT US
+                <Link href="/consultation">
+                  <button className="bg-[#b42025] text-white rounded-full px-8 py-3.5 font-bold text-[14px] hover:bg-red-800 transition-colors shadow-lg hover:shadow-xl inline-block">
+                    CONTACT US NOW
                   </button>
                 </Link>
               </div>

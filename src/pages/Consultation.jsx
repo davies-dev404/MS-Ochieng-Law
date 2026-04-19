@@ -36,7 +36,7 @@ export default function Consultation() {
               Legal <span className="text-[#cc2027] italic">Counsel.</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="font-sans text-white/50 text-xl font-light max-w-2xl leading-relaxed mb-12 mx-auto">
-              Your commercial success is our mandate. We offer a dedicated, high-fidelity channel for formal engagement, ensuring your legal challenges are met with surgical strategic foresight.
+              Your goals become our mandate. Every legal matter we handle is approached with focus, strategy, and a commitment to results.
             </motion.p>
           </motion.div>
         </div>
@@ -126,35 +126,35 @@ export default function Consultation() {
 
       {/* Map Section */}
       <section className="py-0 px-0 bg-white border-t border-border relative overflow-hidden h-[500px] grayscale hover:grayscale-0 transition-all duration-700">
-         <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m7!1s0x182f1090333d0261:0xa7d82506eabb7115!2sUpper+Hill+Chambers!5e0!3m2!1sen!2ske!4v1713460000000!5m2!1sen!2ske" 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen="" 
-            loading="lazy" 
+         <iframe
+            src="https://maps.google.com/maps?q=Upper+Hill+Chambers,+Nairobi,+Kenya&output=embed&z=15"
+            width="100%"
+            height="100%"
+            style={{ border: 0 }}
+            allowFullScreen=""
+            loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="M.S. Ochieng Law Firm Location"
+            title="M.S. Ochieng Law Firm - Upper Hill Chambers, Nairobi"
          ></iframe>
       </section>
 
       {/* Strategic Privileges */}
-      <section className="py-40 px-6 bg-muted/5 border-t border-border relative overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-24">
+      <section className="py-12 md:py-16 px-6 bg-muted/5 border-t border-border relative overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
            <div className="md:w-1/3 text-center md:text-left">
-              <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[10px] mb-6 font-bold">Sovereign Privacy</p>
-              <h2 className="font-serif-heading text-3xl md:text-5xl font-bold text-[#1c2f54] uppercase tracking-tight">Privileges & Secrecy.</h2>
+              <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[10px] mb-4 font-bold">Sovereign Privacy</p>
+              <h2 className="font-serif-heading text-2xl md:text-4xl font-bold text-[#1c2f54] uppercase tracking-tight">Privileges & Secrecy.</h2>
            </div>
            
-           <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-12">
-              <div className="p-12 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
-                 <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-[#1c2f54] mb-6 font-bold">Attorney-Client Privilege</h4>
+           <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="p-8 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
+                 <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-[#1c2f54] mb-4 font-bold">Attorney-Client Privilege</h4>
                  <p className="font-sans text-foreground/50 text-xs font-light leading-relaxed">
                    All communications and mandates are protected under the most stringent professional secrecy laws of the relevant jurisdiction.
                  </p>
               </div>
-              <div className="p-12 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
-                 <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-[#1c2f54] mb-6 font-bold">Global Data Standards</h4>
+              <div className="p-8 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
+                 <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-[#1c2f54] mb-4 font-bold">Global Data Standards</h4>
                  <p className="font-sans text-foreground/50 text-xs font-light leading-relaxed">
                    Using encrypted Practice Management Systems compliant with GDPR and regional Data Protection Acts to ensure absolute mandates integrity.
                  </p>
@@ -163,9 +163,9 @@ export default function Consultation() {
         </div>
       </section>
 
-      <section className="py-24 px-6 bg-white text-center">
-        <div className="max-w-4xl mx-auto border-t border-border pt-24">
-          <p className="font-serif-sub tracking-[0.3em] uppercase text-[10px] text-primary mb-8 font-bold">Confidentiality Assured</p>
+      <section className="py-10 px-6 bg-white text-center">
+        <div className="max-w-4xl mx-auto border-t border-border pt-10">
+          <p className="font-serif-sub tracking-[0.3em] uppercase text-[10px] text-primary mb-4 font-bold">Confidentiality Assured</p>
           <p className="font-sans text-foreground/40 text-xs font-light max-w-2xl leading-relaxed mx-auto italic">
             "Institutional silence is protected; strategic counsel is absolute."
           </p>
