@@ -22,7 +22,7 @@ const heroSlides = [
     subtitle: "We are eager and keen to find innovative solutions to address emerging legal issues."
   },
   {
-    image: "hero/innovation.jpg",
+    image: "hero/commiment.jpg",
     title: "Commitment.",
     subtitle: "We are passionate advocates, trusted advisors, and your dedicated partners toward your success."
   }
@@ -269,22 +269,7 @@ export default function Home() {
                 </button>
               </div>
             </div>
-
-            {/* Stats Bar */}
-            <div className="mt-16 pt-12 border-t border-white/10 flex flex-wrap gap-x-16 gap-y-8">
-              <div className="flex flex-col">
-                <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">08</span>
-                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Practice Areas</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">15+</span>
-                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Jurisdictions</span>
-              </div>
-              <div className="flex flex-col">
-                <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">99%</span>
-                <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Client Retention</span>
-              </div>
-            </div>
+            
           </div>
 
           <div className="embla overflow-hidden" ref={expertiseRef}>

@@ -65,5 +65,8 @@
     "vite": "latest",
     "wouter": "^3.3.5",
     "zod": "latest"
+  },
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1"
   }
 }

@@ -42,8 +42,8 @@ export default function Layout({ children }) {
     "description": "Premier law firm in Nairobi providing strategic legal solutions in Corporate Law, Family Law, and Litigation.",
     "url": "https://msochienglaw.co.ke/",
     "logo": "https://msochienglaw.co.ke/mso-branding.jpg",
-    "telephone": "+254 701 568600",
-    "email": "ochiengm@msochienglaw.co.ke",
+    "telephone": "+254 791 857001",
+    "email": "[EMAIL_ADDRESS]",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Upper Hill Chambers",
@@ -95,8 +95,8 @@ export default function Layout({ children }) {
                             <a href="mailto:info@msochienglaw.co.ke" className="flex items-center gap-1.5 hover:text-gray-300 transition-colors whitespace-nowrap">
                               <Mail size={12} fill="white" className="text-[#1c2f54]" /> info@msochienglaw.co.ke
                             </a>
-                            <a href="tel:+254732575066" className="flex items-center gap-1.5 hover:text-gray-300 transition-colors whitespace-nowrap">
-                              <Phone size={12} fill="white" className="text-white" /> +254 732 575 066
+                            <a href="tel:+254791857001" className="flex items-center gap-1.5 hover:text-gray-300 transition-colors whitespace-nowrap">
+                              <Phone size={12} fill="white" className="text-white" /> +254 791 857001
                             </a>
                         </div>
                         
@@ -115,7 +115,7 @@ export default function Layout({ children }) {
                                     <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61551090343152" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] transition-all text-white" title="Facebook"><FaFacebookF size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="https://x.com/pakadvocates" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white" title="X (Twitter)"><FaXTwitter size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-linear-to-tr hover:from-[#f9ce34] hover:to-[#ee2a7b] hover:border-transparent transition-all text-white" title="Instagram"><FaInstagram size={10} /></a>
-                                    <a target="_blank" rel="noreferrer" href="tel:+254732575066" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all text-white" title="Call Us"><Phone size={10} /></a>
+                                    <a target="_blank" rel="noreferrer" href="tel:+254791857001" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all text-white" title="Call Us"><Phone size={10} /></a>
                                 </li>
                             </ul>
                         </div>
@@ -233,11 +233,11 @@ export default function Layout({ children }) {
               <div className="flex flex-col gap-5">
                  <div className="flex gap-4 items-start">
                    <div className="bg-white text-[#1c2f54] p-1.5 rounded-[2px] mt-0.5"><HomeIcon size={14} strokeWidth={2.5} /></div>
-                   <p className="font-sans text-[13px] font-bold leading-tight">Suite 1401, Upper Hill Complex<br/>Nairobi, Kenya</p>
+                   <p className="font-sans text-[13px] font-bold leading-tight">Suite 1421, Upper Hill Complex<br/>Nairobi, Kenya</p>
                  </div>
                  <div className="flex gap-4 items-center">
                    <div className="bg-white text-[#1c2f54] p-1.5 rounded-[2px]"><Headphones size={14} strokeWidth={2.5} /></div>
-                   <p className="font-sans text-[13px] font-bold tracking-wide">Tel: (+254) 732 575066</p>
+                   <p className="font-sans text-[13px] font-bold tracking-wide">Tel: (+254) 791 857001</p>
                  </div>
                  <div className="flex gap-4 items-center">
                    <div className="bg-white text-[#1c2f54] p-1.5 rounded-[2px]"><Mail size={14} strokeWidth={2.5} /></div>

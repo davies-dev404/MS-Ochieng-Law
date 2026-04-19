@@ -221,20 +221,7 @@ export default function Practice() {
             </motion.p>
 
             {/* Practice area count stats bar - Synced with Home */}
-            <motion.div variants={fadeUp} className="flex flex-wrap gap-x-16 gap-y-8 border-t border-white/10 pt-12">
-               <div className="flex flex-col">
-                 <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">08</span>
-                 <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Practice Areas</span>
-               </div>
-               <div className="flex flex-col">
-                 <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">15+</span>
-                 <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Jurisdictions</span>
-               </div>
-               <div className="flex flex-col">
-                 <span className="text-4xl font-serif-heading text-[#cc2027] mb-1">99%</span>
-                 <span className="text-[10px] uppercase font-bold tracking-[0.2em] text-white/60">Client Retention</span>
-               </div>
-            </motion.div>
+            
           </motion.div>
         </div>
       </section>

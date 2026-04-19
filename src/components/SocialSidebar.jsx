@@ -1,11 +1,16 @@
-import { FaFacebookF, FaLinkedinIn, FaPinterestP, FaRedditAlien, FaWhatsapp, FaPlus, FaInstagram } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaFacebookF, FaLinkedinIn, FaPinterestP, FaRedditAlien, FaWhatsapp, FaPlus, FaInstagram, FaYoutube } from "react-icons/fa";
+import { FaXTwitter, FaTiktok } from "react-icons/fa6";
 
 const socials = [
   { icon: FaFacebookF, color: "#1877F2", label: "Facebook", href: "https://www.facebook.com/profile.php?id=61551090343152" },
-  { icon: FaXTwitter, color: "#000000", label: "X", href: "https://x.com/pakadvocates" },
-  { icon: FaInstagram, color: "#C13584", label: "Instagram", href: "https://instagram.com/pakadvocates" },
-  { icon: FaWhatsapp, color: "#25D366", label: "WhatsApp", href: "https://wa.me/254732575066" },
+  { icon: FaXTwitter, color: "#000000", label: "X", href: "https://x.com/msochienglegal" },
+  { icon: FaInstagram, color: "#C13584", label: "Instagram", href: "https://instagram.com/msochienglegal" },
+  { icon: FaWhatsapp, color: "#25D366", label: "WhatsApp", href: "https://wa.me/254791857001" },
+  { icon: FaLinkedinIn, color: "#0077B5", label: "LinkedIn", href: "https://www.linkedin.com/in/m-s-ochieng-legal-consultants-b4b1b1b1/" },
+  { icon: FaTiktok, color: "#000000", label: "TikTok", href: "https://www.tiktok.com/@msochienglegal" },
+  { icon: FaYoutube, color: "#FF0000", label: "YouTube", href: "https://www.youtube.com/@msochienglegal" },
+  { icon: FaPinterestP, color: "#E60023", label: "Pinterest", href: "https://www.pinterest.com/msochienglegal" },
+  { icon: FaRedditAlien, color: "#FF4500", label: "Reddit", href: "https://www.reddit.com/user/msochienglegal" },
 ];
 
 export default function SocialSidebar() {
