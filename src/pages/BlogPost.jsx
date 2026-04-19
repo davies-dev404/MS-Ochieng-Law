@@ -55,7 +55,7 @@ export default function BlogPost() {
       <SocialSidebar />
       <article className="bg-white">
         {/* Post Hero */}
-        <header className="relative pt-60 pb-32 px-6 overflow-hidden bg-secondary">
+        <header className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 overflow-hidden bg-secondary">
           <div className="absolute inset-0 z-0">
             <img 
               src={post.image} 

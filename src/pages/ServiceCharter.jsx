@@ -92,7 +92,7 @@ export default function ServiceCharter() {
     <Layout>
       <SocialSidebar />
       {/* Hero Section with Legal Excellence branding */}
-      <section className="pt-48 pb-20 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
+      <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
         {/* Decorative Background Element */}
         <div className="absolute top-0 left-0 w-1/3 h-full bg-linear-to-r from-white/5 to-transparent pointer-none" />
         

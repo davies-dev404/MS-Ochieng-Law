@@ -112,7 +112,7 @@ export default function Home() {
   return (
     <Layout>
       {/* Hero Slider Section */}
-      <section className="relative h-[500px] md:h-screen w-full bg-[#1c2f54] overflow-hidden">
+      <section className="relative h-[450px] md:h-[600px] w-full bg-[#1c2f54] overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}

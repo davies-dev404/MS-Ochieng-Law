@@ -97,7 +97,7 @@ export default function AboutUs() {
   return (
     <Layout>
       {/* Hero Section with Legal Excellence branding */}
-      <section className="pt-48 pb-20 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
+      <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
         {/* Decorative Background Element */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-white/5 to-transparent pointer-none" />
         

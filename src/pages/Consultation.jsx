@@ -14,7 +14,7 @@ const stagger = {
 export default function Consultation() {
   return (
     <Layout>
-      <section className="pt-48 pb-24 px-6 relative overflow-hidden border-b border-border bg-secondary">
+      <section className="pt-32 pb-16 md:pt-40 md:pb-24 px-6 relative overflow-hidden border-b border-border bg-secondary">
         <div className="absolute inset-0 z-0">
           <img 
             src="https://images.unsplash.com/photo-1436450412740-6b988f486c6b?auto=format&fit=crop&w=1920&q=80" 
