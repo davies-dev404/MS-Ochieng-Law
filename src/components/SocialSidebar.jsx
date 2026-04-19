@@ -10,7 +10,7 @@ const socials = [
 
 export default function SocialSidebar() {
   return (
-    <div className="fixed left-0 top-1/2 -translate-y-1/2 z-[100] flex flex-col pointer-events-none">
+    <div className="fixed left-0 top-1/2 -translate-y-1/2 z-100 flex flex-col pointer-events-none">
       <div className="flex flex-col pointer-events-auto">
         {socials.map((platform, i) => (
           <a

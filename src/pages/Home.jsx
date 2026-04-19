@@ -112,7 +112,7 @@ export default function Home() {
   return (
     <Layout>
       {/* Hero Slider Section */}
-      <section className="relative h-screen w-full bg-[#1c2f54] overflow-hidden">
+      <section className="relative h-[500px] md:h-screen w-full bg-[#1c2f54] overflow-hidden">
         <AnimatePresence mode="wait">
           <motion.div
             key={currentSlide}
@@ -141,10 +141,10 @@ export default function Home() {
               transition={{ duration: 0.8 }}
               className="flex flex-col items-center"
             >
-              <h1 className="text-5xl md:text-7xl font-sans text-white mb-6 font-extrabold tracking-tight">
+              <h1 className="text-4xl md:text-7xl font-sans text-white mb-4 md:mb-6 font-extrabold tracking-tight">
                 {heroSlides[currentSlide].title}
               </h1>
-              <p className="text-lg md:text-2xl text-white/90 font-medium max-w-3xl mb-12">
+              <p className="text-base md:text-2xl text-white/90 font-medium max-w-3xl mb-8 md:mb-12">
                 {heroSlides[currentSlide].subtitle}
               </p>
               <Link href="/consultation">
@@ -173,12 +173,12 @@ export default function Home() {
         </button>
 
         {/* Bullet Navigators */}
-        <div className="absolute bottom-6 left-0 right-0 z-20 flex justify-center gap-1.5">
+        <div className="absolute bottom-10 left-0 right-0 z-20 flex justify-center gap-2">
           {heroSlides.map((_, idx) => (
             <button
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${currentSlide === idx ? 'bg-white' : 'bg-white/40 hover:bg-white/80'}`}
+              className={`w-3.5 h-3.5 rounded-full border-2 border-white/20 transition-all duration-300 ${currentSlide === idx ? 'bg-white border-white scale-110 shadow-lg' : 'bg-white/40 hover:bg-white/80'}`}
               aria-label={`Go to slide ${idx + 1}`}
             />
           ))}
