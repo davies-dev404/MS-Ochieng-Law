@@ -49,46 +49,45 @@ export default function AboutUs() {
   const sections = [
     {
       title: "Our Vision",
-      content: <p>To be a leading and all round legal firm providing cutting edge solutions in the constantly evolving legal landscape.</p>
+      content: <p>To be a leading full-service law firm in Kenya, providing cutting-edge legal solutions in an ever-evolving legal landscape.</p>
     },
     {
       title: "Our Mission",
-      content: <p>To provide our clientele with innovative and excellent legal representation and solutions with an eye on results.</p>
+      content: <p>To deliver reliable, client-focused, and innovative legal services that achieve real results while upholding the highest standards of professionalism and integrity.</p>
     },
     {
       title: "Our Core Values",
       content: (
         <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li>Integrity.</li>
-          <li>Excellence.</li>
-          <li>Innovation.</li>
+          <li>Integrity & Innovation.</li>
+          <li>Substantive Excellence.</li>
+          <li>Universal Accessibility.</li>
+          <li>Relentless Advocacy.</li>
         </ul>
       )
     },
     {
-      title: "Why choose us",
+      title: "Why choose the firm",
       content: (
          <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li>We have a reputation for providing our clients with exceptional, efficient and high-quality legal service.</li>
-          <li>As innovators, we are focused on putting the right combination of knowledge, experience, skills, and technology to achieve high legal solutions.</li>
-          <li>Our team is innovative, results oriented, embraces team work, respect for clients and fellow colleagues and fosters loyalty in all our engagements.</li>
-          <li>We are experienced and knowledgeable with proper legal grounding in all forms of legal practice.</li>
-          <li>We have presence in the whole country and manage work from every corner of the country.</li>
-          <li>We are driven by our core values in dispensing our mandate, duties and obligations.</li>
+          <li><strong>Experienced Team:</strong> A cadre of dedicated legal professionals with deep industry knowledge.</li>
+          <li><strong>Personalized Approach:</strong> Client-focused strategies tailored to unique institutional and personal mandates.</li>
+          <li><strong>Regional Reputation:</strong> A strong standing in the Nairobi legal practice and across the Republic.</li>
+          <li><strong>Results Oriented:</strong> Efficient, transparent, and driven by the pursuit of the winning outcome.</li>
+          <li><strong>Local Expertise:</strong> A profound understanding of Kenyan law and the regional business environment.</li>
         </ul>
       )
     },
     {
-      title: "Our practice areas",
+      title: "Practice Domains",
       content: (
         <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li>Family Law</li>
-          <li>Conveyancing & Real Estate</li>
-          <li>Commercial & Business Law</li>
-          <li>Employment & Labour Law</li>
-          <li>Intellectual Property</li>
-          <li>Legal Audit & Compliance</li>
-          <li>Litigation & Dispute Resolution</li>
+          <li>Corporate & Commercial Law</li>
+          <li>Family Law & Private Client</li>
+          <li>Criminal Defense & White Collar</li>
+          <li>Real Estate & Conveyancing</li>
+          <li>Civil Litigation & Arbitration</li>
+          <li>Contract Law & Structuring</li>
         </ul>
       )
     }
@@ -117,7 +116,7 @@ export default function AboutUs() {
             </motion.h1>
             
             <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
-              Founded on the pillars of integrity and innovation, M.S. Ochieng Law Firm stands as a preeminent legal partner for institutional and individual success.
+              Founded on the pillars of integrity and innovation, M.S. Ochieng Law Firm stands as a preeminent legal partner for institutional and individual success in Nairobi.
             </motion.p>
           </motion.div>
         </div>
@@ -171,9 +170,9 @@ export default function AboutUs() {
                     </div>
                   </div>
                   <div className="py-8 px-2 text-gray-700 leading-relaxed font-medium text-[15px] space-y-4">
-                      <p>Welcome to M.S. OCHIENG LAW FIRM, a top law firm in Nairobi where innovative legal strategies meets relentless commitment. We're not just another law firm—we're passionate advocates, trusted advisors, and your dedicated partners in the journey toward your success.</p>
-                      <p>We have a desire to break the mold, we offer more than just legal advice; we bring a powerful blend of creativity, efficiency, integrity, and drive to every case we handle.</p>
-                      <p>We serve individuals, families, and businesses with an approach that's as personal as it is professional. Here, each client receives our full attention, cutting-edge insights, and a tailored path forward. Whether you're facing a complex dispute, planning for the future, or building your dream enterprise, we're here to empower you with the knowledge, insights, confidence, and results you need to thrive.</p>
+                      <p>Welcome to <strong>M.S. OCHIENG LAW FIRM</strong>, a trusted and dynamic Nairobi-based law firm where innovative legal strategy meets unwavering commitment.</p>
+                      <p>We are more than just legal practitioners—we are <strong>advocates, advisors, and partners</strong> committed to protecting your interests and advancing your success. Our firm is built on a desire to break the mold. We combine legal expertise, creativity, and efficiency to provide tailored solutions in every case we handle.</p>
+                      <p>Whether you need representation in a complex legal dispute, guidance in business law, or support in personal legal matters, we deliver with precision and dedication. We proudly serve individuals, families, startups, and established businesses across Kenya, offering personalized legal services backed by deep industry knowledge and modern legal insights.</p>
                   </div>
                 </div>
                 

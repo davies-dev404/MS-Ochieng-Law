@@ -148,8 +148,8 @@ export default function Home() {
                 {heroSlides[currentSlide].subtitle}
               </p>
               <Link href="/consultation">
-                <button className="bg-transparent text-white border-2 border-white rounded-full px-10 py-3.5 flex items-center gap-3 transition-all duration-300 font-bold text-[15px] uppercase tracking-widest hover:bg-white hover:text-[#1c2f54] shadow-lg">
-                  Contact Us Now <ChevronRight size={18} strokeWidth={3} />
+                <button className="bg-transparent text-white border-2 border-white rounded-full px-10 py-3.5 flex items-center gap-3 transition-all duration-300 font-bold text-[15px] uppercase tracking-widest hover:bg-white hover:text-[#1c2f54] shadow-lg group">
+                  Request Strategic Briefing <ChevronRight size={18} strokeWidth={3} className="group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
             </motion.div>

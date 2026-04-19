@@ -35,8 +35,51 @@ export default function Layout({ children }) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [location]);
 
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "LegalService",
+    "name": "M.S. Ochieng Law Firm",
+    "description": "Premier law firm in Nairobi providing strategic legal solutions in Corporate Law, Family Law, and Litigation.",
+    "url": "https://msochienglaw.co.ke/",
+    "logo": "https://msochienglaw.co.ke/mso-branding.jpg",
+    "telephone": "+254 701 568600",
+    "email": "ochiengm@msochienglaw.co.ke",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Upper Hill Chambers",
+      "addressLocality": "Nairobi",
+      "addressCountry": "KE"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": -1.3000,
+      "longitude": 36.8167
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday"
+      ],
+      "opens": "08:00",
+      "closes": "17:00"
+    },
+    "sameAs": [
+      "https://www.facebook.com/msochienglaw",
+      "https://www.linkedin.com/company/msochienglaw",
+      "https://twitter.com/msochienglaw"
+    ]
+  };
+
   return (
     <div className="min-h-screen bg-background text-foreground font-sans relative flex flex-col">
+      {/* Schema.org Structured Data */}
+      <script type="application/ld+json">
+        {JSON.stringify(schemaData)}
+      </script>
     <header id="heda" className={`w-full z-50 flex flex-col fixed top-0 transition-all duration-300 pointer-events-none ${isScrolled ? 'pt-0 px-0' : 'pt-2 md:pt-4 px-3 md:px-8'}`}>
         <div className={`w-full mx-auto max-w-[1240px] flex flex-col transition-all duration-500 pointer-events-auto ${
           isScrolled 
