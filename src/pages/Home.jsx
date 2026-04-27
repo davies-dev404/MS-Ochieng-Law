@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronRight, ChevronLeft, Calendar, User, Scale, Shield, Landmark, BookOpen, Users, Gavel, Briefcase, FileCheck, Home as HomeIcon, UserCheck, Target, Compass } from "lucide-react";
+import { ArrowRight, ChevronRight, ChevronLeft, Calendar, User, Scale, Shield, Landmark, BookOpen, Users, Gavel, Briefcase, FileCheck, Home as HomeIcon, UserCheck, Target, Compass, Globe, Tv } from "lucide-react";
 import useEmblaCarousel from 'embla-carousel-react';
 import Layout from '../components/Layout';
 
@@ -9,53 +9,51 @@ const heroSlides = [
   {
     image: "hero/integrity.jpg",
     title: "Integrity.",
-    subtitle: "We develop solutions and strategies that guarantee our clients the best possible results."
+    subtitle: "We build strong foundations of trust through honest and clear legal advice."
   },
   {
     image: "hero/excellence.jpg",
-    title: "Excellence.",
-    subtitle: "Our Advocates bring with them a decade of experience in legal practice."
+    title: "Commitment.",
+    subtitle: "Our dedication to your success is the heart of M.S. Ochieng Legal."
   },
   {
     image: "hero/innovation.jpg",
     title: "Innovation.",
-    subtitle: "We are eager and keen to find innovative solutions to address emerging legal issues."
+    subtitle: "We find creative solutions to help you overcome legal challenges."
   },
   {
     image: "hero/commiment.jpg",
-    title: "Commitment.",
-    subtitle: "We are passionate advocates, trusted advisors, and your dedicated partners toward your success."
+    title: "Excellence.",
+    subtitle: "We are dedicated advocates and trusted advisors for your journey."
   }
 ];
 
 const expertiseAreas = [
-  { title: "Family Law", img: "/practice/family-law.jpg", icon: Users },
-  { title: "Conveyancing & Real Estate", img: "/practice/conveyancing.jpg", icon: HomeIcon },
-  { title: "Commercial & Business Law", img: "/practice/commercial.jpg", icon: Briefcase },
-  { title: "Employment & Labour Law", img: "/practice/employment.jpg", icon: UserCheck },
-  { title: "Intellectual Property", img: "/practice/intellectual-property.jpg", icon: Scale },
-  { title: "Legal Audit & Compliance", img: "/practice/legal-audit.jpg", icon: FileCheck },
-  { title: "Litigation & Dispute Resolution", img: "/practice/litigation.jpg", icon: Gavel }
+  { title: "Family & Children", img: "/practice/family-law.jpg", icon: Users },
+  { title: "Conveyancing, Property & Real Estate", img: "/practice/conveyancing.jpg", icon: HomeIcon },
+  { title: "Commercial Law & Corp Advisory", img: "/practice/commercial.jpg", icon: Briefcase },
+  { title: "Immigration", img: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=800&q=80", icon: Globe },
+  { title: "Civil & Criminal Litigation", img: "/practice/litigation.jpg", icon: Gavel },
+  { title: "ADR & Strategic Negotiation", img: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80", icon: Scale },
+  { title: "IP, Tech & Data Privacy", img: "/practice/intellectual-property.jpg", icon: Shield },
+  { title: "Employment & Labor Law", img: "/practice/employment.jpg", icon: UserCheck },
+  { title: "Media & Entertainment Law", img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80", icon: Tv }
 ];
 
 const blogPosts = [
   {
+    category: "Family Law",
     title: "Family Trusts in Kenya: How to Protect Your Wealth and Secure Your Legacy",
     img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070&auto=format&fit=crop",
     date: "12 Oct, 2026",
-    link: "/blog/family-trusts-in-kenya"
+    id: "family-trusts-in-kenya"
   },
   {
+    category: "Legacy Planning",
     title: "Beyond the Will: Why a Registered Family Trust is the Ultimate Legacy Tool",
     img: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=2070&auto=format&fit=crop",
     date: "05 Sep, 2026",
-    link: "/blog/registered-family-trust"
-  },
-  {
-    title: "Understanding Corporate Governance in East Africa",
-    img: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2070&auto=format&fit=crop",
-    date: "18 Aug, 2026",
-    link: "#"
+    id: "registered-family-trust"
   }
 ];
 
@@ -142,7 +140,7 @@ export default function Home() {
               className="flex flex-col items-center"
             >
               <h1 className="text-4xl md:text-7xl font-sans text-white mb-4 md:mb-6 font-extrabold tracking-tight">
-                {heroSlides[currentSlide].title}
+                Trust. Courage. Commitment.
               </h1>
               <p className="text-base md:text-2xl text-white/90 font-medium max-w-3xl mb-8 md:mb-12">
                 {heroSlides[currentSlide].subtitle}
@@ -192,9 +190,9 @@ export default function Home() {
             <h4 className="text-[14px] italic text-[#1c2f54] mb-2 font-serif tracking-wide">About Us</h4>
             <h2 className="text-[32px] md:text-[38px] font-sans text-[#1c2f54] mb-4 font-extrabold tracking-tight">M.S. OCHIENG LEGAL.</h2>
             <p className="text-[#444] max-w-[900px] mx-auto text-[15px] leading-[1.8] font-medium mb-8">
-              Welcome to M.S. OCHIENG LAW FIRM, a Law Firm in Nairobi, KENYA where innovative legal strategies <br className="hidden md:block"/>
-              meets relentless commitment. We're not just another law firm—we're passionate advocates, trusted advisors, and <br className="hidden md:block"/>
-              your dedicated partners in the journey toward your success.
+              M.S. OCHIENG LEGAL is a modern law firm dedicated to your success. We provide <br className="hidden md:block"/>
+              clear advice and strong representation to protect your interests and help <br className="hidden md:block"/>
+              you achieve your goals. Innovation and integrity are at the heart of everything we do.
             </p>
             <Link href="/about-us">
               <button className="bg-[#1c2f54] text-white rounded-[30px] px-8 py-3.5 font-extrabold text-[12px] tracking-widest uppercase hover:bg-[#111c33] transition-colors shadow-sm">
@@ -228,7 +226,7 @@ export default function Home() {
               </div>
               <h3 className="text-xl font-sans text-[#1c2f54] mb-4 font-bold uppercase">Core Values</h3>
               <p className="text-gray-600 leading-relaxed text-sm font-medium">
-                Integrity, Excellence, and Innovation.
+                Innovation, Integrity, Commitment, and Excellence.
               </p>
             </div>
           </div>
@@ -256,7 +254,7 @@ export default function Home() {
                   PRACTICE <span className="text-[#cc2027]">AREAS.</span>
                 </h2>
                 <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">
-                  Eight domains of preeminent legal advisory, each crafted with the structural precision and strategic foresight that defines the M.S. Ochieng standard.
+                  Nine domains of preeminent legal advisory, each crafted with the structural precision and strategic foresight that defines the M.S. Ochieng standard.
                 </p>
               </div>
               
@@ -342,7 +340,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {blogPosts.slice(0, 2).map((post, idx) => (
-              <Link key={idx} href={post.link}>
+              <Link key={idx} href={`/blog/${post.id}`}>
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.98 }}
                   whileInView={{ opacity: 1, scale: 1 }}

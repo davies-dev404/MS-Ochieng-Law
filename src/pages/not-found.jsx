@@ -23,7 +23,8 @@ export default function NotFound() {
             <div className="h-1 w-20 bg-primary/20 mx-auto mb-10" />
             
             <p className="font-sans text-foreground/50 text-lg font-light leading-relaxed mb-12 max-w-md mx-auto">
-              The record you are attempting to access does not exist within our digital chambers.
+              The page you were looking for has been moved or is not available. 
+              We are here to help you find the right legal solution.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

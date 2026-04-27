@@ -27,8 +27,8 @@ const termsData = [
   },
   {
     id: "02",
-    title: "Formation of Mandate",
-    desc: "An Attorney-Client relationship is only established through a formal, signed Letter of Engagement detailing the scope of the mandate and the agreed-upon professional fee structure.",
+    title: "Formation of Agreement",
+    desc: "A lawyer-client relationship is only established through a signed Letter of Engagement detailing the work to be done and the fees.",
     icon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
@@ -111,7 +111,7 @@ export default function Terms() {
             </motion.h1>
             
             <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
-              Establishing the regulatory framework and institutional standards for digital engagement with M.S. Ochieng Law Firm.
+              Establishing the regulatory framework and institutional standards for digital engagement with M.S. Ochieng Legal.
             </motion.p>
           </motion.div>
         </div>

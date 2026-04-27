@@ -1,29 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles, X, Send, Bot, User, Loader2 } from 'lucide-react';
-import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const SYSTEM_PROMPT = `You are the official AI Legal Assistant for M.S. Ochieng Law Firm, a premier law firm located in Suite 1421, Upper Hill Complex, Nairobi, Kenya. Your role is to assist website visitors with general legal information and guide them toward the firm's services.
+const SYSTEM_PROMPT = `You are the official AI Legal Assistant for M.S. Ochieng Legal, a premier legal firm located in Suite 1421, Upper Hill Complex, Nairobi, Kenya. Your role is to assist website visitors with general legal information and guide them toward the firm's services.
 
 ABOUT THE FIRM:
-- Full name: M.S. OCHIENG LAW FIRM (also known as M.S. Ochieng Legal Consultants)
+- Full name: M.S. OCHIENG LEGAL (also known as M.S. Ochieng Legal Consultants)
 - Founder: Ms. M.S. Ochieng (Always refer to the founder as a woman / she / her)
-- Located at Suite 1421, Upper Hill Complex, Nairobi, Kenya
-- Phone: +254 791 857001
-- Email: info@msochienglaw.co.ke
-- Website: msochienglaw.co.ke
+- Location: Suite 1421, Upper Hill Complex, Nairobi, Kenya.
+- Mission: To provide innovative, reliable, and committed legal solutions.
+- Practice Areas (9): 
+  1. Family & Children (Succession, Trusts, Custody, Compassionate approach)
+  2. Real Estate (Conveyancing, Due Diligence, Property Law)
+  3. Commercial Law (Business Formation, Advisory, Contracts)
+  4. Immigration (Work Permits, Residency, Global Mobility)
+  5. Civil & Criminal Litigation (Advocacy, Defense, Court Representation)
+  6. ADR & Negotiation (Mediation, Dispute Resolution)
+  7. IP & Data Privacy (Trademarks, Data Protection)
+  8. Employment Law (Contracts, HR Policy)
+  9. Media & Entertainment Law (Talent, Digital Rights)
 
-PRACTICE AREAS (8 domains):
-1. Family Law (divorce, custody, matrimonial property, succession)
-2. Conveyancing & Real Estate (land transactions, title transfers, property law)
-3. Commercial & Business Law (company formation, contracts, mergers)
-4. Employment & Labour Law (workplace disputes, contracts, compliance)
-5. Intellectual Property (trademarks, patents, copyright, licensing)
-6. Legal Audit & Compliance (regulatory compliance, corporate governance)
-7. Litigation & Dispute Resolution (civil litigation, arbitration, mediation)
-8. Criminal Law (defence, bail applications, appeals)
-
-CORE VALUES: Integrity, Excellence, Innovation, Commitment
+CORE VALUES: Innovation, Integrity, Commitment, Excellence
 
 BEHAVIOR RULES:
 - Be professional, warm, and helpful
@@ -37,8 +34,14 @@ BEHAVIOR RULES:
 - Always end responses that involve legal matters with: "For personalized advice on your specific situation, I recommend scheduling a consultation with our advocates."
 - Format responses in a clean, readable way`;
 
-// Initialize Gemini
-const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY || '');
+// Universal AI Configuration
+const AI_CONFIG = {
+  apiKey: import.meta.env.VITE_AI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY,
+  baseUrl: import.meta.env.VITE_AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai',
+  model: import.meta.env.VITE_AI_MODEL || 'gemini-1.5-flash'
+};
+
+console.log('Chatbot initialized with model:', AI_CONFIG.model);
 
 export default function AIChatBox() {
   const [isOpen, setIsOpen] = useState(false);
@@ -48,28 +51,11 @@ export default function AIChatBox() {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
-  const chatRef = useRef(null);
 
   // Auto-scroll to latest message
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  // Initialize chat session
-  useEffect(() => {
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    if (!apiKey || apiKey === 'YOUR_API_KEY_HERE') return;
-    
-    const genAILocal = new GoogleGenerativeAI(apiKey);
-    const model = genAILocal.getGenerativeModel(
-      { model: 'gemini-2.0-flash', systemInstruction: SYSTEM_PROMPT },
-      { baseUrl: `${window.location.origin}/api/gemini` }
-    );
-    
-    chatRef.current = model.startChat({
-      history: [],
-    });
-  }, []);
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -80,42 +66,44 @@ export default function AIChatBox() {
     setInput('');
     setIsLoading(true);
 
-    const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
-    console.log('Checked API Key starts with:', apiKey ? apiKey.substring(0, 5) : 'undefined');
-
-    // Check if API key is configured
-    if (!apiKey || apiKey === 'YOUR_API_KEY_HERE') {
-      setTimeout(() => {
-        setMessages(prev => [...prev, { 
-          role: 'bot', 
-          text: `I'm currently being set up. [Key: ${apiKey ? 'Present' : 'Missing'}] In the meantime, you can reach our advocates directly at +254 791 857001 or via WhatsApp.` 
-        }]);
-        setIsLoading(false);
-      }, 800);
-      return;
-    }
-
+    const apiKey = AI_CONFIG.apiKey;
+    
     try {
-      if (!chatRef.current) {
-        // Re-initialize if chat ref is null
-        const genAI = new GoogleGenerativeAI(apiKey);
-        const model = genAI.getGenerativeModel(
-          { model: 'gemini-2.0-flash', systemInstruction: SYSTEM_PROMPT },
-          { baseUrl: `${window.location.origin}/api/gemini` }
-        );
-        chatRef.current = model.startChat({ history: [] });
+      const response = await fetch(`${AI_CONFIG.baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: AI_CONFIG.model,
+          messages: [
+            { role: 'system', content: SYSTEM_PROMPT },
+            ...messages.map(m => ({
+              role: m.role === 'bot' ? 'assistant' : 'user',
+              content: m.text
+            })),
+            { role: 'user', content: userMessage }
+          ],
+          temperature: 0.7,
+        })
+      });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.error?.message || `HTTP error! status: ${response.status}`);
       }
-      const result = await chatRef.current.sendMessage(userMessage);
-      const response = await result.response;
-      const text = response.text();
+
+      const data = await response.json();
+      const text = data.choices[0].message.content;
 
       setMessages(prev => [...prev, { role: 'bot', text }]);
     } catch (error) {
-      console.error('Gemini API error:', error);
-      console.error('Error name:', error.name, 'Message:', error.message);
+      console.error('AI API error:', error);
+      const isKeyMissing = !apiKey || apiKey.length < 5;
       setMessages(prev => [...prev, { 
         role: 'bot', 
-        text: `I'm experiencing a temporary issue. Please try again, or contact our team directly at +254 791 857001 for immediate help.\n\n[Debug: ${error.message}]` 
+        text: `I'm experiencing a connectivity issue. Our team is standing by at +254 791 857001 for immediate help.\n\n[Diagnostic: ${error.message}${isKeyMissing ? ' | API Key MISSING' : ''}]` 
       }]);
     } finally {
       setIsLoading(false);

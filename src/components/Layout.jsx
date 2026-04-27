@@ -38,8 +38,8 @@ export default function Layout({ children }) {
   const schemaData = {
     "@context": "https://schema.org",
     "@type": "LegalService",
-    "name": "M.S. Ochieng Law Firm",
-    "description": "Premier law firm in Nairobi providing strategic legal solutions in Corporate Law, Family Law, and Litigation.",
+    "name": "M.S. Ochieng Legal",
+    "description": "M.S. Ochieng Legal is a modern law firm providing clear advice and strong representation to protect your interests in Kenya and beyond.",
     "url": "https://msochienglaw.co.ke/",
     "logo": "https://msochienglaw.co.ke/mso-branding.jpg",
     "telephone": "+254 791 857001",
@@ -195,7 +195,7 @@ export default function Layout({ children }) {
         <div className="h-[155px] md:h-[135px] w-full shrink-0 bg-white" />
       )}
 
-      <main className="relative z-10 grow">
+      <main className="relative grow">
         {children}
       </main>
 
@@ -211,20 +211,21 @@ export default function Layout({ children }) {
                  <BrandMark variant="gold" size="medium" />
               </div>
               <p className="font-sans text-white text-[13px] leading-relaxed font-bold tracking-wide">
-                M.S. OCHIENG LAW FIRM is a top law firm in Nairobi where innovative legal strategies meets relentless commitment. We're not just another law firm—we're passionate advocates, trusted advisors, and your dedicated partners in the journey toward your success.
+                M.S. OCHIENG LEGAL is a modern law firm dedicated to your success. We provide clear advice and strong representation to protect your interests and help you achieve your goals.
               </p>
             </div>
 
             <div>
               <h3 className="font-sans text-lg font-bold mb-6 tracking-wide underline underline-offset-8 decoration-2 decoration-white/80 whitespace-nowrap">PRACTICE AREAS</h3>
               <div className="flex flex-col gap-3">
-                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Family Law</Link>
-                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Conveyancing & Real Estate</Link>
-                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Commercial & Business Law</Link>
-                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Employment & Labour Law</Link>
-                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Intellectual Property</Link>
-                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Legal Audit & Compliance</Link>
-                 <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Litigation & Dispute Resolution</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Conveyancing & Property</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Commercial & Corporate Law</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Immigration</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Family & Children</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Civil & Criminal Litigation</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">ADR & Strategic Negotiation</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">IP, Tech & Data Privacy</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Employment & Labor Law</Link>
               </div>
             </div>
 
@@ -250,11 +251,58 @@ export default function Layout({ children }) {
           
           <div className="border-t border-white/30 pt-6 text-center">
             <p className="font-sans text-[11px] font-bold italic tracking-wide">
-              © Copyright {new Date().getFullYear()} M.S. Ochieng Law Firm. All Rights Reserved.
+              © Copyright {new Date().getFullYear()} M.S. Ochieng Legal. All Rights Reserved.
             </p>
           </div>
         </div>
       </footer>
+
+      {/* Cookie Consent Bar */}
+      <CookieConsent />
     </div>
+  );
+}
+
+function CookieConsent() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const consent = localStorage.getItem('cookie-consent');
+    if (!consent) {
+      const timer = setTimeout(() => setIsVisible(true), 1500);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  const accept = () => {
+    localStorage.setItem('cookie-consent', 'accepted');
+    setIsVisible(false);
+  };
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div 
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:w-[400px] bg-white text-secondary p-6 shadow-4xl z-100 border-l-4 border-[#cc2027] rounded-sm"
+        >
+          <h4 className="font-serif-sub text-xs uppercase tracking-widest font-bold mb-3 text-[#cc2027]">Cookie & Privacy Settings</h4>
+          <p className="font-sans text-[11px] leading-relaxed mb-6 font-medium text-[#1c2f54]">
+            We use cookies to improve your experience and analyze site traffic. By continuing to browse, you agree to our use of cookies and our terms of service.
+          </p>
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={accept}
+              className="bg-[#1c2f54] text-white text-[10px] uppercase font-bold tracking-widest px-6 py-2.5 rounded-sm hover:bg-[#cc2027] transition-all"
+            >
+              Accept All
+            </button>
+            <Link href="/terms" className="text-[10px] uppercase font-bold tracking-widest text-[#1c2f54]/50 hover:text-[#cc2027] transition-all">Details</Link>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

@@ -125,7 +125,7 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
         className={`font-serif-sub italic tracking-widest md:tracking-[0.4em] ${style.taglineSize} opacity-90`}
         style={{ color: textColor }}
       >
-        Bold Law. Refined Strategy.
+        Innovation. Integrity. Excellence.
       </p>
     </div>
   );

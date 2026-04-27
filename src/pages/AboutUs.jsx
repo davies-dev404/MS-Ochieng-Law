@@ -49,20 +49,20 @@ export default function AboutUs() {
   const sections = [
     {
       title: "Our Vision",
-      content: <p>To be a leading full-service law firm in Kenya, providing cutting-edge legal solutions in an ever-evolving legal landscape.</p>
+      content: <p>To be a leading and all round legal firm providing cutting edge solutions in the constantly evolving legal landscape.</p>
     },
     {
       title: "Our Mission",
-      content: <p>To deliver reliable, client-focused, and innovative legal services that achieve real results while upholding the highest standards of professionalism and integrity.</p>
+      content: <p>To provide our clientele with innovative and excellent legal representation and solutions with an eye on results.</p>
     },
     {
       title: "Our Core Values",
       content: (
         <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li>Integrity & Innovation.</li>
-          <li>Substantive Excellence.</li>
-          <li>Universal Accessibility.</li>
-          <li>Relentless Advocacy.</li>
+          <li>Innovation.</li>
+          <li>Integrity.</li>
+          <li>Commitment.</li>
+          <li>Excellence.</li>
         </ul>
       )
     },
@@ -70,11 +70,11 @@ export default function AboutUs() {
       title: "Why choose the firm",
       content: (
          <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li><strong>Experienced Team:</strong> A cadre of dedicated legal professionals with deep industry knowledge.</li>
-          <li><strong>Personalized Approach:</strong> Client-focused strategies tailored to unique institutional and personal mandates.</li>
-          <li><strong>Regional Reputation:</strong> A strong standing in the Nairobi legal practice and across the Republic.</li>
-          <li><strong>Results Oriented:</strong> Efficient, transparent, and driven by the pursuit of the winning outcome.</li>
-          <li><strong>Local Expertise:</strong> A profound understanding of Kenyan law and the regional business environment.</li>
+          <li><strong>Experienced Team:</strong> A group of dedicated legal professionals with deep knowledge.</li>
+          <li><strong>Personalized Approach:</strong> Strategies tailored to your unique needs.</li>
+          <li><strong>Strong Reputation:</strong> Trusted in Kenya and by clients around the world.</li>
+          <li><strong>Results Oriented:</strong> Focused on clear communication and the best outcomes.</li>
+          <li><strong>Local Expertise:</strong> A deep understanding of Kenyan law.</li>
         </ul>
       )
     },
@@ -82,12 +82,15 @@ export default function AboutUs() {
       title: "Practice Domains",
       content: (
         <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li>Corporate & Commercial Law</li>
-          <li>Family Law & Private Client</li>
-          <li>Criminal Defense & White Collar</li>
-          <li>Real Estate & Conveyancing</li>
-          <li>Civil Litigation & Arbitration</li>
-          <li>Contract Law & Structuring</li>
+          <li>Conveyancing, Property & Real Estate</li>
+          <li>Commercial Law & Corporate Advisory</li>
+          <li>Immigration & Global Mobility</li>
+          <li>Family & Children</li>
+          <li>Civil & Criminal Litigation</li>
+          <li>ADR & Strategic Negotiation</li>
+          <li>Intellectual Property & Data Privacy</li>
+          <li>Employment & Labor Law</li>
+          <li>Media & Entertainment Law</li>
         </ul>
       )
     }
@@ -106,17 +109,17 @@ export default function AboutUs() {
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">
-                Legal Excellence
+                Integrity & Excellence
               </span>
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
 
             <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase whitespace-nowrap">
-              ABOUT <span className="text-[#cc2027]">US.</span>
+              OUR <span className="text-[#cc2027]">STORY.</span>
             </motion.h1>
             
-            <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
-              Founded on the pillars of integrity and innovation, M.S. Ochieng Law Firm stands as a preeminent legal partner for institutional and individual success in Nairobi.
+            <motion.p variants={fadeUp} className="font-sans text-white/70 text-lg md:text-xl font-light leading-relaxed tracking-wide">
+              M.S. OCHIENG LEGAL is a modern law firm dedicated to your success. We provide clear advice and strong representation to protect your interests and help you achieve your goals. We bring innovation and integrity to every case, ensuring you move forward with confidence.
             </motion.p>
           </motion.div>
         </div>
@@ -170,9 +173,9 @@ export default function AboutUs() {
                     </div>
                   </div>
                   <div className="py-8 px-2 text-gray-700 leading-relaxed font-medium text-[15px] space-y-4">
-                      <p>Welcome to <strong>M.S. OCHIENG LAW FIRM</strong>, a trusted and dynamic Nairobi-based law firm where innovative legal strategy meets unwavering commitment.</p>
-                      <p>We are more than just legal practitioners—we are <strong>advocates, advisors, and partners</strong> committed to protecting your interests and advancing your success. Our firm is built on a desire to break the mold. We combine legal expertise, creativity, and efficiency to provide tailored solutions in every case we handle.</p>
-                      <p>Whether you need representation in a complex legal dispute, guidance in business law, or support in personal legal matters, we deliver with precision and dedication. We proudly serve individuals, families, startups, and established businesses across Kenya, offering personalized legal services backed by deep industry knowledge and modern legal insights.</p>
+                      <p>Welcome to <strong>M.S. OCHIENG LEGAL</strong>, your trusted partner for clear and effective legal solutions. We are a modern law firm dedicated to helping individuals and businesses thrive by providing expert advice and strong representation.</p>
+                      <p>Our approach is simple: we combine <strong>innovation with integrity</strong> to protect your interests and help you achieve your goals. Whether you are navigating a business deal, solving a family legal matter, or requiring courtroom advocacy, we stand by you with unwavering commitment.</p>
+                      <p>We believe in building lasting relationships based on trust and results. At M.S. OCHIENG LEGAL, your success is our priority.</p>
                   </div>
                 </div>
                 

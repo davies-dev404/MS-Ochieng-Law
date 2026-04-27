@@ -13,66 +13,13 @@ const teamMembers = [
   {
     id: 'msochieng',
     name: 'M.S. Ochieng',
-    role: 'Managing Partner',
+    role: 'Principal Advocate',
     image: '/ms-ochieng.jpg',
     bio: (
       <>
-        <p className="mb-4">M.S. Ochieng is the Managing Partner and visionary founder behind M.S OCHIENG LAW FIRM. With an extensive background in complex litigation, corporate structuring, and dispute resolution, he brings unparalleled expertise to the firm's diverse clientele.</p>
-        <p className="mb-4">Driven by a relentless commitment to excellence, his strategic approach ensures that the firm offers more than just traditional counsel—acting as a dedicated legal partner for high-stakes decisions and long-term legal structuring.</p>
-        <p className="mb-4">M.S. Ochieng holds specialized credentials and maintains a sterling reputation directly advising both emerging business leaders and established corporations on critical compliance, operational scaling, and family trust administration matters.</p>
-      </>
-    )
-  },
-  {
-    id: 'phanice',
-    name: 'Ms. Phanice A. Kwega',
-    role: 'Senior partner',
-    image: '/team-a-korir.png',
-    bio: (
-      <>
-        <p className="mb-4">Ms. Phanice is the Senior partner at the firm with over 8 years’ experience in private practice having handled a broad range of transactions locally and internationally. Phanice has acted for a wide range of clients across the legal fields of practice</p>
-        <p className="mb-4">She has a vast experience in litigation, legislative drafting, dispute resolution, conveyancing transactions, intellectual property and commercial transactions. She holds a Bachelor of Laws (LL.B) Degree from Moi University, a post-graduate diploma in Law from the Kenya School of Law and is currently undertaking her Master in Public Policy and Administration at Kenyatta University.</p>
-        <p className="mb-4">Ms. Kwega has previously worked with Messr Triple K. Advocates LLP, Standard Chartered Bank Limited, Messr Onyango Ochieng Advocates and Messr Sing’oei Murkomen & Sigei Advocates where she has had an opportunity to acquire unique experience in litigation, legislative drafting and policy review and advising on employee relations, corporate financing, market options, legal compliance as well as corporate governance.</p>
-      </>
-    )
-  },
-  {
-    id: 'nyakio',
-    name: 'Ms. Nyakio Kuria',
-    role: 'Senior partner',
-    image: '/team-j-mwangi.png',
-    bio: (
-      <>
-        <p className="mb-4">Ms. Nyakio is a Senior Partner, she has over 9 years post admission experience in private practice, legal research and human rights litigation.</p>
-        <p className="mb-4">She has a vast experience in litigation, Legal research at the High Court of Kenya and policy analysis and review. She holds a Bachelor of Laws Degree from Moi University, a post-graduate diploma from the Kenya School of Law and is currently pursuing project management certification from Project Management Institute.</p>
-        <p className="mb-4">Ms Nyakio has previously run and managed her litigation firm Nyakio Kuria & Co Advocates, worked as an associate lawyer at Kinyanjui and Njau Advocates and worked as a Legal Researcher at the Narok High Court and organizations where she acquired experience in Legal research and Drafting, active litigation before courts and tribunals, project management and report writing.</p>
-      </>
-    )
-  },
-  {
-    id: 'esther',
-    name: 'Ms. Esther Patrober',
-    role: 'Advocate-associate',
-    image: '/lawyer_amara.png',
-    bio: (
-      <>
-        <p className="mb-4">Esther Patrober Is an Advocate-associate with the firm, she is also a Legal Researcher.</p>
-        <p className="mb-4">She Holds a LL.B degree from Kenyatta University and Postgraduate Diploma from Kenya School of Law.</p>
-        <p className="mb-4">Esther has experience in civil litigation, dispute resolution, Conveyancing, Employment and Labour Relations Disputes and the general law practice.</p>
-        <p className="mb-4">Esther undertook her pupillage and holding over at the Office of the Attorney General and Department of Justice where she handled high profile matters in the Civil Litigation, Advocates Complaints Commission, Department of Justice, Government Transactions and National Legal Aid departments.</p>
-      </>
-    )
-  },
-  {
-    id: 'hilda',
-    name: 'Ms. Hilda Chepkoech Owino',
-    role: 'Advocate-associate',
-    image: '/lawyer_david.png',
-    bio: (
-      <>
-        <p className="mb-4">Ms. Hilda is an Advocate of the High Court of Kenya and an Associate at P. A. Kwega & Co. Advocates. She holds a Post Graduate Diploma in Law from the Kenya School of Law and a Bachelor of Laws (LLB) from Jomo Kenyatta University of Agriculture and Technology. In addition, she brings a unique blend of legal and technological expertise, having earned a Bachelor of Business Information Technology (BBIT) from Strathmore University.</p>
-        <p className="mb-4">Ms. Hilda's practice area focuses on General Litigation, Family Law, Estate Planning and Trusts, Employment and Labour Law, Insurance Law, ICT Law with focus on legal policies related to ICT, Conveyancing, Legal compliance as well as Constitutional and Administrative Law. Prior to joining the legal profession, she worked as a System Administrator in various organizations, an experience that enriches her legal practice—particularly in tech-related legal matters.</p>
-        <p className="mb-4">With a strong foundation in both law and information technology, Ms.Hilda is committed to delivering innovative and practical legal solutions. She is passionate about using her skills not only to resolve legal challenges but also to serve the community and empower individuals through the law. Her dedication to client-centered advocacy and integrity forms the cornerstone of her practice.</p>
+        <p className="mb-4">M.S. Ochieng is the Principal Advocate and founder of M.S. Ochieng Legal. She has great experience in helping people and businesses with their legal needs. She is truly committed to doing her best for every client.</p>
+        <p className="mb-4">Her goal is to provide clear and helpful advice. She works closely with clients to find the best solutions for their cases, whether they are personal or business matters.</p>
+        <p className="mb-4">M.S. Ochieng holds a Bachelor of Laws (LL.B) Degree from Kisii University and a Post Graduate Diploma from the Kenya School of Law (KSL). She is a trusted lawyer for business owners and families across Kenya.</p>
       </>
     )
   }
@@ -114,7 +61,7 @@ export default function OurPeople() {
             </motion.h1>
             
             <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
-              An elite cadre of legal practitioners dedicated to the advancement of our clients' commercial and institutional mandates across the Republic.
+              Led by M.S. Ochieng, our firm is dedicated to the advancement of our clients' commercial and institutional mandates across the Republic.
             </motion.p>
           </motion.div>
         </div>

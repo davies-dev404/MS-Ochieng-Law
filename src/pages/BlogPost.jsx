@@ -15,47 +15,107 @@ const stagger = {
 
 const blogPosts = [
   {
-    id: 1,
-    title: "Regional Trade Compliance & Institutional Risk",
-    content: "The landscape of regional trade within the East African Community (EAC) has undergone a tectonic shift over the past twenty-four months. For multi-national corporations, compliance is no longer a checklist—it is a strategic imperative that dictates market access and institutional stability. Our analysis reveals that recent cross-border protocols have introduced rigorous secondary auditing requirements that mandates a proactive legal posture.",
+    id: "commercial-contracts-guide",
+    title: "Understanding Commercial Contracts: A Guide for Businesses",
+    content: "Drafting clear and enforceable agreements is vital for every business. A well-written contract protects your interests and helps avoid future disputes. In Kenya, commercial law requires specific elements to make a contract valid. We focus on making these agreements simple and effective for our clients.",
     image: "https://wakilihub.co.ke/wp-content/uploads/2025/12/Sexual-Harassment-Policy-in-Kenya-768x480.webp",
     date: "Dec 20, 2025",
     author: "M.S. Ochieng",
-    category: "Corporate Commercial Law",
-    sectors: ["Import/Export", "Supply Chain", "FinTech"]
+    category: "Commercial Law",
+    sectors: ["Business", "Startups", "Corporate"]
   },
   {
-    id: 2,
-    title: "The Architecture of Capital Gains Tax in Kenya",
-    content: "The Kenya Revenue Authority's (KRA) aggressive stance on capital gains realization has caught many institutional investors off-guard. The 2024 Revenue Act amendments signify a departure from legacy taxation models, shifting toward a more granular, realization-focused framework. Structural financing for property developments must now account for these complexities at the inception phase.",
+    id: "property-transfers-kenya",
+    title: "Property Transfers in Kenya: Avoiding Common Pitfalls",
+    content: "Buying or selling property in Kenya is a big step. It requires careful checking of titles and following the right legal steps. The conveyancing process can be complex, but with the right help, it becomes a smooth journey. We ensure your property investment is safe and legally sound.",
     image: "https://wakilihub.co.ke/wp-content/uploads/2025/12/Carrying-Out-a-Redundancy-Process-in-Kenya-768x583.webp",
     date: "Dec 15, 2025",
-    author: "A. Korir",
-    category: "Real Estate",
-    sectors: ["Real Estate Development", "Private Equity", "Banking"]
+    author: "M.S. Ochieng",
+    category: "Conveyancing & Property",
+    sectors: ["Real Estate", "Investment", "Housing"]
   },
   {
-    id: 3,
-    title: "Executive Stewardship: Beyond the Employment Act",
-    content: "In the elite sectors of regional business, employment is defined by stewardship and complex intellectual property mandates. The standard Employment Act, while foundational, is insufficient for protecting institutional IP and executive-level trade secrets. We explore the architectural requirements for robust service level agreements that secure the firm's competitive edge.",
+    id: "workplace-disputes-practices",
+    title: "Navigating Workplace Disputes: Best Practices for Employers",
+    content: "A happy workplace is a productive one. Understanding your rights and duties under the Employment Act is the first step. When disputes happen, handling them with fairness and clear communication is key. We help employers build strong policies and resolve issues before they become legal problems.",
     image: "https://wakilihub.co.ke/wp-content/uploads/2025/12/Carrying-Out-Termination-of-Employment-in-Kenya-768x449.webp",
     date: "Dec 10, 2025",
     author: "M.S. Ochieng",
     category: "Employment Law",
-    sectors: ["Human Capital", "Corporate Tech", "Heavy Industry"]
+    sectors: ["Business", "HR", "Legal Compliance"]
+  },
+  {
+    id: "family-trusts-in-kenya",
+    title: "Family Trusts in Kenya: How to Protect Your Wealth and Secure Your Legacy",
+    content: "A Family Trust is a powerful tool for managing and protecting family assets. It allows for the seamless transfer of wealth across generations while minimizing tax liabilities and avoiding the lengthy probate process. In Kenya, recent legal updates have made Trusts even more attractive for families looking to secure their future.",
+    image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070&auto=format&fit=crop",
+    date: "Oct 12, 2026",
+    author: "M.S. Ochieng",
+    category: "Family Law",
+    sectors: ["Wealth Management", "Family", "Trusts"]
+  },
+  {
+    id: "registered-family-trust",
+    title: "Beyond the Will: Why a Registered Family Trust is the Ultimate Legacy Tool",
+    content: "While a Will is important, a Registered Family Trust offers much more control and privacy. It acts as a living vehicle for your assets, ensuring they are managed according to your wishes even if you are no longer there. This article explores the strategic advantages of choosing a Trust over a traditional Will in the Kenyan legal landscape.",
+    image: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=2070&auto=format&fit=crop",
+    date: "Sep 05, 2026",
+    author: "M.S. Ochieng",
+    category: "Legacy Planning",
+    sectors: ["Estate Planning", "Trusts", "Private Client"]
+  },
+  {
+    id: "mediation-resolving-disputes",
+    title: "The Power of Mediation: Resolving Disputes Efficiently",
+    content: "You don't always need to go to court to solve a problem. Mediation is a way for people to talk through their issues and find a solution that works for everyone. It is often faster and less stressful than a trial. We guide our clients through strategic mediation to save time and protect relationships.",
+    image: "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?auto=format&fit=crop&w=800&q=80",
+    date: "Nov 22, 2025",
+    author: "M.S. Ochieng",
+    category: "ADR & Negotiation",
+    sectors: ["Business", "Conflict Resolution", "Legal Strategy"]
+  },
+  {
+    id: "trademark-registration-essentials",
+    title: "Protecting Your Brand: Trademark Registration Essentials",
+    content: "Your brand name and logo are your business's identity. In a competitive market, it is vital to protect them from being used by others. Registering a trademark gives you the legal right to your brand. We help businesses secure their intellectual property and build long-term value.",
+    image: "https://images.unsplash.com/photo-1589216532372-1c2a367900d9?auto=format&fit=crop&w=800&q=80",
+    date: "Nov 15, 2025",
+    author: "M.S. Ochieng",
+    category: "IP & Data Privacy",
+    sectors: ["Marketing", "Startups", "Creative Economy"]
+  },
+  {
+    id: "data-protection-compliance",
+    title: "Digital Privacy: Compliance with the Data Protection Act",
+    content: "Data privacy is a major concern today. Businesses must follow the standards set by the Kenya Data Protection Act 2019 to protect their customers' information. Compliance is not just about avoiding fines; it's about building trust. We help businesses understand and follow these important rules.",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
+    date: "Nov 08, 2025",
+    author: "M.S. Ochieng",
+    category: "IP & Data Privacy",
+    sectors: ["Tech", "Finance", "Legal Compliance"]
+  },
+  {
+    id: "entertainment-law-contracts",
+    title: "Entertainment Law: Negotiating Talent Contracts",
+    content: "Creators, actors, and musicians need strong legal frameworks to protect their work. Clear contracts ensure that everyone is treated fairly in the production and licensing process. We help talent and production companies negotiate agreements that respect creative work and commercial rights.",
+    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80",
+    date: "Nov 01, 2025",
+    author: "M.S. Ochieng",
+    category: "Media & Entertainment",
+    sectors: ["Creative Arts", "Digital Media", "Licensing"]
   }
 ];
 
 export default function BlogPost() {
   const [match, params] = useRoute("/blog/:id");
-  const post = blogPosts.find(p => p.id === parseInt(params?.id)) || blogPosts[0];
+  const post = blogPosts.find(p => p.id === params?.id) || blogPosts[0];
 
   return (
     <Layout>
       <SocialSidebar />
       <article className="bg-white">
         {/* Post Hero */}
-        <header className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-6 overflow-hidden bg-secondary">
+        <header className="relative pt-48 pb-16 md:pt-56 md:pb-24 px-6 overflow-hidden bg-secondary">
           <div className="absolute inset-0 z-0">
             <img 
               src={post.image} 
@@ -124,15 +184,15 @@ export default function BlogPost() {
                   {post.content}
                 </p>
                 
-                <h3 className="font-serif-heading text-4xl text-secondary mt-20 mb-10 font-bold uppercase tracking-tight">Legislative Precedence & Compliance.</h3>
+                <h3 className="font-serif-heading text-4xl text-secondary mt-20 mb-10 font-bold uppercase tracking-tight">Legal Trends & Compliance</h3>
                 <p className="font-sans font-light leading-relaxed text-foreground/70 mb-12">
-                  Jurisprudence in Kenya and the wider EAC region has shifted significantly toward institutional transparency. The standard of due diligence required of directors and corporate officers has evolved from 'reasonable care' to 'structural foresight'. Our focus here is the mitigation of risk through preemptive legal architecturing.
+                  The law in Kenya is always changing. For businesses and individuals, staying updated is the best way to avoid risks. We focus on helping our clients understand these changes before they cause problems. Our goal is to provide clear advice that helps you move forward with confidence.
                 </p>
 
                 <div className="bg-secondary p-16 my-20 shadow-4xl relative overflow-hidden group">
                   <div className="absolute top-0 right-0 w-32 h-32 bg-[#cc2027]/10 -translate-y-1/2 translate-x-1/2 rotate-45 group-hover:bg-[#cc2027]/20 transition-all duration-700" />
                   <p className="font-serif-sub text-2xl md:text-3xl text-white/90 leading-relaxed italic relative z-10">
-                    "Institutional silence is no longer an option in matters of regulatory flux. The mandate for excellence requires absolute clarity of purpose and precision in execution."
+                    "Innovation. Integrity. Commitment. Excellence. We are dedicated to providing the best legal solutions for your success."
                   </p>
                   <div className="mt-10 h-px w-20 bg-[#cc2027]/40 group-hover:w-full transition-all duration-1000" />
                 </div>
@@ -154,11 +214,11 @@ export default function BlogPost() {
                     <h4 className="font-serif-heading text-3xl text-secondary mb-3 font-bold">{post.author}</h4>
                     <p className="font-serif-sub tracking-widest uppercase text-[11px] text-[#cc2027] mb-8 font-bold">Managing Partner & Senior Counsel</p>
                     <p className="font-sans text-foreground/60 text-sm font-light leading-relaxed mb-10 max-w-2xl">
-                      A leading authority on corporate governance and regional trade law, {post.author} has advised elite institutional clients on mandate critical structural changes for over two decades.
+                      As a trusted advocate and advisor, {post.author} has helped many clients solve complex legal problems with innovation and commitment.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-8">
                        <Link href="/consultation" className="font-serif-sub tracking-[0.2em] text-[10px] uppercase text-[#cc2027] border-b-2 border-[#cc2027]/30 hover:border-[#cc2027] pb-1 no-underline transition-all font-bold">
-                         Engage for Institutional Advisory →
+                         Engage for Advice →
                        </Link>
                        <Link href="/blog" className="font-serif-sub tracking-[0.2em] text-[10px] uppercase text-secondary/40 hover:text-secondary pb-1 no-underline transition-all font-bold">
                          Back to Journal Overview
