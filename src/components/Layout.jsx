@@ -249,10 +249,11 @@ export default function Layout({ children }) {
 
           </div>
           
-          <div className="border-t border-white/30 pt-6 text-center">
+          <div className="border-t border-white/30 pt-6 flex flex-col md:flex-row justify-between items-center text-center">
             <p className="font-sans text-[11px] font-bold italic tracking-wide">
               © Copyright {new Date().getFullYear()} M.S. Ochieng Legal. All Rights Reserved.
             </p>
+            <Link href="/admin" className="font-sans text-[10px] text-white/40 hover:text-white mt-4 md:mt-0 font-bold tracking-widest uppercase transition-colors">Admin Portal</Link>
           </div>
         </div>
       </footer>

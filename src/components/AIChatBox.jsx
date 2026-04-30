@@ -34,12 +34,15 @@ BEHAVIOR RULES:
 - Always end responses that involve legal matters with: "For personalized advice on your specific situation, I recommend scheduling a consultation with our advocates."
 - Format responses in a clean, readable way`;
 
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
 // Universal AI Configuration
 const AI_CONFIG = {
   apiKey: import.meta.env.VITE_AI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY,
-  baseUrl: import.meta.env.VITE_AI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta/openai',
   model: import.meta.env.VITE_AI_MODEL || 'gemini-1.5-flash'
 };
+
+const genAI = new GoogleGenerativeAI(AI_CONFIG.apiKey || "dummy_key");
 
 console.log('Chatbot initialized with model:', AI_CONFIG.model);
 
@@ -69,33 +72,23 @@ export default function AIChatBox() {
     const apiKey = AI_CONFIG.apiKey;
     
     try {
-      const response = await fetch(`${AI_CONFIG.baseUrl}/chat/completions`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${apiKey}`
-        },
-        body: JSON.stringify({
-          model: AI_CONFIG.model,
-          messages: [
-            { role: 'system', content: SYSTEM_PROMPT },
-            ...messages.map(m => ({
-              role: m.role === 'bot' ? 'assistant' : 'user',
-              content: m.text
-            })),
-            { role: 'user', content: userMessage }
-          ],
-          temperature: 0.7,
-        })
-      });
-
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.error?.message || `HTTP error! status: ${response.status}`);
+      if (!apiKey || apiKey === "dummy_key") {
+        throw new Error("Missing Gemini API Key in .env");
       }
 
-      const data = await response.json();
-      const text = data.choices[0].message.content;
+      const model = genAI.getGenerativeModel({ model: AI_CONFIG.model, systemInstruction: SYSTEM_PROMPT });
+      
+      const history = messages.slice(1).map(m => ({
+        role: m.role === 'bot' ? 'model' : 'user',
+        parts: [{ text: m.text }]
+      }));
+
+      const chat = model.startChat({
+        history,
+      });
+
+      const result = await chat.sendMessage(userMessage);
+      const text = result.response.text();
 
       setMessages(prev => [...prev, { role: 'bot', text }]);
     } catch (error) {

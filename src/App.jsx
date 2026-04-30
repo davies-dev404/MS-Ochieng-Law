@@ -12,6 +12,7 @@ import BlogPost from "@/pages/BlogPost";
 import Terms from "@/pages/Terms";
 import ServiceCharter from "@/pages/ServiceCharter";
 import OurPeople from "@/pages/OurPeople";
+import Admin from "@/pages/Admin";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ function Router() {
       <Route path="/blog/:id" component={BlogPost} />
       <Route path="/service-charter" component={ServiceCharter} />
       <Route path="/people" component={OurPeople} />
+      <Route path="/admin" component={Admin} />
       <Route path="/terms" component={Terms} />
       <Route component={NotFound} />
     </Switch>

@@ -2,7 +2,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "@/components/Layout";
 import SocialSidebar from "@/components/SocialSidebar";
+import NewsletterForm from "@/components/NewsletterForm";
 import { Link } from "wouter";
+import { getBlogPosts } from "@/lib/blogData";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -14,94 +16,13 @@ const stagger = {
   visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.05 } },
 };
 
-const blogPosts = [
-  {
-    id: "commercial-contracts-guide",
-    title: "Understanding Commercial Contracts: A Guide for Businesses",
-    snippet: "Drafting clear and enforceable agreements is vital for every business. We break down the key elements you need to know...",
-    image: "https://wakilihub.co.ke/wp-content/uploads/2025/12/Sexual-Harassment-Policy-in-Kenya-768x480.webp",
-    date: "Dec 20, 2025",
-    author: "M.S. Ochieng",
-    category: "Commercial Law"
-  },
-  {
-    id: "property-transfers-kenya",
-    title: "Property Transfers in Kenya: Avoiding Common Pitfalls",
-    snippet: "Buying or selling property requires careful due diligence. Learn how to protect your investment during the conveyancing process...",
-    image: "https://wakilihub.co.ke/wp-content/uploads/2025/12/Carrying-Out-a-Redundancy-Process-in-Kenya-768x583.webp",
-    date: "Dec 15, 2025",
-    author: "M.S. Ochieng",
-    category: "Conveyancing & Property"
-  },
-  {
-    id: "workplace-disputes-practices",
-    title: "Navigating Workplace Disputes: Best Practices for Employers",
-    snippet: "Maintaining a positive work environment involves understanding labor laws and handling grievances with fairness and transparency...",
-    image: "https://wakilihub.co.ke/wp-content/uploads/2025/12/Carrying-Out-Termination-of-Employment-in-Kenya-768x449.webp",
-    date: "Dec 10, 2025",
-    author: "M.S. Ochieng",
-    category: "Employment Law"
-  },
-  {
-    id: "family-trusts-in-kenya",
-    title: "Family Trusts in Kenya: How to Protect Your Wealth and Secure Your Legacy",
-    snippet: "Learn how a Family Trust can safeguard your family assets and ensure a smooth wealth transfer across generations...",
-    image: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070&auto=format&fit=crop",
-    date: "Oct 12, 2026",
-    author: "M.S. Ochieng",
-    category: "Family Law"
-  },
-  {
-    id: "registered-family-trust",
-    title: "Beyond the Will: Why a Registered Family Trust is the Ultimate Legacy Tool",
-    snippet: "Discover why a Registered Family Trust offers more control, privacy, and protection than a traditional Will for your legacy...",
-    image: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=2070&auto=format&fit=crop",
-    date: "Sep 05, 2026",
-    author: "M.S. Ochieng",
-    category: "Legacy Planning"
-  },
-  {
-    id: "mediation-resolving-disputes",
-    title: "The Power of Mediation: Resolving Disputes Efficiently",
-    snippet: "Mediation offers a faster, more confidential way to settle commercial and personal conflicts without entering a courtroom...",
-    image: "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?auto=format&fit=crop&w=800&q=80",
-    date: "Nov 22, 2025",
-    author: "M.S. Ochieng",
-    category: "ADR & Negotiation"
-  },
-  {
-    id: "trademark-registration-essentials",
-    title: "Protecting Your Brand: Trademark Registration Essentials",
-    snippet: "Your brand is your most valuable asset. Discover why registering your trademark is crucial for long-term business protection...",
-    image: "https://images.unsplash.com/photo-1589216532372-1c2a367900d9?auto=format&fit=crop&w=800&q=80",
-    date: "Nov 15, 2025",
-    author: "M.S. Ochieng",
-    category: "IP & Data Privacy"
-  },
-  {
-    id: "data-protection-compliance",
-    title: "Digital Privacy: Compliance with the Data Protection Act",
-    snippet: "How businesses can ensure they are meeting the standards required by the Kenya Data Protection Act 2019...",
-    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80",
-    date: "Nov 08, 2025",
-    author: "M.S. Ochieng",
-    category: "IP & Data Privacy"
-  },
-  {
-    id: "entertainment-law-contracts",
-    title: "Entertainment Law: Negotiating Talent Contracts",
-    snippet: "Empowering creators with clear legal frameworks for production, distribution, and licensing in the modern digital economy...",
-    image: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?auto=format&fit=crop&w=800&q=80",
-    date: "Nov 01, 2025",
-    author: "M.S. Ochieng",
-    category: "Media & Entertainment"
-  }
-];
+// Blog posts are now managed centrally in src/lib/blogData.js
 
 const categories = ["All", "Conveyancing & Property", "Commercial Law", "Immigration", "Family Law", "Litigation", "ADR & Negotiation", "IP & Data Privacy", "Employment Law", "Media & Entertainment"];
 
 export default function Blog() {
   const [activeCategory, setActiveCategory] = useState("All");
+  const blogPosts = getBlogPosts();
 
   const handleCategoryChange = (cat) => {
     setActiveCategory(cat);
@@ -251,12 +172,7 @@ export default function Blog() {
           <motion.p variants={fadeUp} className="font-sans text-white/50 font-light mb-16 text-lg leading-relaxed max-w-xl mx-auto">
             Subscribe to receive preeminent legal briefings directly in your corporate inbox. No noise. Pure strategic foresight.
           </motion.p>
-          <motion.form variants={fadeUp} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto" onSubmit={(e) => e.preventDefault()}>
-             <input type="email" placeholder="Professional Email" className="bg-white/5 border border-white/10 px-8 py-5 text-white focus:outline-none focus:border-[#cc2027] transition-all rounded-sm font-sans flex grow placeholder:text-white/20" />
-             <button className="bg-[#cc2027] text-white font-serif-sub tracking-[0.3em] uppercase text-[10px] px-12 py-5 font-bold hover:bg-white hover:text-secondary transition-all shadow-2xl shrink-0">
-               Subscribe
-             </button>
-          </motion.form>
+          <NewsletterForm fadeUp={fadeUp} />
         </motion.div>
       </section>
     </Layout>
