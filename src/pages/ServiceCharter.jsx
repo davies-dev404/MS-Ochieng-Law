@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Layout from '../components/Layout';
 import SocialSidebar from '../components/SocialSidebar';
+import { useLanguage } from "../contexts/LanguageContext";
+import { useTranslation } from "../lib/translations";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -45,45 +47,41 @@ const AccordionItem = ({ title, isActive, onClick, children }) => {
 
 export default function ServiceCharter() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const { language } = useLanguage();
+  const { t } = useTranslation(language);
 
   const sections = [
     {
-      title: "Billing",
+      title: t('charter.billing'),
       content: (
         <div>
-          <h4 className="font-bold mb-2 text-[#1c2f54]">Legal Fees and Retainer Fees</h4>
-          <p>Our legal fees and or retainer fee for all legal services is discussed and structured with each client and is based on the scope of services and the level of support required, tailored to meet your specific needs. The same is arrived at within the Advocates Remuneration Order, 2014.</p>
+          <h4 className="font-bold mb-2 text-[#1c2f54]">{t('charter.billing_title')}</h4>
+          <p>{t('charter.billing_desc')}</p>
         </div>
       )
     },
     {
-      title: "Service",
+      title: t('charter.service'),
       content: (
         <div className="space-y-4">
-          <p>We recognize the value of efficient, effective and quality services to our clients.</p>
-          <p>In seeking to provide these services, we are guided by our core values that meet professional standards and client satisfaction.</p>
+          <p>{t('charter.service_desc')}</p>
         </div>
       )
     },
     {
-      title: "Action and Service Delivery Charter",
+      title: t('charter.delivery'),
       content: (
         <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li>Answering telephone calls within seconds of ringing.</li>
-          <li>Returning telephone calls within 1 hour of receipt.</li>
-          <li>Acknowledging receipt of emails within 1 hour of receipt.</li>
-          <li>Instructions within 24 hours of receipt.</li>
-          <li>Replying to routine correspondences within 24 hours of receipt.</li>
-          <li>Preparation of standard form documentation (e.g. leases) within two days of receipt of instructions.</li>
-          <li>Attending to court and related matters within the duration given.</li>
-          <li>Preparation and sharing of status reports with client every end of the month.</li>
+          {t('charter.delivery_points').map((point, i) => (
+            <li key={i}>{point}</li>
+          ))}
         </ul>
       )
     },
     {
-      title: "Technology",
+      title: t('charter.tech'),
       content: (
-        <p>The firm is equipped with modern computers and efficient I.T systems. We have embraced the use of technology in our legal research, storage of documents, references, tracking client cases, email management among others. This enables us to be faster and effective in the provision of legal services to all our clients.</p>
+        <p>{t('charter.tech_desc')}</p>
       )
     }
   ];
@@ -97,22 +95,22 @@ export default function ServiceCharter() {
         <div className="absolute top-0 left-0 w-1/3 h-full bg-linear-to-r from-white/5 to-transparent pointer-none" />
         
         <div className="max-w-7xl mx-auto relative z-10 flex flex-col items-center">
-          <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.12 } } }} className="max-w-4xl">
+          <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.12 } } }} className="max-w-6xl w-full">
             {/* Legal Excellence Label */}
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">
-                Client Service
+                {t('charter.label')}
               </span>
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
 
-            <motion.h1 variants={fadeUp} className="text-5xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase whitespace-nowrap">
-              SERVICE <span className="text-[#cc2027]">CHARTER.</span>
+            <motion.h1 variants={fadeUp} className="text-5xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase text-center whitespace-nowrap">
+              {t('charter.title').split(' ')[0]} <span className="text-[#cc2027]">{t('charter.title').split(' ').slice(1).join(' ')}</span>
             </motion.h1>
             
             <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
-              Our commitment to surgical precision, strategic responsiveness, and absolute transparency in every client engagement.
+              {t('charter.desc')}
             </motion.p>
           </motion.div>
         </div>

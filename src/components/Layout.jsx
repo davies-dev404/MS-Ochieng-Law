@@ -7,22 +7,25 @@ import { FaXTwitter } from "react-icons/fa6";
 import BrandMark from "./BrandMark";
 import FloatingWhatsApp from "./FloatingWhatsApp";
 import AIChatBox from "./AIChatBox";
-
-// Exact links from the provided nav structure screenshot
-const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/about-us", label: "About Us" },
-  { href: "/practice", label: "Our Expertise" },
-  { href: "/service-charter", label: "Service Charter" },
-  { href: "/people", label: "Our People" },
-  { href: "/blog", label: "Blog" },
-  { href: "/consultation", label: "Contact Us" },
-];
+import { useLanguage } from "../contexts/LanguageContext";
+import { useTranslation } from "../lib/translations";
 
 export default function Layout({ children }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
+  const { language, toggleLanguage } = useLanguage();
+  const { t } = useTranslation(language);
+
+  const navLinks = [
+    { href: "/", label: t('nav.home') },
+    { href: "/about-us", label: t('nav.about') },
+    { href: "/practice", label: t('nav.expertise') },
+    { href: "/service-charter", label: t('nav.charter') },
+    { href: "/people", label: t('nav.people') },
+    { href: "/blog", label: t('nav.blog') },
+    { href: "/consultation", label: t('nav.contact') },
+  ];
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -43,7 +46,7 @@ export default function Layout({ children }) {
     "url": "https://msochienglaw.co.ke/",
     "logo": "https://msochienglaw.co.ke/mso-branding.jpg",
     "telephone": "+254 791 857001",
-    "email": "[EMAIL_ADDRESS]",
+    "email": "info@msochienglaw.co.ke",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Upper Hill Chambers",
@@ -80,14 +83,14 @@ export default function Layout({ children }) {
       <script type="application/ld+json">
         {JSON.stringify(schemaData)}
       </script>
-    <header id="heda" className={`w-full z-50 flex flex-col fixed top-0 transition-all duration-300 pointer-events-none ${isScrolled ? 'pt-0 px-0' : 'pt-2 md:pt-4 px-3 md:px-8'}`}>
+    <header id="heda" className={`w-full z-50 flex flex-col fixed transition-all duration-300 pointer-events-none ${isScrolled ? 'top-2 md:top-4 px-3 md:px-8' : 'top-0 pt-2 md:pt-4 px-3 md:px-8'}`}>
         <div className={`w-full mx-auto max-w-[1240px] flex flex-col transition-all duration-500 pointer-events-auto ${
           isScrolled 
-            ? 'bg-white rounded-none md:rounded-b-2xl shadow-md border-b border-gray-200' 
+            ? 'bg-white/80 backdrop-blur-xl rounded-2xl md:rounded-3xl shadow-xl ring-1 ring-black/5' 
             : 'bg-white/95 backdrop-blur-md rounded-xl md:rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] ring-1 ring-black/5'
         }`}>
             {/* Top Utility Bar (Navy Blue) */}
-            <div className={`header-top-bar bg-[#1c2f54] text-white py-[6px] md:py-[8px] w-full border-b border-white/10 ${!isScrolled ? 'rounded-t-xl md:rounded-t-2xl' : ''}`}>
+            <div className={`header-top-bar bg-[#1c2f54] text-white py-[6px] md:py-[8px] w-full border-b border-white/10 ${isScrolled ? 'rounded-t-2xl md:rounded-t-3xl' : 'rounded-t-xl md:rounded-t-2xl'}`}>
                 <div className="container mx-auto px-3 md:px-6">
                     <div className="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 text-[10px] md:text-[13px] tracking-wide">
                         {/* Contact Info Row */}
@@ -100,17 +103,51 @@ export default function Layout({ children }) {
                             </a>
                         </div>
                         
-                        {/* Search & Socials Row */}
-                        <div className="flex items-center justify-between lg:justify-end gap-4 w-full lg:w-auto mt-1 lg:mt-0 border-t border-white/5 pt-2 lg:pt-0 lg:border-t-0">
+                        {/* Search, Language & Socials Row */}
+                        <div className="flex items-center justify-between lg:justify-end gap-3 w-full lg:w-auto mt-1 lg:mt-0 border-t border-white/5 pt-2 lg:pt-0 lg:border-t-0">
+                            {/* Language Switcher */}
+                            <div className="flex items-center bg-white/10 rounded-sm px-1 py-1 gap-1">
+                              {['EN', 'FR', 'SW'].map((lang) => (
+                                <button
+                                  key={lang}
+                                  onClick={() => toggleLanguage(lang)}
+                                  className={`text-[9px] font-bold px-1.5 py-0.5 rounded-[1px] transition-all ${
+                                    language === lang 
+                                      ? 'bg-white text-[#1c2f54]' 
+                                      : 'text-white hover:bg-white/20'
+                                  }`}
+                                >
+                                  {lang}
+                                </button>
+                              ))}
+                            </div>
+
                             <div id="search" className="grow lg:grow-0">
-                                <form role="search" method="get" className="search-form flex h-7 shadow-sm" action="/">
+                                <form 
+                                  role="search" 
+                                  className="search-form flex h-7 shadow-sm" 
+                                  onSubmit={(e) => {
+                                    e.preventDefault();
+                                    const formData = new FormData(e.target);
+                                    const query = formData.get('s');
+                                    if (query && query.trim()) {
+                                      setLocation(`/search?q=${encodeURIComponent(query.trim())}`);
+                                    }
+                                  }}
+                                >
                                     <label className="m-0 grow">
-                                        <input type="search" className="search-field px-2 h-full text-gray-700 text-[11px] outline-none w-full md:w-[130px] bg-white rounded-l-[2px] border-none placeholder:text-gray-400" placeholder="Search..." name="s" title="Search for:" />
+                                        <input 
+                                          type="search" 
+                                          className="search-field px-2 h-full text-gray-700 text-[11px] outline-none w-full md:w-[130px] bg-white rounded-l-[2px] border-none placeholder:text-gray-400" 
+                                          placeholder={t('search.placeholder')} 
+                                          name="s" 
+                                          title="Search for:" 
+                                        />
                                     </label>
-                                    <input type="submit" className="search-submit bg-[#cc2027] text-white px-3 font-bold text-[10px] h-full border-none cursor-pointer hover:bg-red-800 tracking-wider rounded-r-[2px] transition-colors" value="SEARCH" />
+                                    <input type="submit" className="search-submit bg-[#cc2027] text-white px-3 font-bold text-[10px] h-full border-none cursor-pointer hover:bg-red-800 tracking-wider rounded-r-[2px] transition-colors" value={t('search.button')} />
                                 </form>
                             </div>
-                            <ul className="flex items-center gap-1.5 md:gap-2.5 m-0 p-0 list-none text-white">
+                            <ul className="items-center gap-1.5 md:gap-2 m-0 p-0 list-none text-white hidden sm:flex">
                                 <li className="flex gap-1.5 md:gap-2">                                        
                                     <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61551090343152" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] transition-all text-white" title="Facebook"><FaFacebookF size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="https://x.com/pakadvocates" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white" title="X (Twitter)"><FaXTwitter size={10} /></a>
@@ -124,11 +161,11 @@ export default function Layout({ children }) {
             </div>
 
             {/* Main Navigation Bar (White) */}
-            <div className={`header-main-bar bg-white py-1.5 md:py-2 ${!isScrolled ? 'rounded-b-xl md:rounded-b-2xl' : ''}`}>
+            <div className={`header-main-bar bg-transparent py-1.5 md:py-2 ${isScrolled ? 'rounded-b-2xl md:rounded-b-3xl' : 'rounded-b-xl md:rounded-b-2xl'}`}>
                 <div className="container mx-auto px-4 lg:px-6 flex justify-between items-center relative">
-                    <div className="logo shrink-0 scale-90 md:scale-100 transition-transform origin-left">
+                    <div className="logo shrink-0 transition-transform origin-left">
                         <Link href="/">
-                            <BrandMark variant="gold" size="small" className="drop-shadow-sm" />
+                            <BrandMark variant="black" size="small" className="drop-shadow-sm" />
                         </Link>
                     </div>
                     
@@ -211,30 +248,30 @@ export default function Layout({ children }) {
                  <BrandMark variant="gold" size="medium" />
               </div>
               <p className="font-sans text-white text-[13px] leading-relaxed font-bold tracking-wide">
-                M.S. OCHIENG LEGAL is a modern law firm dedicated to your success. We provide clear advice and strong representation to protect your interests and help you achieve your goals.
+                {t('footer.bio')}
               </p>
             </div>
 
             <div>
-              <h3 className="font-sans text-lg font-bold mb-6 tracking-wide underline underline-offset-8 decoration-2 decoration-white/80 whitespace-nowrap">PRACTICE AREAS</h3>
+              <h3 className="font-sans text-lg font-bold mb-6 tracking-wide underline underline-offset-8 decoration-2 decoration-white/80 whitespace-nowrap">{t('footer.practice_title')}</h3>
               <div className="flex flex-col gap-3">
-                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Conveyancing & Property</Link>
-                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Commercial & Corporate Law</Link>
-                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Immigration</Link>
-                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Family & Children</Link>
-                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Civil & Criminal Litigation</Link>
-                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">ADR & Strategic Negotiation</Link>
-                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">IP, Tech & Data Privacy</Link>
-                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">Employment & Labor Law</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.conveyancing')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.commercial')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.immigration')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.family')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.litigation')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.adr')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.ip')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.employment')}</Link>
               </div>
             </div>
 
             <div>
-              <h3 className="font-sans text-lg font-bold mb-6 tracking-wide underline underline-offset-8 decoration-2 decoration-white/80">CONTACT US</h3>
+              <h3 className="font-sans text-lg font-bold mb-6 tracking-wide underline underline-offset-8 decoration-2 decoration-white/80">{t('footer.contact_title')}</h3>
               <div className="flex flex-col gap-5">
                  <div className="flex gap-4 items-start">
                    <div className="bg-white text-[#1c2f54] p-1.5 rounded-[2px] mt-0.5"><HomeIcon size={14} strokeWidth={2.5} /></div>
-                   <p className="font-sans text-[13px] font-bold leading-tight">Suite 1421, Upper Hill Complex<br/>Nairobi, Kenya</p>
+                   <p className="font-sans text-[13px] font-bold leading-tight whitespace-pre-line">{t('footer.address')}</p>
                  </div>
                  <div className="flex gap-4 items-center">
                    <div className="bg-white text-[#1c2f54] p-1.5 rounded-[2px]"><Headphones size={14} strokeWidth={2.5} /></div>
@@ -251,7 +288,7 @@ export default function Layout({ children }) {
           
           <div className="border-t border-white/30 pt-6 flex flex-col md:flex-row justify-between items-center text-center">
             <p className="font-sans text-[11px] font-bold italic tracking-wide">
-              © Copyright {new Date().getFullYear()} M.S. Ochieng Legal. All Rights Reserved.
+              {t('footer.copyright').replace('{year}', new Date().getFullYear())}
             </p>
             <Link href="/admin" className="font-sans text-[10px] text-white/40 hover:text-white mt-4 md:mt-0 font-bold tracking-widest uppercase transition-colors">Admin Portal</Link>
           </div>
@@ -266,6 +303,9 @@ export default function Layout({ children }) {
 
 function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
+
+  const { language } = useLanguage();
+  const { t } = useTranslation(language);
 
   useEffect(() => {
     const consent = localStorage.getItem('cookie-consent');
@@ -289,18 +329,18 @@ function CookieConsent() {
           exit={{ y: 100, opacity: 0 }}
           className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:w-[400px] bg-white text-secondary p-6 shadow-4xl z-100 border-l-4 border-[#cc2027] rounded-sm"
         >
-          <h4 className="font-serif-sub text-xs uppercase tracking-widest font-bold mb-3 text-[#cc2027]">Cookie & Privacy Settings</h4>
+          <h4 className="font-serif-sub text-xs uppercase tracking-widest font-bold mb-3 text-[#cc2027]">{t('cookie.title')}</h4>
           <p className="font-sans text-[11px] leading-relaxed mb-6 font-medium text-[#1c2f54]">
-            We use cookies to improve your experience and analyze site traffic. By continuing to browse, you agree to our use of cookies and our terms of service.
+            {t('cookie.desc')}
           </p>
           <div className="flex items-center gap-4">
             <button 
               onClick={accept}
               className="bg-[#1c2f54] text-white text-[10px] uppercase font-bold tracking-widest px-6 py-2.5 rounded-sm hover:bg-[#cc2027] transition-all"
             >
-              Accept All
+              {t('cookie.accept')}
             </button>
-            <Link href="/terms" className="text-[10px] uppercase font-bold tracking-widest text-[#1c2f54]/50 hover:text-[#cc2027] transition-all">Details</Link>
+            <Link href="/terms" className="text-[10px] uppercase font-bold tracking-widest text-[#1c2f54]/50 hover:text-[#cc2027] transition-all">{t('cookie.details')}</Link>
           </div>
         </motion.div>
       )}

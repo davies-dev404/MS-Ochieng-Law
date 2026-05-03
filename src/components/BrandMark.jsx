@@ -11,10 +11,10 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
   // Logical styling based on size prop
   const sizeStyles = {
     small: {
-      svgWidth: 58,
-      svgHeight: 52,
-      nameSize: 'text-[13px]',
-      legalGap: 'gap-3',
+      svgWidth: 44,
+      svgHeight: 38,
+      nameSize: 'text-[10px]',
+      legalGap: 'gap-2',
       legalText: 'text-[8px]',
       taglineSize: 'text-[9px]',
       containerGap: 'gap-1',
@@ -27,7 +27,7 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
       svgHeight: 70,
       nameSize: 'text-lg',
       legalGap: 'gap-4',
-      legalText: 'text-[10px]',
+      legalText: 'text-[11px]',
       taglineSize: 'text-xs',
       containerGap: 'gap-1.5',
       nameMargin: 'mb-1',
@@ -39,7 +39,7 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
       svgHeight: 140,
       nameSize: 'text-4xl md:text-6xl',
       legalGap: 'gap-10', // Significantly wider for hero
-      legalText: 'text-sm md:text-base',
+      legalText: 'text-sm md:text-lg',
       taglineSize: 'text-base md:text-xl',
       containerGap: 'gap-6', // Increased gap for hero
       nameMargin: 'mb-4',
@@ -50,9 +50,29 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
 
   const style = sizeStyles[size] || sizeStyles.medium;
   
-  // Colors based on theme - switched to higher contrast golds for legibility on white
-  const primaryColor = isGold ? '#996515' : '#800000'; // Deep Golden Brown
-  const textColor = isGold ? '#7A5901' : '#800000';    // Dark Rich Gold
+  // Colors based on variant
+  let svgStroke, nameColor, legalColor, taglineColor, useGlow;
+
+  if (variant === 'black') {
+    svgStroke = '#000000'; // Pure pitch black for the logo mark
+    nameColor = '#000000'; // Pure pitch black for the firm name
+    legalColor = '#000000'; // Pure pitch black for 'LEGAL'
+    taglineColor = '#000000'; // Pure pitch black for the tagline
+    useGlow = false;
+  } else if (variant === 'gold') {
+    svgStroke = 'url(#goldGradient)'; // Gold gradient for the mark
+    nameColor = '#7A5901'; // Original Dark Rich Gold
+    legalColor = '#D4AF37'; // Classic Gold
+    taglineColor = '#C5A059'; // Soft Gold
+    useGlow = size !== 'small';
+  } else {
+    // Maroon fallback
+    svgStroke = 'url(#maroonGradient)';
+    nameColor = '#800000';
+    legalColor = '#800000';
+    taglineColor = '#800000';
+    useGlow = false;
+  }
   
   return (
     <div className={`flex flex-col items-center select-none ${className} ${style.containerGap}`}>
@@ -85,11 +105,11 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
         </defs>
         
         <g 
-          stroke={isGold ? "url(#goldGradient)" : "url(#maroonGradient)"} 
-          strokeWidth={size === 'small' ? "3" : "2"} // Thicker stroke for small size
+          stroke={svgStroke} 
+          strokeWidth={size === 'small' ? "3" : "2"}
           strokeLinecap="round" 
           strokeLinejoin="round"
-          filter={isGold && size !== 'small' ? "url(#goldGlow)" : "none"} // Disable glow on small for crispness
+          filter={useGlow ? "url(#goldGlow)" : "none"}
         >
           <path d="M10 80V20L35 55L60 20V80" />
           <path d="M40 30C25 30 20 40 20 50C20 65 70 65 70 80C70 90 60 95 45 95" />
@@ -99,10 +119,10 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
 
       {/* Primary Firm Name */}
       <h2 
-        className={`font-serif-heading font-normal tracking-[0.25em] ${style.nameSize} ${style.nameMargin} whitespace-nowrap`}
+        className={`font-serif-heading font-bold tracking-[0.25em] ${style.nameSize} ${style.nameMargin} whitespace-nowrap`}
         style={{ 
-          color: textColor,
-          textShadow: isGold && size !== 'small' ? '0 15px 30px rgba(0,0,0,0.6)' : 'none'
+          color: nameColor,
+          textShadow: useGlow ? '0 15px 30px rgba(0,0,0,0.6)' : 'none'
         }}
       >
         M. S. OCHIENG
@@ -110,20 +130,20 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
 
       {/* LEGAL with flanking lines */}
       <div className={`flex items-center ${style.legalGap} ${style.legalMargin} w-full px-4`}>
-        <div className="h-px grow" style={{ background: primaryColor, opacity: 0.5 }} />
+        <div className="h-[1.5px] grow" style={{ background: legalColor, opacity: variant === 'black' ? 1 : 0.5 }} />
         <span 
-          className={`font-serif-sub tracking-[0.6em] ${style.legalText} uppercase font-semibold whitespace-nowrap`}
-          style={{ color: primaryColor }}
+          className={`font-serif-sub tracking-[0.6em] ${style.legalText} uppercase font-extrabold whitespace-nowrap`}
+          style={{ color: legalColor }}
         >
           LEGAL
         </span>
-        <div className="h-px grow" style={{ background: primaryColor, opacity: 0.5 }} />
+        <div className="h-[1.5px] grow" style={{ background: legalColor, opacity: variant === 'black' ? 1 : 0.5 }} />
       </div>
 
       {/* Italic Tagline */}
       <p 
-        className={`font-serif-sub italic tracking-widest md:tracking-[0.4em] ${style.taglineSize} opacity-90`}
-        style={{ color: textColor }}
+        className={`font-serif-sub italic tracking-widest md:tracking-[0.4em] ${style.taglineSize} font-extrabold opacity-100`}
+        style={{ color: taglineColor }}
       >
         Innovation. Integrity. Excellence.
       </p>

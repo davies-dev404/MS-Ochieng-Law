@@ -1,45 +1,56 @@
 import { Link } from "wouter";
 import Layout from "@/components/Layout";
 import { motion } from "framer-motion";
+import { useLanguage } from "../contexts/LanguageContext";
+import { useTranslation } from "../lib/translations";
 
 export default function NotFound() {
+  const { language } = useLanguage();
+  const { t } = useTranslation(language);
+
   return (
     <Layout>
-      <div className="min-h-screen w-full flex items-center justify-center bg-white px-6">
-        <div className="max-w-2xl w-full text-center">
+      <div className="min-h-screen w-full flex items-center justify-center bg-[#FBFBFB] px-6">
+        <div className="max-w-4xl w-full">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col md:flex-row items-baseline gap-8 md:gap-16"
           >
-            <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-12">
-              <span className="font-serif-heading text-4xl text-primary font-bold">404</span>
-            </div>
-            
-            <h1 className="font-serif-heading text-4xl md:text-6xl text-secondary mb-8 font-bold">
-              Mandate Not Found
+            <h1 className="font-serif-heading text-[120px] md:text-[240px] leading-none text-[#1c2f54] font-bold tracking-tighter opacity-5 select-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0">
+              404
             </h1>
             
-            <div className="h-1 w-20 bg-primary/20 mx-auto mb-10" />
-            
-            <p className="font-sans text-foreground/50 text-lg font-light leading-relaxed mb-12 max-w-md mx-auto">
-              The page you were looking for has been moved or is not available. 
-              We are here to help you find the right legal solution.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                href="/" 
-                className="inline-block font-serif-sub tracking-[0.25em] uppercase text-xs bg-primary text-white px-10 py-5 hover:bg-secondary transition-all duration-300 font-bold shadow-lg no-underline"
-              >
-                Return to Chambers
-              </Link>
-              <Link 
-                href="/consultation" 
-                className="inline-block font-serif-sub tracking-[0.25em] uppercase text-xs border border-border text-secondary/60 px-10 py-5 hover:border-primary hover:text-primary transition-all duration-300 font-bold no-underline"
-              >
-                Request Assistance
-              </Link>
+            <div className="relative z-10">
+              <p className="font-serif-sub text-xs uppercase tracking-[0.4em] text-[#cc2027] mb-6 font-bold">
+                Error 404
+              </p>
+              <h2 className="font-serif-heading text-5xl md:text-8xl text-[#1c2f54] mb-10 font-bold leading-[0.9] tracking-tight">
+                {t('notfound.title')}<br />
+                <span className="italic font-normal">{t('notfound.subtitle')}</span>
+              </h2>
+              
+              <p className="font-sans text-[#1c2f54]/60 text-lg md:text-xl font-light leading-relaxed mb-16 max-w-md">
+                {t('notfound.desc')}
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-12 items-start sm:items-center">
+                <Link 
+                  href="/" 
+                  className="group relative inline-flex items-center gap-4 font-serif-sub tracking-[0.2em] uppercase text-sm text-[#1c2f54] font-bold no-underline"
+                >
+                  <span className="w-12 h-px bg-[#1c2f54] transition-all group-hover:w-20"></span>
+                  {t('notfound.return')}
+                </Link>
+                
+                <Link 
+                  href="/consultation" 
+                  className="group relative inline-flex items-center gap-4 font-serif-sub tracking-[0.2em] uppercase text-sm text-[#1c2f54]/40 hover:text-[#cc2027] transition-colors font-bold no-underline"
+                >
+                  {t('notfound.support')}
+                </Link>
+              </div>
             </div>
           </motion.div>
         </div>

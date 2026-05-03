@@ -34,17 +34,14 @@ BEHAVIOR RULES:
 - Always end responses that involve legal matters with: "For personalized advice on your specific situation, I recommend scheduling a consultation with our advocates."
 - Format responses in a clean, readable way`;
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
-
 // Universal AI Configuration
+// Force HMR update to capture the newly added API key from .env
 const AI_CONFIG = {
-  apiKey: import.meta.env.VITE_AI_API_KEY || import.meta.env.VITE_GEMINI_API_KEY,
-  model: import.meta.env.VITE_AI_MODEL || 'gemini-1.5-flash'
+  apiKey: import.meta.env.VITE_GROQ_API_KEY || import.meta.env.VITE_OPENAI_API_KEY || '',
+  model: 'llama-3.3-70b-versatile' // Updated to Groq's currently supported LLaMA 3.3 model
 };
 
-const genAI = new GoogleGenerativeAI(AI_CONFIG.apiKey || "dummy_key");
-
-console.log('Chatbot initialized with model:', AI_CONFIG.model);
+console.log('Chatbot initialized with OpenAI model:', AI_CONFIG.model);
 
 export default function AIChatBox() {
   const [isOpen, setIsOpen] = useState(false);
@@ -72,23 +69,41 @@ export default function AIChatBox() {
     const apiKey = AI_CONFIG.apiKey;
     
     try {
-      if (!apiKey || apiKey === "dummy_key") {
-        throw new Error("Missing Gemini API Key in .env");
+      if (!apiKey) {
+        throw new Error("Missing OpenAI API Key in .env (VITE_OPENAI_API_KEY)");
       }
 
-      const model = genAI.getGenerativeModel({ model: AI_CONFIG.model, systemInstruction: SYSTEM_PROMPT });
-      
-      const history = messages.slice(1).map(m => ({
-        role: m.role === 'bot' ? 'model' : 'user',
-        parts: [{ text: m.text }]
-      }));
+      // Format messages for OpenAI
+      const formattedMessages = [
+        { role: 'system', content: SYSTEM_PROMPT },
+        ...messages.slice(1).map(m => ({
+          role: m.role === 'bot' ? 'assistant' : 'user',
+          content: m.text
+        })),
+        { role: 'user', content: userMessage }
+      ];
 
-      const chat = model.startChat({
-        history,
+      const response = await fetch('/api/groq/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: AI_CONFIG.model,
+          messages: formattedMessages,
+          temperature: 0.7,
+          max_tokens: 500
+        })
       });
 
-      const result = await chat.sendMessage(userMessage);
-      const text = result.response.text();
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error?.message || 'Failed to fetch from OpenAI');
+      }
+
+      const data = await response.json();
+      const text = data.choices[0].message.content;
 
       setMessages(prev => [...prev, { role: 'bot', text }]);
     } catch (error) {
@@ -123,7 +138,7 @@ export default function AIChatBox() {
                   <h3 className="text-white font-bold text-sm">MS Ochieng AI</h3>
                   <div className="flex items-center gap-1.5">
                     <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-white/60 text-[10px] uppercase font-bold tracking-wider">Online • Powered by Gemini</span>
+                    <span className="text-white/60 text-[10px] uppercase font-bold tracking-wider">Online • Powered by Groq</span>
                   </div>
                 </div>
               </div>

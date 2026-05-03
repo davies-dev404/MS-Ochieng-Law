@@ -3,30 +3,34 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import Layout from '../components/Layout';
 import SocialSidebar from '../components/SocialSidebar';
+import { useLanguage } from "../contexts/LanguageContext";
+import { useTranslation } from "../lib/translations";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } },
 };
 
-const teamMembers = [
-  {
-    id: 'msochieng',
-    name: 'M.S. Ochieng',
-    role: 'Principal Advocate',
-    image: '/ms-ochieng.jpg',
-    bio: (
-      <>
-        <p className="mb-4">M.S. Ochieng is the Principal Advocate and founder of M.S. Ochieng Legal. She has great experience in helping people and businesses with their legal needs. She is truly committed to doing her best for every client.</p>
-        <p className="mb-4">Her goal is to provide clear and helpful advice. She works closely with clients to find the best solutions for their cases, whether they are personal or business matters.</p>
-        <p className="mb-4">M.S. Ochieng holds a Bachelor of Laws (LL.B) Degree from Kisii University and a Post Graduate Diploma from the Kenya School of Law (KSL). She is a trusted lawyer for business owners and families across Kenya.</p>
-      </>
-    )
-  }
-];
-
 export default function OurPeople() {
   const [selectedMember, setSelectedMember] = useState(null);
+  const { language } = useLanguage();
+  const { t } = useTranslation(language);
+
+  const teamMembers = [
+    {
+      id: 'msochieng',
+      name: 'M.S. Ochieng',
+      role: t('people.principal_role'),
+      image: '/ms-ochieng.jpg',
+      bio: (
+        <>
+          <p className="mb-4">{t('people.mso_bio_p1')}</p>
+          <p className="mb-4">{t('people.mso_bio_p2')}</p>
+          <p className="mb-4">{t('people.mso_bio_p3')}</p>
+        </>
+      )
+    }
+  ];
 
   // Close modal on escape key
   React.useEffect(() => {
@@ -51,17 +55,17 @@ export default function OurPeople() {
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">
-                The Firm
+                {t('people.label')}
               </span>
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
 
             <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase whitespace-nowrap">
-              OUR <span className="text-[#cc2027]">PEOPLE.</span>
+              {t('people.title').split(' ')[0]} <span className="text-[#cc2027]">{t('people.title').split(' ').slice(1).join(' ')}</span>
             </motion.h1>
             
             <motion.p variants={fadeUp} className="font-sans text-white/70 text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide">
-              Led by M.S. Ochieng, our firm is dedicated to the advancement of our clients' commercial and institutional mandates across the Republic.
+              {t('people.desc')}
             </motion.p>
           </motion.div>
         </div>
@@ -71,7 +75,7 @@ export default function OurPeople() {
       <section className="py-20 md:py-32 px-6 bg-[#fafafa] min-h-[60vh]">
         <div className="max-w-[1200px] mx-auto">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16">
+          <div className="flex flex-col items-center justify-center max-w-md mx-auto">
             {teamMembers.map((member, idx) => (
               <motion.div
                 key={member.id}
@@ -143,7 +147,7 @@ export default function OurPeople() {
                   <img 
                     src={selectedMember.image} 
                     alt={selectedMember.name} 
-                    className="absolute inset-0 w-full h-full object-contain mb-0"
+                    className="absolute inset-0 w-full h-full object-cover object-top mb-0"
                   />
                </div>
 

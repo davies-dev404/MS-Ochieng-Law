@@ -3,8 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Layout from "@/components/Layout";
 import SocialSidebar from "@/components/SocialSidebar";
 import NewsletterForm from "@/components/NewsletterForm";
+import LegalNewsWidget from "@/components/LegalNewsWidget";
 import { Link } from "wouter";
 import { getBlogPosts } from "@/lib/blogData";
+import { useLanguage } from "../contexts/LanguageContext";
+import { useTranslation } from "../lib/translations";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -16,31 +19,37 @@ const stagger = {
   visible: { opacity: 1, transition: { staggerChildren: 0.15, delayChildren: 0.05 } },
 };
 
-// Blog posts are now managed centrally in src/lib/blogData.js
-
-const categories = ["All", "Conveyancing & Property", "Commercial Law", "Immigration", "Family Law", "Litigation", "ADR & Negotiation", "IP & Data Privacy", "Employment Law", "Media & Entertainment"];
-
 export default function Blog() {
+  const { language } = useLanguage();
+  const { t } = useTranslation(language);
   const [activeCategory, setActiveCategory] = useState("All");
   const blogPosts = getBlogPosts();
 
-  const handleCategoryChange = (cat) => {
-    setActiveCategory(cat);
-    // Smooth scroll to blog list on mobile only
+  const categories = [
+    { id: "All", label: t('blog.categories.all') },
+    { id: "Conveyancing & Property", label: t('blog.categories.conveyancing') },
+    { id: "Commercial Law", label: t('blog.categories.commercial') },
+    { id: "Immigration", label: t('blog.categories.immigration') },
+    { id: "Family Law", label: t('blog.categories.family') },
+    { id: "Litigation", label: t('blog.categories.litigation') },
+    { id: "ADR & Negotiation", label: t('blog.categories.adr') },
+    { id: "IP & Data Privacy", label: t('blog.categories.ip') },
+    { id: "Employment Law", label: t('blog.categories.employment') },
+    { id: "Media & Entertainment", label: t('blog.categories.media') }
+  ];
+
+  const handleCategoryChange = (catId) => {
+    setActiveCategory(catId);
     if (window.innerWidth < 768) {
       setTimeout(() => {
         const blogList = document.getElementById('blog-list');
         if (blogList) {
-          const offset = 140; // Account for the fixed header
+          const offset = 140;
           const bodyRect = document.body.getBoundingClientRect().top;
           const elementRect = blogList.getBoundingClientRect().top;
           const elementPosition = elementRect - bodyRect;
           const offsetPosition = elementPosition - offset;
-
-          window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-          });
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
       }, 100);
     }
@@ -63,17 +72,17 @@ export default function Blog() {
             <div className="flex items-center justify-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">
-                Legal Excellence
+                {t('blog.label')}
               </span>
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
 
             <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase whitespace-nowrap">
-                         LEGAL <span className="text-[#cc2027]">JOURNAL.</span>
-                       </motion.h1>
+              {t('blog.title').split(' ')[0]} <span className="text-[#cc2027]">{t('blog.title').split(' ').slice(1).join(' ')}</span>
+            </motion.h1>
             
             <motion.p variants={fadeUp} className="font-sans text-white/70 text-base md:text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide px-4">
-              Preeminent legal perspectives from our leading practitioners. We distil the most complex legislative changes into actionable strategic intelligence.
+              {t('blog.desc')}
             </motion.p>
           </motion.div>
         </div>
@@ -84,11 +93,11 @@ export default function Blog() {
           {/* Sidebar Categories */}
           <div className="md:w-1/3 lg:w-1/4 border-r border-border flex flex-col bg-muted/5 pt-10">
             {categories.map((cat, idx) => {
-              const isActive = cat === activeCategory;
+              const isActive = cat.id === activeCategory;
               return (
                 <button
-                  key={cat}
-                  onClick={() => handleCategoryChange(cat)}
+                  key={cat.id}
+                  onClick={() => handleCategoryChange(cat.id)}
                   className={`flex items-center gap-6 px-10 py-10 border-b border-border transition-all duration-300 text-left relative ${
                     isActive ? "bg-white shadow-sm z-10" : "hover:bg-white/50"
                   }`}
@@ -98,11 +107,15 @@ export default function Blog() {
                     {String(idx + 1).padStart(2, "0")}
                   </span>
                   <span className={`font-serif-sub tracking-[0.2em] uppercase text-[11px] font-bold ${isActive ? "text-[#cc2027]" : "text-secondary/60"}`}>
-                    {cat}
+                    {cat.label}
                   </span>
                 </button>
               );
             })}
+            
+            <div className="px-6 pb-10">
+              <LegalNewsWidget />
+            </div>
           </div>
 
           {/* Blog Posts List */}
@@ -131,7 +144,7 @@ export default function Blog() {
                     </div>
                     <div className="p-12 flex flex-col grow">
                       <p className="font-serif-sub tracking-[0.3em] uppercase text-[#cc2027] text-[10px] mb-6 font-bold">
-                        {post.category}
+                        {categories.find(c => c.id === post.category)?.label || post.category}
                       </p>
                       <h3 className="font-serif-heading text-xl md:text-2xl leading-tight text-secondary group-hover:text-[#cc2027] transition-colors font-bold">
                         <Link href={`/blog/${post.id}`} className="no-underline text-inherit">
@@ -150,7 +163,7 @@ export default function Blog() {
                           href={`/blog/${post.id}`} 
                           className="font-serif-sub tracking-[0.2em] text-[10px] uppercase text-[#cc2027] hover:text-secondary transition-colors font-bold no-underline border-b border-[#cc2027]/20 pb-1"
                         >
-                          Read Article →
+                          {t('blog.read_article')} →
                         </Link>
                       </div>
                     </div>
@@ -167,10 +180,10 @@ export default function Blog() {
         <div className="absolute top-0 right-0 w-1/3 h-full bg-[#cc2027]/5 -skew-x-12 translate-x-1/2" />
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="max-w-3xl mx-auto relative z-10">
           <motion.h2 variants={fadeUp} className="font-serif-heading text-4xl lg:text-5xl xl:text-6xl text-white mb-10 font-bold uppercase tracking-tight flex items-center justify-center gap-4 whitespace-nowrap">
-            Institutional <span className="text-[#cc2027] italic">Intelligence.</span>
+            {t('blog.intel_title').split(' ')[0]} <span className="text-[#cc2027] italic">{t('blog.intel_title').split(' ').slice(1).join(' ')}</span>
           </motion.h2>
           <motion.p variants={fadeUp} className="font-sans text-white/50 font-light mb-16 text-lg leading-relaxed max-w-xl mx-auto">
-            Subscribe to receive preeminent legal briefings directly in your corporate inbox. No noise. Pure strategic foresight.
+            {t('blog.intel_desc')}
           </motion.p>
           <NewsletterForm fadeUp={fadeUp} />
         </motion.div>
