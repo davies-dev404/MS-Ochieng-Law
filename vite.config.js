@@ -27,12 +27,15 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
-    minify: "esbuild",
+    minify: "oxc",
     cssMinify: true,
   },
-  esbuild: {
-    drop: ['console', 'debugger'],
-    legalComments: 'none',
+  oxc: {
+    transform: {
+      react: {
+        runtime: "automatic",
+      },
+    },
   },
   server: {
     port,
