@@ -93,7 +93,7 @@ export default function Home() {
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 max-w-5xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div key={currentSlide} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.8 }} className="flex flex-col items-center">
-              <h1 className="text-5xl md:text-8xl font-serif-heading text-white mb-6 md:mb-8 tracking-tighter uppercase whitespace-nowrap">
+              <h1 className="text-5xl md:text-8xl font-serif-heading text-white mb-6 md:mb-8 tracking-tighter uppercase whitespace-normal md:whitespace-nowrap">
                 {t(heroSlides[currentSlide].title)}
               </h1>
               <p className="text-base md:text-2xl text-white/90 font-medium max-w-3xl mb-12 md:mb-16">
@@ -156,7 +156,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
               <div className="max-w-3xl">
-                <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-nowrap">{t('home.practice_title')}</h2>
+                <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-normal lg:whitespace-nowrap">{t('home.practice_title')}</h2>
                 <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">{t('home.practice_desc')}</p>
               </div>
               <div className="flex gap-3">
@@ -207,7 +207,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
               <div className="max-w-3xl">
-                <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-nowrap overflow-visible">{t('home.insights_title')}</h2>
+                <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-normal lg:whitespace-nowrap overflow-visible">{t('home.insights_title')}</h2>
                 <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">{t('home.insights_desc')}</p>
               </div>
               <Link href="/blog">
@@ -248,8 +248,8 @@ export default function Home() {
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">{t('home.about_label')}</span>
             </div>
             <div className="max-w-3xl">
-              <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-nowrap text-[#1c2f54]">{t('home.strategic_engagement')}</h2>
-              <p className="text-gray-500 font-sans text-lg leading-relaxed max-w-xl font-light tracking-wide">{t('news.no_news') === t('news.no_news') ? "Global legal perspectives and industry intelligence curated by our chambers." : ""}</p>
+              <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-normal lg:whitespace-nowrap text-[#1c2f54]">{t('home.strategic_engagement')}</h2>
+              <p className="text-gray-500 font-sans text-lg leading-relaxed max-w-xl font-light tracking-wide">{t('news.widget_desc')}</p>
             </div>
           </div>
           <LegalNewsWidget hideHeader={true} />

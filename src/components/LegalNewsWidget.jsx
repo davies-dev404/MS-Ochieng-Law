@@ -87,6 +87,45 @@ export default function LegalNewsWidget({ hideHeader = false }) {
     );
   }
 
+  const NewsCard = ({ item, idx }) => (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: idx * 0.1 }}
+      className="h-full bg-white border border-gray-100 p-8 flex flex-col hover:shadow-xl hover:border-[#cc2027]/20 transition-all group/card relative overflow-hidden"
+    >
+      <div className="absolute top-0 right-0 w-24 h-24 bg-gray-50/50 rounded-bl-full -mr-12 -mt-12 group-hover/card:bg-[#cc2027]/5 transition-colors" />
+      
+      <div className="flex items-center gap-2 mb-6 text-[#cc2027] font-sans font-bold text-[10px] uppercase tracking-widest">
+        <Calendar size={12} />
+        <span>{item.date || "Recent Update"}</span>
+      </div>
+      
+      <h4 className="font-serif-heading text-lg font-bold text-[#1c2f54] group-hover/card:text-[#cc2027] transition-colors leading-tight mb-4 line-clamp-3 italic">
+        {item.title}
+      </h4>
+      
+      <p className="font-sans text-sm text-gray-500 leading-relaxed mb-8 line-clamp-4 font-light">
+        {item.snippet}
+      </p>
+      
+      <div className="mt-auto pt-6 border-t border-gray-50 flex justify-between items-center">
+        <span className="text-[10px] font-sans font-bold text-gray-400 uppercase tracking-tighter truncate max-w-[150px]">
+          {item.source || "Legal Update"}
+        </span>
+        <a 
+          href={item.link} 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="flex items-center gap-2 text-[#1c2f54] hover:text-[#cc2027] font-bold text-[11px] uppercase tracking-widest transition-all"
+        >
+          {t('news.view_source') || "View Source"} <ExternalLink size={12} />
+        </a>
+      </div>
+    </motion.div>
+  );
+
   return (
     <div className="relative group">
       <div className={`flex justify-between items-center mb-10 px-2 ${hideHeader ? 'absolute -top-32 right-0' : ''}`}>
@@ -97,7 +136,7 @@ export default function LegalNewsWidget({ hideHeader = false }) {
           </h3>
         )}
         
-        <div className="flex gap-3">
+        <div className="flex gap-3 lg:hidden">
           <button onClick={scrollPrev} className={`w-12 h-12 rounded-full border flex items-center justify-center transition-all ${hideHeader ? 'border-[#1c2f54]/20 text-[#1c2f54] hover:bg-[#cc2027] hover:border-[#cc2027] hover:text-white' : 'border-gray-200 hover:bg-[#1c2f54] hover:text-white hover:border-[#1c2f54]'}`}>
             <ChevronLeft size={24} strokeWidth={1.5} />
           </button>
@@ -107,46 +146,21 @@ export default function LegalNewsWidget({ hideHeader = false }) {
         </div>
       </div>
 
-      <div className="embla overflow-hidden" ref={emblaRef}>
+      {/* Desktop Grid Layout */}
+      <div className={`hidden lg:grid gap-6 ${hideHeader ? 'grid-cols-3' : 'grid-cols-1'}`}>
+        {news.map((item, idx) => (
+          <div key={idx} className="h-full">
+            <NewsCard item={item} idx={idx} />
+          </div>
+        ))}
+      </div>
+
+      {/* Mobile & Tablet Carousel Layout */}
+      <div className="embla overflow-hidden lg:hidden" ref={emblaRef}>
         <div className="embla__container flex">
           {news.map((item, idx) => (
-            <div key={idx} className="embla__slide flex-[0_0_100%] md:flex-[0_0_50%] lg:flex-[0_0_33.333%] pl-4 md:pl-6 pb-4">
-              <motion.div 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                className="h-full bg-white border border-gray-100 p-8 flex flex-col hover:shadow-xl hover:border-[#cc2027]/20 transition-all group/card relative overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 w-24 h-24 bg-gray-50/50 rounded-bl-full -mr-12 -mt-12 group-hover/card:bg-[#cc2027]/5 transition-colors" />
-                
-                <div className="flex items-center gap-2 mb-6 text-[#cc2027] font-sans font-bold text-[10px] uppercase tracking-widest">
-                  <Calendar size={12} />
-                  <span>{item.date || "Recent Update"}</span>
-                </div>
-                
-                <h4 className="font-serif-heading text-lg font-bold text-[#1c2f54] group-hover/card:text-[#cc2027] transition-colors leading-tight mb-4 line-clamp-3 italic">
-                  {item.title}
-                </h4>
-                
-                <p className="font-sans text-sm text-gray-500 leading-relaxed mb-8 line-clamp-4 font-light">
-                  {item.snippet}
-                </p>
-                
-                <div className="mt-auto pt-6 border-t border-gray-50 flex justify-between items-center">
-                  <span className="text-[10px] font-sans font-bold text-gray-400 uppercase tracking-tighter truncate max-w-[150px]">
-                    {item.source || "Legal Update"}
-                  </span>
-                  <a 
-                    href={item.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="flex items-center gap-2 text-[#1c2f54] hover:text-[#cc2027] font-bold text-[11px] uppercase tracking-widest transition-all"
-                  >
-                    View Source <ExternalLink size={12} />
-                  </a>
-                </div>
-              </motion.div>
+            <div key={idx} className="embla__slide flex-[0_0_100%] md:flex-[0_0_50%] pl-4 md:pl-6 pb-4">
+              <NewsCard item={item} idx={idx} />
             </div>
           ))}
         </div>

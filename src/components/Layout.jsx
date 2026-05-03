@@ -241,9 +241,9 @@ export default function Layout({ children }) {
 
       <footer className="bg-[#1c2f54] text-white pt-16 pb-6 px-6 relative z-10 mt-auto">
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12 mb-12">
             
-            <div>
+            <div className="col-span-2 md:col-span-1">
               <div className="bg-transparent inline-block mb-6 pt-2">
                  <BrandMark variant="gold" size="medium" />
               </div>
