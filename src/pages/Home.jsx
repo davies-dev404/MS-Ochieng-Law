@@ -252,7 +252,7 @@ export default function Home() {
               <p className="text-gray-500 font-sans text-lg leading-relaxed max-w-xl font-light tracking-wide">{t('news.widget_desc')}</p>
             </div>
           </div>
-          <LegalNewsWidget hideHeader={true} />
+          <LegalNewsWidget hideHeader={true} itemsLimit={3} showMoreLink="/blog" />
         </div>
       </section>
 

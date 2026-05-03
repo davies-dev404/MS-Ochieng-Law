@@ -2,10 +2,11 @@ import { useState, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight, Newspaper, ExternalLink, Calendar } from "lucide-react";
+import { Link } from "wouter";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTranslation } from "../lib/translations";
 
-export default function LegalNewsWidget({ hideHeader = false }) {
+export default function LegalNewsWidget({ hideHeader = false, itemsLimit, showMoreLink }) {
   const [news, setNews] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -126,9 +127,11 @@ export default function LegalNewsWidget({ hideHeader = false }) {
     </motion.div>
   );
 
+  const displayNews = itemsLimit ? news.slice(0, itemsLimit) : news;
+
   return (
     <div className="relative group">
-      <div className={`flex justify-between items-center mb-10 px-2 ${hideHeader ? 'absolute -top-32 right-0' : ''}`}>
+      <div className={`flex items-center px-2 ${hideHeader ? 'justify-end mb-6' : 'justify-between mb-10'}`}>
         {!hideHeader && (
           <h3 className="font-serif-heading text-2xl md:text-3xl font-bold text-[#1c2f54] flex items-center gap-3">
             <Newspaper className="text-[#cc2027]" size={28} />
@@ -148,7 +151,7 @@ export default function LegalNewsWidget({ hideHeader = false }) {
 
       {/* Desktop Grid Layout */}
       <div className={`hidden lg:grid gap-6 ${hideHeader ? 'grid-cols-3' : 'grid-cols-1'}`}>
-        {news.map((item, idx) => (
+        {displayNews.map((item, idx) => (
           <div key={idx} className="h-full">
             <NewsCard item={item} idx={idx} />
           </div>
@@ -158,13 +161,23 @@ export default function LegalNewsWidget({ hideHeader = false }) {
       {/* Mobile & Tablet Carousel Layout */}
       <div className="embla overflow-hidden lg:hidden" ref={emblaRef}>
         <div className="embla__container flex">
-          {news.map((item, idx) => (
+          {displayNews.map((item, idx) => (
             <div key={idx} className="embla__slide flex-[0_0_100%] md:flex-[0_0_50%] pl-4 md:pl-6 pb-4">
               <NewsCard item={item} idx={idx} />
             </div>
           ))}
         </div>
       </div>
+
+      {showMoreLink && (
+        <div className="mt-12 flex justify-center">
+          <Link href={showMoreLink}>
+            <button className="bg-[#1c2f54] text-white rounded-none px-10 py-4 font-extrabold text-[12px] tracking-widest uppercase hover:bg-[#111c33] transition-colors shadow-sm">
+              {t('news.view_all')}
+            </button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

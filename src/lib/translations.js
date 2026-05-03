@@ -294,15 +294,16 @@ export const translations = {
       intel_title: "Institutional Intelligence.",
       intel_desc: "Subscribe to receive preeminent legal briefings directly in your corporate inbox. No noise. Pure strategic foresight.",
       view_all: "View All Insights",
-      read_insight: "Read Insight",
-      view_source: "View Source"
+      read_insight: "Read Insight"
     },
     news: {
       title: "Industry",
       subtitle: "News",
       loading: "Loading...",
       no_news: "No recent news found.",
-      widget_desc: "Global legal perspectives and industry intelligence curated by our chambers."
+      widget_desc: "Global legal perspectives and industry intelligence curated by our chambers.",
+      view_source: "View Source",
+      view_all: "View All News"
     },
     footer: {
       bio: "M.S. OCHIENG LEGAL is a modern law firm dedicated to your success. We provide clear advice and strong representation to protect your interests and help you achieve your goals.",
@@ -614,15 +615,16 @@ export const translations = {
       intel_title: "Intelligence Institutionnelle.",
       intel_desc: "Inscrivez-vous pour recevoir des briefings juridiques directement dans votre boîte de réception.",
       view_all: "Voir toutes les perspectives",
-      read_insight: "Lire la perspective",
-      view_source: "Voir la Source"
+      read_insight: "Lire la perspective"
     },
     news: {
       title: "Nouvelles de",
       subtitle: "l'industrie",
       loading: "Chargement...",
       no_news: "Aucune nouvelle récente trouvée.",
-      widget_desc: "Perspectives juridiques mondiales et informations sectorielles compilées par nos chambres."
+      widget_desc: "Perspectives juridiques mondiales et informations sectorielles compilées par nos chambres.",
+      view_source: "Voir la Source",
+      view_all: "Voir Toutes Les Nouvelles"
     },
     footer: {
       bio: "M.S. OCHIENG LEGAL est un cabinet d'avocats moderne dédié à votre succès. Nous fournissons des conseils clairs et une représentation solide pour protéger vos intérêts.",
@@ -934,15 +936,16 @@ export const translations = {
       intel_title: "Akili ya Kitaasisi.",
       intel_desc: "Jisajili ili kupokea maelezo mashuhuri ya kisheria moja kwa moja kwenye kikasha chako cha ushirika.",
       view_all: "Tazama Mawazo Yote",
-      read_insight: "Soma Wazo",
-      view_source: "Tazama Chanzo"
+      read_insight: "Soma Wazo"
     },
     news: {
       title: "Habari za",
       subtitle: "Viwandani",
       loading: "Inapakia...",
       no_news: "Hakuna habari za hivi karibuni zilizopatikana.",
-      widget_desc: "Maoni ya kisheria ya kimataifa na akili ya sekta iliyokusanywa na vyumba vyetu."
+      widget_desc: "Maoni ya kisheria ya kimataifa na akili ya sekta iliyokusanywa na vyumba vyetu.",
+      view_source: "Tazama Chanzo",
+      view_all: "Tazama Habari Zote"
     },
     footer: {
       bio: "M.S. OCHIENG LEGAL ni kampuni ya kisasa ya sheria iliyojitolea kwa mafanikio yako. Tunatoa ushauri wazi na uwakilishi thabiti kulinda maslahi yako.",
