@@ -118,7 +118,7 @@ export default function AboutUs() {
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
 
-            <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase whitespace-nowrap">
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[1.1] md:leading-[0.9] tracking-tighter uppercase">
               {t('about.story_title').split(' ')[0]} <span className="text-[#cc2027]">{t('about.story_title').split(' ').slice(1).join(' ')}</span>
             </motion.h1>
             

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Layout from "@/components/Layout";
 import SocialSidebar from "@/components/SocialSidebar";
@@ -23,7 +23,23 @@ export default function Blog() {
   const { language } = useLanguage();
   const { t } = useTranslation(language);
   const [activeCategory, setActiveCategory] = useState("All");
-  const blogPosts = getBlogPosts();
+  const [blogPosts, setBlogPosts] = useState(getBlogPosts());
+
+  useEffect(() => {
+    const refreshPosts = () => {
+      setBlogPosts(getBlogPosts());
+    };
+
+    // Listen for local events
+    window.addEventListener('blog-updated', refreshPosts);
+    // Listen for storage events (cross-tab same browser)
+    window.addEventListener('storage', refreshPosts);
+    
+    return () => {
+      window.removeEventListener('blog-updated', refreshPosts);
+      window.removeEventListener('storage', refreshPosts);
+    };
+  }, []);
 
   const categories = [
     { id: "All", label: t('blog.categories.all') },
@@ -77,7 +93,7 @@ export default function Blog() {
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
 
-            <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter uppercase whitespace-normal md:whitespace-nowrap">
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif-heading mb-10 leading-tight md:leading-[0.9] tracking-tighter uppercase whitespace-nowrap">
               {t('blog.title').split(' ')[0]} <span className="text-[#cc2027]">{t('blog.title').split(' ').slice(1).join(' ')}</span>
             </motion.h1>
             
@@ -179,7 +195,7 @@ export default function Blog() {
       <section className="py-40 px-6 bg-secondary text-center text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-[#cc2027]/5 -skew-x-12 translate-x-1/2" />
         <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger} className="max-w-3xl mx-auto relative z-10">
-          <motion.h2 variants={fadeUp} className="font-serif-heading text-4xl lg:text-5xl xl:text-6xl text-white mb-10 font-bold uppercase tracking-tight flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 whitespace-normal md:whitespace-nowrap text-center">
+          <motion.h2 variants={fadeUp} className="font-serif-heading text-3xl sm:text-4xl lg:text-5xl xl:text-6xl text-white mb-10 font-bold uppercase tracking-tight flex flex-col md:flex-row items-center justify-center gap-2 md:gap-4 text-center leading-[1.1]">
             {t('blog.intel_title').split(' ')[0]} <span className="text-[#cc2027] italic">{t('blog.intel_title').split(' ').slice(1).join(' ')}</span>
           </motion.h2>
           <motion.p variants={fadeUp} className="font-sans text-white/50 font-light mb-16 text-lg leading-relaxed max-w-xl mx-auto">

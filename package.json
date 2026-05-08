@@ -69,6 +69,8 @@
     "zod": "latest"
   },
   "dependencies": {
-    "@google/generative-ai": "^0.24.1"
+    "@google/generative-ai": "^0.24.1",
+    "pusher-js": "^8.5.0",
+    "react-quill-new": "^3.8.3"
   }
 }

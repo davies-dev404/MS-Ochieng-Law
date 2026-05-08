@@ -43,11 +43,24 @@ const AI_CONFIG = {
 
 console.log('Chatbot initialized with OpenAI model:', AI_CONFIG.model);
 
+import { onStaffStatusChange } from '../lib/pusher';
+
 export default function AIChatBox() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isStaffOnline, setIsStaffOnline] = useState(true); // Default to true, updated by Pusher
   const [messages, setMessages] = useState([
     { role: 'bot', text: 'Welcome to M.S. Ochieng AI Legal Assistant. I can help you with general legal queries, information about our practice areas, or guide you to the right advocate. How can I assist you today?' }
   ]);
+
+  // Real-time listener for staff status
+  useEffect(() => {
+    onStaffStatusChange((data) => {
+      if (data && typeof data.online === 'boolean') {
+        setIsStaffOnline(data.online);
+      }
+    });
+  }, []);
+
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef(null);
@@ -137,8 +150,10 @@ export default function AIChatBox() {
                 <div>
                   <h3 className="text-white font-bold text-sm">MS Ochieng AI</h3>
                   <div className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 bg-green-400 rounded-full animate-pulse" />
-                    <span className="text-white/60 text-[10px] uppercase font-bold tracking-wider">Online • Powered by Groq</span>
+                    <div className={`w-1.5 h-1.5 rounded-full animate-pulse ${isStaffOnline ? 'bg-green-400' : 'bg-gray-400'}`} />
+                    <span className="text-white/60 text-[10px] uppercase font-bold tracking-wider">
+                      {isStaffOnline ? 'Staff Online • Powered by Groq' : 'Staff Offline • AI Active'}
+                    </span>
                   </div>
                 </div>
               </div>

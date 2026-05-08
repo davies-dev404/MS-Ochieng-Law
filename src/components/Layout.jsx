@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { toast, Toaster } from "sonner";
+import { onLiveNotification } from "../lib/pusher";
 import { useLocation, Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, MapPin, Home as HomeIcon, Headphones } from "lucide-react";
@@ -26,6 +28,19 @@ export default function Layout({ children }) {
     { href: "/blog", label: t('nav.blog') },
     { href: "/consultation", label: t('nav.contact') },
   ];
+
+  // Real-time Notification Listener
+  useEffect(() => {
+    onLiveNotification((data) => {
+      if (data && data.message) {
+        toast.info(data.message, {
+          description: data.description || "New update from MS Ochieng Legal",
+          duration: 8000,
+          position: "top-right",
+        });
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
@@ -91,20 +106,20 @@ export default function Layout({ children }) {
         }`}>
             {/* Top Utility Bar (Navy Blue) */}
             <div className={`header-top-bar bg-[#1c2f54] text-white py-[6px] md:py-[8px] w-full border-b border-white/10 ${isScrolled ? 'rounded-t-2xl md:rounded-t-3xl' : 'rounded-t-xl md:rounded-t-2xl'}`}>
-                <div className="container mx-auto px-3 md:px-6">
+                <div className="w-full mx-auto px-3 md:px-6">
                     <div className="flex flex-col lg:flex-row justify-between items-center gap-3 lg:gap-4 text-[10px] md:text-[13px] tracking-wide">
                         {/* Contact Info Row */}
                         <div className="contact-info flex flex-wrap justify-center md:justify-start gap-3 md:gap-8 font-bold">
-                            <a href="mailto:info@msochienglaw.co.ke" className="flex items-center gap-1.5 hover:text-gray-300 transition-colors whitespace-nowrap">
+                            <a href="mailto:info@msochienglaw.co.ke" className="flex items-center gap-1.5 hover:text-gray-300 transition-colors">
                               <Mail size={12} fill="white" className="text-[#1c2f54]" /> info@msochienglaw.co.ke
                             </a>
-                            <a href="tel:+254791857001" className="flex items-center gap-1.5 hover:text-gray-300 transition-colors whitespace-nowrap">
+                            <a href="tel:+254791857001" className="flex items-center gap-1.5 hover:text-gray-300 transition-colors">
                               <Phone size={12} fill="white" className="text-white" /> +254 791 857001
                             </a>
                         </div>
                         
                         {/* Search, Language & Socials Row */}
-                        <div className="flex items-center justify-between lg:justify-end gap-3 w-full lg:w-auto mt-1 lg:mt-0 border-t border-white/5 pt-2 lg:pt-0 lg:border-t-0">
+                        <div className="flex flex-wrap items-center justify-center sm:justify-between lg:justify-end gap-3 w-full lg:w-auto mt-1 lg:mt-0 border-t border-white/5 pt-2 lg:pt-0 lg:border-t-0">
                             {/* Language Switcher */}
                             <div className="flex items-center bg-white/10 rounded-sm px-1 py-1 gap-1">
                               {['EN', 'FR', 'SW'].map((lang) => (
@@ -122,7 +137,7 @@ export default function Layout({ children }) {
                               ))}
                             </div>
 
-                            <div id="search" className="grow lg:grow-0">
+                            <div id="search" className="grow-0 lg:grow-0">
                                 <form 
                                   role="search" 
                                   className="search-form flex h-7 shadow-sm" 
@@ -138,7 +153,7 @@ export default function Layout({ children }) {
                                     <label className="m-0 grow">
                                         <input 
                                           type="search" 
-                                          className="search-field px-2 h-full text-gray-700 text-[11px] outline-none w-full md:w-[130px] bg-white rounded-l-[2px] border-none placeholder:text-gray-400" 
+                                          className="search-field px-2 h-full text-gray-700 text-[11px] outline-none w-[100px] sm:w-[130px] bg-white rounded-l-[2px] border-none placeholder:text-gray-400" 
                                           placeholder={t('search.placeholder')} 
                                           name="s" 
                                           title="Search for:" 
@@ -147,12 +162,12 @@ export default function Layout({ children }) {
                                     <input type="submit" className="search-submit bg-[#cc2027] text-white px-3 font-bold text-[10px] h-full border-none cursor-pointer hover:bg-red-800 tracking-wider rounded-r-[2px] transition-colors" value={t('search.button')} />
                                 </form>
                             </div>
-                            <ul className="items-center gap-1.5 md:gap-2 m-0 p-0 list-none text-white hidden sm:flex">
+                            <ul className="items-center gap-1 md:gap-2 m-0 p-0 list-none text-white flex">
                                 <li className="flex gap-1.5 md:gap-2">                                        
-                                    <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61551090343152" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] transition-all text-white" title="Facebook"><FaFacebookF size={10} /></a>
-                                    <a target="_blank" rel="noreferrer" href="https://x.com/pakadvocates" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white" title="X (Twitter)"><FaXTwitter size={10} /></a>
-                                    <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-linear-to-tr hover:from-[#f9ce34] hover:to-[#ee2a7b] hover:border-transparent transition-all text-white" title="Instagram"><FaInstagram size={10} /></a>
-                                    <a target="_blank" rel="noreferrer" href="tel:+254791857001" className="w-[26px] h-[26px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all text-white" title="Call Us"><Phone size={10} /></a>
+                                    <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61551090343152" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] transition-all text-white" title="Facebook"><FaFacebookF size={10} /></a>
+                                    <a target="_blank" rel="noreferrer" href="https://x.com/pakadvocates" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white" title="X (Twitter)"><FaXTwitter size={10} /></a>
+                                    <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-linear-to-tr hover:from-[#f9ce34] hover:to-[#ee2a7b] hover:border-transparent transition-all text-white" title="Instagram"><FaInstagram size={10} /></a>
+                                    <a target="_blank" rel="noreferrer" href="tel:+254791857001" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all text-white" title="Call Us"><Phone size={10} /></a>
                                 </li>
                             </ul>
                         </div>
@@ -162,7 +177,7 @@ export default function Layout({ children }) {
 
             {/* Main Navigation Bar (White) */}
             <div className={`header-main-bar bg-transparent py-1.5 md:py-2 ${isScrolled ? 'rounded-b-2xl md:rounded-b-3xl' : 'rounded-b-xl md:rounded-b-2xl'}`}>
-                <div className="container mx-auto px-4 lg:px-6 flex justify-between items-center relative">
+                <div className="w-full mx-auto px-4 lg:px-6 flex justify-between items-center relative">
                     <div className="logo shrink-0 transition-transform origin-left">
                         <Link href="/">
                             <BrandMark variant="black" size="small" className="drop-shadow-sm" />
@@ -221,6 +236,21 @@ export default function Layout({ children }) {
                           </li>
                         ))}
                     </ul>
+                    
+                    <div className="flex items-center gap-4 px-8 py-6 border-t border-gray-100 bg-gray-50/50">
+                        <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61551090343152" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2] transition-all shadow-sm" title="Facebook">
+                            <FaFacebookF size={18} />
+                        </a>
+                        <a target="_blank" rel="noreferrer" href="https://x.com/pakadvocates" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-black hover:text-white hover:border-black transition-all shadow-sm" title="X (Twitter)">
+                            <FaXTwitter size={18} />
+                        </a>
+                        <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all shadow-sm" title="Instagram">
+                            <FaInstagram size={18} />
+                        </a>
+                        <a target="_blank" rel="noreferrer" href="tel:+254791857001" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-[#cc2027] hover:text-white hover:border-[#cc2027] transition-all shadow-sm" title="Call Us">
+                            <Phone size={18} />
+                        </a>
+                    </div>
                   </motion.div>
                 )}
             </AnimatePresence>
@@ -238,6 +268,7 @@ export default function Layout({ children }) {
 
       <FloatingWhatsApp />
       <AIChatBox />
+      <Toaster richColors />
 
       <footer className="bg-[#1c2f54] text-white pt-16 pb-6 px-6 relative z-10 mt-auto">
         <div className="max-w-[1200px] mx-auto">

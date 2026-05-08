@@ -7,6 +7,7 @@ import Layout from '../components/Layout';
 import LegalNewsWidget from "../components/LegalNewsWidget";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTranslation } from "../lib/translations";
+import { getBlogPosts } from "../lib/blogData";
 
 const heroSlides = [
   { image: "hero/integrity.jpg", title: "hero.integrity", subtitle: "hero.integrity_subtitle" },
@@ -38,30 +39,34 @@ export default function Home() {
     return { title: t(`practice.areas.${key}`), img: imgs[key], icon: icons[key] };
   });
 
-  const blogPosts = [
-    {
-      category: t('blog.categories.family'),
-      title: "Family Trusts in Kenya: How to Protect Your Wealth and Secure Your Legacy",
-      img: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2070&auto=format&fit=crop",
-      id: "family-trusts-in-kenya"
-    },
-    {
-      category: t('blog.categories.litigation'),
-      title: "Beyond the Will: Why a Registered Family Trust is the Ultimate Legacy Tool",
-      img: "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?q=80&w=2070&auto=format&fit=crop",
-      id: "registered-family-trust"
-    }
-  ];
+  const [blogPosts, setBlogPosts] = useState(getBlogPosts());
+
+  useEffect(() => {
+    const refreshBlogs = () => setBlogPosts(getBlogPosts());
+    window.addEventListener('blog-updated', refreshBlogs);
+    window.addEventListener('storage', refreshBlogs);
+    return () => {
+      window.removeEventListener('blog-updated', refreshBlogs);
+      window.removeEventListener('storage', refreshBlogs);
+    };
+  }, []);
 
   useEffect(() => { setHasMounted(true); }, []);
 
   const [expertiseRef, expertiseApi] = useEmblaCarousel({ loop: true, align: 'start' });
+  const [blogRef, blogApi] = useEmblaCarousel({ loop: true, align: 'start' });
 
   useEffect(() => {
     if (!expertiseApi) return;
     const interval = setInterval(() => { expertiseApi.scrollNext(); }, 4000);
     return () => clearInterval(interval);
   }, [expertiseApi]);
+
+  useEffect(() => {
+    if (!blogApi) return;
+    const interval = setInterval(() => { blogApi.scrollNext(); }, 6000);
+    return () => clearInterval(interval);
+  }, [blogApi]);
 
   useEffect(() => {
     const timer = setInterval(() => { setCurrentSlide((prev) => (prev + 1) % heroSlides.length); }, 5000);
@@ -72,6 +77,8 @@ export default function Home() {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
   const scrollPrevExpertise = useCallback(() => expertiseApi && expertiseApi.scrollPrev(), [expertiseApi]);
   const scrollNextExpertise = useCallback(() => expertiseApi && expertiseApi.scrollNext(), [expertiseApi]);
+  const scrollPrevBlog = useCallback(() => blogApi && blogApi.scrollPrev(), [blogApi]);
+  const scrollNextBlog = useCallback(() => blogApi && blogApi.scrollNext(), [blogApi]);
 
   return (
     <Layout>
@@ -93,7 +100,7 @@ export default function Home() {
         <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-4 max-w-5xl mx-auto">
           <AnimatePresence mode="wait">
             <motion.div key={currentSlide} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} transition={{ duration: 0.8 }} className="flex flex-col items-center">
-              <h1 className="text-5xl md:text-8xl font-serif-heading text-white mb-6 md:mb-8 tracking-tighter uppercase whitespace-normal md:whitespace-nowrap">
+              <h1 className="text-4xl sm:text-5xl md:text-8xl font-serif-heading text-white mb-6 md:mb-8 tracking-tighter uppercase leading-[1.1] md:leading-[0.9]">
                 {t(heroSlides[currentSlide].title)}
               </h1>
               <p className="text-base md:text-2xl text-white/90 font-medium max-w-3xl mb-12 md:mb-16">
@@ -156,7 +163,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
               <div className="max-w-3xl">
-                <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-normal lg:whitespace-nowrap">{t('home.practice_title')}</h2>
+                <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[1.1] md:leading-[0.9] tracking-tight translate-x-[-4px]">{t('home.practice_title')}</h2>
                 <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">{t('home.practice_desc')}</p>
               </div>
               <div className="flex gap-3">
@@ -203,53 +210,68 @@ export default function Home() {
           <div className="flex flex-col mb-16">
             <div className="flex items-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
-              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">{t('home.practice_label')}</span>
+              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">Latest Intelligence</span>
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
               <div className="max-w-3xl">
-                <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-normal lg:whitespace-nowrap overflow-visible">{t('home.insights_title')}</h2>
+                <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-normal overflow-visible">{t('home.insights_title')}</h2>
                 <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">{t('home.insights_desc')}</p>
               </div>
-              <Link href="/blog">
-                <button className="flex items-center gap-4 text-white/60 hover:text-white transition-colors py-4 group cursor-pointer">
-                  <span className="font-bold tracking-widest uppercase text-xs">{t('blog.view_all')}</span>
-                  <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#cc2027] group-hover:border-[#cc2027] transition-all"><ChevronRight size={18} /></div>
-                </button>
-              </Link>
+              <div className="flex gap-4 items-center">
+                <div className="flex gap-2 mr-4">
+                  <button onClick={scrollPrevBlog} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#cc2027] transition-all">
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button onClick={scrollNextBlog} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#cc2027] transition-all">
+                    <ChevronRight size={20} />
+                  </button>
+                </div>
+                <Link href="/blog">
+                  <button className="flex items-center gap-4 text-white/60 hover:text-white transition-colors py-4 group cursor-pointer">
+                    <span className="font-bold tracking-widest uppercase text-xs">{t('blog.view_all')}</span>
+                    <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center group-hover:bg-[#cc2027] group-hover:border-[#cc2027] transition-all"><ChevronRight size={16} /></div>
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {blogPosts.slice(0, 2).map((post, idx) => (
-              <Link key={idx} href={`/blog/${post.id}`}>
-                <motion.div initial={{ opacity: 0, scale: 0.98 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="group flex flex-col md:flex-row bg-[#152340] border border-white/5 rounded-none overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-white/20 h-full cursor-pointer">
-                   <div className="w-full md:w-[40%] h-[240px] md:h-auto shrink-0 relative overflow-hidden">
-                     <img src={post.img} alt={post.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                     <div className="absolute inset-0 bg-[#1c2f54]/20 group-hover:bg-transparent transition-colors"></div>
-                   </div>
-                   <div className="w-full md:w-[60%] p-8 md:p-10 flex flex-col justify-center">
-                     <div className="text-[#cc2027] text-[10px] font-bold uppercase tracking-[0.2em] mb-4">{post.category}</div>
-                     <h3 className="text-xl md:text-2xl font-serif-heading text-white leading-tight mb-6 group-hover:text-[#cc2027] transition-colors line-clamp-2 italic">{post.title}</h3>
-                     <div className="inline-flex items-center text-[11px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">
-                       {t('blog.read_insight')} <ArrowRight size={14} className="ml-2" />
-                     </div>
-                   </div>
-                </motion.div>
-              </Link>
-            ))}
+          
+          <div className="embla overflow-hidden" ref={blogRef}>
+            <div className="embla__container flex">
+              {blogPosts.map((post, idx) => (
+                <div key={idx} className="embla__slide flex-[0_0_100%] lg:flex-[0_0_50%] pl-8">
+                  <Link href={`/blog/${post.id}`}>
+                    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: idx * 0.1 }} className="group flex flex-col md:flex-row bg-[#152340] border border-white/5 rounded-none overflow-hidden transition-all duration-500 hover:shadow-2xl hover:border-white/20 h-[300px] md:h-[260px] cursor-pointer">
+                       <div className="w-full md:w-[40%] h-1/2 md:h-auto shrink-0 relative overflow-hidden">
+                         <img src={post.image || post.img} alt={post.title} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                         <div className="absolute inset-0 bg-[#1c2f54]/20 group-hover:bg-transparent transition-colors"></div>
+                       </div>
+                       <div className="w-full md:w-[60%] p-6 md:p-10 flex flex-col justify-center">
+                         <div className="text-[#cc2027] text-[9px] font-bold uppercase tracking-[0.2em] mb-3">{post.category}</div>
+                         <h3 className="text-lg md:text-xl font-serif-heading text-white leading-tight mb-6 group-hover:text-[#cc2027] transition-colors line-clamp-2 italic">{post.title}</h3>
+                         <div className="inline-flex items-center text-[10px] font-bold uppercase tracking-widest text-white/40 group-hover:text-white transition-colors">
+                           {t('blog.read_insight')} <ArrowRight size={14} className="ml-2" />
+                         </div>
+                       </div>
+                    </motion.div>
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="py-24 bg-white overflow-hidden relative border-t border-gray-100">
+      <section className="py-32 bg-white overflow-hidden relative border-t border-gray-100">
         <div className="max-w-[1240px] mx-auto px-6 relative z-10">
           <div className="flex flex-col mb-16 text-left">
             <div className="flex items-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
-              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">{t('home.about_label')}</span>
+              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">Global Intelligence</span>
             </div>
-            <div className="max-w-3xl">
-              <h2 className="text-6xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-normal lg:whitespace-nowrap text-[#1c2f54]">{t('home.strategic_engagement')}</h2>
-              <p className="text-gray-500 font-sans text-lg leading-relaxed max-w-xl font-light tracking-wide">{t('news.widget_desc')}</p>
+            <div className="max-w-4xl">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] text-[#1c2f54]">Strategic <span className="italic">Frontiers.</span></h2>
+              <p className="text-gray-500 font-sans text-lg md:text-xl leading-relaxed max-w-2xl font-light tracking-wide italic">"Global legal perspectives and industry intelligence curated in real-time by our legal chambers."</p>
             </div>
           </div>
           <LegalNewsWidget hideHeader={true} itemsLimit={3} showMoreLink="/blog" />

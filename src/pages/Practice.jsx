@@ -144,7 +144,7 @@ export default function Practice() {
               </span>
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
-            <motion.h1 variants={fadeUp} className="text-6xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[0.9] tracking-tighter whitespace-nowrap">
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[1.1] md:leading-[0.9] tracking-tighter">
               {t('practice.title').split(' ')[0]} <span className="text-[#cc2027]">{t('practice.title').split(' ').slice(1).join(' ')}</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="font-sans text-white/70 text-base md:text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide mb-16">
