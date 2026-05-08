@@ -3,6 +3,10 @@ import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import viteCompression from "vite-plugin-compression";
 import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const port = Number(process.env.PORT) || 5173;
 const basePath = process.env.BASE_PATH || "/";
@@ -18,24 +22,21 @@ export default defineConfig({
 
   resolve: {
     alias: {
-      "@": path.resolve(import.meta.dirname, "src"),
-      "@assets": path.resolve(import.meta.dirname, "src/assets"),
+      "@": path.resolve(__dirname, "src"),
+      "@assets": path.resolve(__dirname, "src/assets"),
     },
     dedupe: ["react", "react-dom"],
   },
-  root: path.resolve(import.meta.dirname),
+  root: __dirname,
   build: {
-    outDir: path.resolve(import.meta.dirname, "dist"),
+    outDir: "dist",
     emptyOutDir: true,
-    minify: "oxc",
+    minify: "esbuild",
     cssMinify: true,
   },
-  oxc: {
-    transform: {
-      react: {
-        runtime: "automatic",
-      },
-    },
+  esbuild: {
+    drop: ['console', 'debugger'],
+    legalComments: 'none',
   },
   server: {
     port,
@@ -78,3 +79,4 @@ export default defineConfig({
     allowedHosts: true,
   },
 });
+
