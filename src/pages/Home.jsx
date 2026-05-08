@@ -214,7 +214,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
               <div className="max-w-3xl">
-                <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-normal overflow-visible">{t('home.insights_title')}</h2>
+                <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-nowrap overflow-visible uppercase">{t('home.insights_title')}</h2>
                 <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">{t('home.insights_desc')}</p>
               </div>
               <div className="flex gap-4 items-center">
@@ -270,7 +270,7 @@ export default function Home() {
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">Global Intelligence</span>
             </div>
             <div className="max-w-4xl">
-              <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] text-[#1c2f54]">Strategic <span className="italic">Frontiers.</span></h2>
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] text-[#1c2f54] whitespace-nowrap uppercase">Strategic <span className="italic">Frontiers.</span></h2>
               <p className="text-gray-500 font-sans text-lg md:text-xl leading-relaxed max-w-2xl font-light tracking-wide italic">"Global legal perspectives and industry intelligence curated in real-time by our legal chambers."</p>
             </div>
           </div>

@@ -144,7 +144,7 @@ export default function Practice() {
               </span>
               <div className="h-px w-12 bg-[#cc2027]" />
             </div>
-            <motion.h1 variants={fadeUp} className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-serif-heading mb-10 leading-[1.1] md:leading-[0.9] tracking-tighter">
+            <motion.h1 variants={fadeUp} className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-serif-heading mb-10 leading-tight md:leading-[0.9] tracking-tighter uppercase whitespace-nowrap">
               {t('practice.title').split(' ')[0]} <span className="text-[#cc2027]">{t('practice.title').split(' ').slice(1).join(' ')}</span>
             </motion.h1>
             <motion.p variants={fadeUp} className="font-sans text-white/70 text-base md:text-xl font-light leading-relaxed max-w-2xl mx-auto tracking-wide mb-16">
@@ -269,9 +269,9 @@ export default function Practice() {
         <div className="max-w-5xl mx-auto text-center relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <p className="font-serif-sub text-[#cc2027] tracking-[0.5em] uppercase text-[10px] mb-10 font-bold">Dedicated Counsel</p>
-            <h2 className="font-serif-heading text-4xl lg:text-5xl xl:text-7xl mb-16 leading-none font-bold uppercase tracking-tighter flex items-center justify-center gap-4 whitespace-nowrap text-white">
-              {t('practice.innovation')} {t('practice.integrity')} <br className="md:hidden" />
-              <span className="text-[#cc2027] italic">{t('practice.commitment')} {t('practice.excellence')}</span>
+            <h2 className="font-serif-heading text-2xl sm:text-3xl lg:text-5xl xl:text-7xl mb-16 leading-none font-bold uppercase tracking-tighter flex items-center justify-center gap-4 whitespace-nowrap text-white">
+              {t('practice.innovation')} {t('practice.integrity')} 
+              <span className="text-[#cc2027] italic ml-2">{t('practice.commitment')} {t('practice.excellence')}</span>
             </h2>
             <Link href="/consultation" className="inline-block font-serif-sub tracking-[0.3em] uppercase text-[11px] bg-[#cc2027] text-white border-2 border-[#cc2027] px-20 py-8 hover:bg-white hover:text-secondary hover:border-white transition-all duration-500 font-bold no-underline shadow-4xl">
               {t('practice.journey')} →
