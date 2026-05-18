@@ -5,38 +5,19 @@ import { useLocation, Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, MapPin, Home as HomeIcon, Headphones } from "lucide-react";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { FaXTwitter, FaTiktok } from "react-icons/fa6";
+import { FaXTwitter } from "react-icons/fa6";
 import BrandMark from "./BrandMark";
 import FloatingWhatsApp from "./FloatingWhatsApp";
 import AIChatBox from "./AIChatBox";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTranslation } from "../lib/translations";
-import { db } from "../lib/db";
-import { getConsent, setConsent, getCookie, setCookie } from "../lib/cookies";
 
-export default function Layout({ children, title, description }) {
+export default function Layout({ children }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [location, setLocation] = useLocation();
   const { language, toggleLanguage } = useLanguage();
   const { t } = useTranslation(language);
-
-  useEffect(() => {
-    const siteName = "M.S. Ochieng Legal";
-    if (title) {
-      document.title = `${title} | ${siteName}`;
-    } else {
-      document.title = `${siteName} | Senior Advocate & Commercial Chambers`;
-    }
-
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta');
-      metaDesc.name = 'description';
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.content = description || "M.S. Ochieng Legal provides clear corporate, Conveyancing, Property, Immigration, and Litigation legal advice in Nairobi, Kenya and globally.";
-  }, [title, description]);
 
   const navLinks = [
     { href: "/", label: t('nav.home') },
@@ -62,32 +43,16 @@ export default function Layout({ children, title, description }) {
   }, []);
 
   useEffect(() => {
-    const initializeVisitorTracking = () => {
-      const consent = getConsent();
-      if (consent?.analytics) {
-        let sessionId = getCookie('mso_visitor_session');
-        if (!sessionId) {
-          sessionId = 'sess_' + Math.random().toString(36).substring(2, 15) + '_' + Date.now();
-          setCookie('mso_visitor_session', sessionId, 30); // 30 days expiration
-          db.trackVisitor(sessionId).catch(console.error);
-        }
-      }
-    };
-
-    initializeVisitorTracking();
-
-    const handleConsentUpdate = () => {
-      initializeVisitorTracking();
-    };
-
-    window.addEventListener('mso_cookie_consent_updated', handleConsentUpdate);
+    const sessionTracker = sessionStorage.getItem('mso_tracked');
+    if (!sessionTracker) {
+      const visitors = parseInt(localStorage.getItem('mso_visitors') || '0', 10);
+      localStorage.setItem('mso_visitors', (visitors + 1).toString());
+      sessionStorage.setItem('mso_tracked', 'true');
+    }
 
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener('mso_cookie_consent_updated', handleConsentUpdate);
-    };
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   useEffect(() => {
@@ -179,14 +144,36 @@ export default function Layout({ children, title, description }) {
                               ))}
                             </div>
 
-
+                            <div id="search" className="grow-0 lg:grow-0">
+                                <form 
+                                  role="search" 
+                                  className="search-form flex h-7 shadow-sm" 
+                                  onSubmit={(e) => {
+                                    e.preventDefault();
+                                    const formData = new FormData(e.target);
+                                    const query = formData.get('s');
+                                    if (query && query.trim()) {
+                                      setLocation(`/search?q=${encodeURIComponent(query.trim())}`);
+                                    }
+                                  }}
+                                >
+                                    <label className="m-0 grow">
+                                        <input 
+                                          type="search" 
+                                          className="search-field px-2 h-full text-gray-700 text-[11px] outline-none w-[100px] sm:w-[130px] bg-white rounded-l-[2px] border-none placeholder:text-gray-400" 
+                                          placeholder={t('search.placeholder')} 
+                                          name="s" 
+                                          title="Search for:" 
+                                        />
+                                    </label>
+                                    <input type="submit" className="search-submit bg-[#cc2027] text-white px-3 font-bold text-[10px] h-full border-none cursor-pointer hover:bg-red-800 tracking-wider rounded-r-[2px] transition-colors" value={t('search.button')} />
+                                </form>
+                            </div>
                             <ul className="items-center gap-1 md:gap-2 m-0 p-0 list-none text-white flex">
                                 <li className="flex gap-1.5 md:gap-2">                                        
                                     <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61551090343152" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] transition-all text-white" title="Facebook"><FaFacebookF size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="https://x.com/pakadvocates" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white" title="X (Twitter)"><FaXTwitter size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-linear-to-tr hover:from-[#f9ce34] hover:to-[#ee2a7b] hover:border-transparent transition-all text-white" title="Instagram"><FaInstagram size={10} /></a>
-                                    <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/company/msochienglaw" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all text-white" title="LinkedIn"><FaLinkedinIn size={10} /></a>
-                                    <a target="_blank" rel="noreferrer" href="https://www.tiktok.com/@msochienglaw" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white" title="TikTok"><FaTiktok size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="tel:+254791857001" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all text-white" title="Call Us"><Phone size={10} /></a>
                                 </li>
                             </ul>
@@ -266,12 +253,6 @@ export default function Layout({ children, title, description }) {
                         </a>
                         <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all shadow-sm" title="Instagram">
                             <FaInstagram size={18} />
-                        </a>
-                        <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/company/msochienglaw" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-all shadow-sm" title="LinkedIn">
-                            <FaLinkedinIn size={18} />
-                        </a>
-                        <a target="_blank" rel="noreferrer" href="https://www.tiktok.com/@msochienglaw" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-black hover:text-white hover:border-black transition-all shadow-sm" title="TikTok">
-                            <FaTiktok size={18} />
                         </a>
                         <a target="_blank" rel="noreferrer" href="tel:+254791857001" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-[#cc2027] hover:text-white hover:border-[#cc2027] transition-all shadow-sm" title="Call Us">
                             <Phone size={18} />
@@ -362,44 +343,21 @@ export default function Layout({ children, title, description }) {
 
 function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
-  const [preferences, setPreferences] = useState({
-    necessary: true,
-    analytics: true,
-    preferences: true
-  });
 
   const { language } = useLanguage();
   const { t } = useTranslation(language);
 
   useEffect(() => {
-    const consent = getConsent();
+    const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
       const timer = setTimeout(() => setIsVisible(true), 1500);
       return () => clearTimeout(timer);
     }
   }, []);
 
-  const handleAcceptAll = () => {
-    const allConsent = { necessary: true, analytics: true, preferences: true };
-    setConsent(allConsent);
+  const accept = () => {
+    localStorage.setItem('cookie-consent', 'accepted');
     setIsVisible(false);
-  };
-
-  const handleRejectAll = () => {
-    const essentialConsent = { necessary: true, analytics: false, preferences: false };
-    setConsent(essentialConsent);
-    setIsVisible(false);
-  };
-
-  const handleSavePreferences = () => {
-    setConsent(preferences);
-    setIsVisible(false);
-  };
-
-  const togglePreference = (key) => {
-    if (key === 'necessary') return; // Cannot disable necessary
-    setPreferences(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
   return (
@@ -409,111 +367,21 @@ function CookieConsent() {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:w-[420px] bg-white text-[#1c2f54] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-100 border-t-4 border-[#cc2027] rounded-lg"
+          className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:w-[400px] bg-white text-secondary p-6 shadow-4xl z-100 border-l-4 border-[#cc2027] rounded-sm"
         >
-          {!showSettings ? (
-            <>
-              <h4 className="font-serif-sub text-xs uppercase tracking-widest font-bold mb-3 text-[#cc2027]">{t('cookie.title') || "Cookie Consent"}</h4>
-              <p className="font-sans text-[11px] leading-relaxed mb-6 font-medium text-[#1c2f54]/80">
-                {t('cookie.desc') || "We use cookies to enhance your experience, analyze site traffic, and deliver personalized content. You can choose to accept all, reject non-essential, or manage your preferences."}
-              </p>
-              <div className="flex flex-wrap items-center gap-3">
-                <button 
-                  onClick={handleAcceptAll}
-                  className="bg-[#1c2f54] text-white text-[10px] uppercase font-bold tracking-widest px-4 py-2.5 rounded-sm hover:bg-[#cc2027] transition-all cursor-pointer shadow-md"
-                >
-                  {t('cookie.accept') || "Accept All"}
-                </button>
-                <button 
-                  onClick={handleRejectAll}
-                  className="border border-[#1c2f54]/20 text-[#1c2f54] text-[10px] uppercase font-bold tracking-widest px-4 py-2.5 rounded-sm hover:bg-gray-50 transition-all cursor-pointer"
-                >
-                  Reject All
-                </button>
-                <button 
-                  onClick={() => setShowSettings(true)}
-                  className="text-[10px] uppercase font-bold tracking-widest text-[#1c2f54]/60 hover:text-[#cc2027] transition-all cursor-pointer underline underline-offset-4"
-                >
-                  Settings
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              <h4 className="font-serif-sub text-xs uppercase tracking-widest font-bold mb-4 text-[#cc2027]">Cookie Preferences</h4>
-              <div className="space-y-4 mb-6 pr-1">
-                {/* Essential */}
-                <div className="flex items-start justify-between gap-4 border-b border-gray-100 pb-3">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-sans text-[11px] font-bold text-[#1c2f54]">Strictly Necessary</span>
-                      <span className="text-[8px] bg-gray-100 text-gray-500 uppercase px-1.5 py-0.5 rounded font-bold">Required</span>
-                    </div>
-                    <p className="text-[10px] text-gray-500 leading-tight mt-1">
-                      Essential for basic site functions, page navigation, and secure areas. Cannot be disabled.
-                    </p>
-                  </div>
-                  <div className="relative inline-flex items-center mt-1">
-                    <input type="checkbox" disabled checked className="sr-only peer" />
-                    <div className="w-8 h-4 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#1c2f54]/50 opacity-60"></div>
-                  </div>
-                </div>
-
-                {/* Analytics */}
-                <div className="flex items-start justify-between gap-4 border-b border-gray-100 pb-3">
-                  <div className="flex-1">
-                    <span className="font-sans text-[11px] font-bold text-[#1c2f54]">Analytics & Performance</span>
-                    <p className="text-[10px] text-gray-500 leading-tight mt-1">
-                      Helps us count visits, understand traffic sources, and measure performance so we can improve our service.
-                    </p>
-                  </div>
-                  <label className="relative inline-flex items-center cursor-pointer mt-1">
-                    <input 
-                      type="checkbox" 
-                      checked={preferences.analytics} 
-                      onChange={() => togglePreference('analytics')}
-                      className="sr-only peer" 
-                    />
-                    <div className="w-8 h-4 bg-gray-200 rounded-full peer peer-checked:after:translate-x-4 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#cc2027]"></div>
-                  </label>
-                </div>
-
-                {/* Preferences */}
-                <div className="flex items-start justify-between gap-4 pb-1">
-                  <div className="flex-1">
-                    <span className="font-sans text-[11px] font-bold text-[#1c2f54]">Preferences & Customization</span>
-                    <p className="text-[10px] text-gray-500 leading-tight mt-1">
-                      Remembers choices you make (such as language preferences) to provide a more personalized experience.
-                    </p>
-                  </div>
-                  <label className="relative inline-flex items-center cursor-pointer mt-1">
-                    <input 
-                      type="checkbox" 
-                      checked={preferences.preferences} 
-                      onChange={() => togglePreference('preferences')}
-                      className="sr-only peer" 
-                    />
-                    <div className="w-8 h-4 bg-gray-200 rounded-full peer peer-checked:after:translate-x-4 after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#cc2027]"></div>
-                  </label>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-3">
-                <button 
-                  onClick={handleSavePreferences}
-                  className="bg-[#1c2f54] text-white text-[10px] uppercase font-bold tracking-widest px-4 py-2.5 rounded-sm hover:bg-[#cc2027] transition-all cursor-pointer shadow-md"
-                >
-                  Save Settings
-                </button>
-                <button 
-                  onClick={() => setShowSettings(false)}
-                  className="border border-[#1c2f54]/20 text-[#1c2f54] text-[10px] uppercase font-bold tracking-widest px-4 py-2.5 rounded-sm hover:bg-gray-50 transition-all cursor-pointer"
-                >
-                  Back
-                </button>
-              </div>
-            </>
-          )}
+          <h4 className="font-serif-sub text-xs uppercase tracking-widest font-bold mb-3 text-[#cc2027]">{t('cookie.title')}</h4>
+          <p className="font-sans text-[11px] leading-relaxed mb-6 font-medium text-[#1c2f54]">
+            {t('cookie.desc')}
+          </p>
+          <div className="flex items-center gap-4">
+            <button 
+              onClick={accept}
+              className="bg-[#1c2f54] text-white text-[10px] uppercase font-bold tracking-widest px-6 py-2.5 rounded-sm hover:bg-[#cc2027] transition-all"
+            >
+              {t('cookie.accept')}
+            </button>
+            <Link href="/terms" className="text-[10px] uppercase font-bold tracking-widest text-[#1c2f54]/50 hover:text-[#cc2027] transition-all">{t('cookie.details')}</Link>
+          </div>
         </motion.div>
       )}
     </AnimatePresence>

@@ -4,7 +4,6 @@ import { CheckCircle2, ShieldCheck, Mail, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTranslation } from "../lib/translations";
-import { db } from "../lib/db";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -24,7 +23,6 @@ export default function Consultation() {
     name: '',
     organization: '',
     email: '',
-    phone: '',
     service: 'Commercial & Corporate Law',
     summary: ''
   });
@@ -60,42 +58,43 @@ export default function Consultation() {
 
       const result = await response.json();
       
-      const newConsultation = {
-        id: Math.random().toString(36).substr(2, 9),
-        name: formData.name,
-        organization: formData.organization,
-        email: formData.email,
-        phone: formData.phone,
-        service: formData.service,
-        summary: formData.summary,
-        status: 'Pending',
-        replies: [],
-        date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+      const saveLocal = () => {
+        const stored = JSON.parse(localStorage.getItem('mso_consultations') || '[]');
+        stored.unshift({
+          id: Math.random().toString(36).substr(2, 9),
+          name: formData.name,
+          email: formData.email,
+          service: formData.service,
+          summary: formData.summary,
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+        });
+        localStorage.setItem('mso_consultations', JSON.stringify(stored));
       };
 
-      await db.saveConsultation(newConsultation);
-      setStatus('success');
+      if (result.success) {
+        saveLocal();
+        setStatus('success');
+      } else {
+        saveLocal();
+        setStatus('success'); 
+      }
     } catch (error) {
-      console.error("Consultation submission error", error);
-      const newConsultation = {
+      const stored = JSON.parse(localStorage.getItem('mso_consultations') || '[]');
+      stored.unshift({
         id: Math.random().toString(36).substr(2, 9),
         name: formData.name,
-        organization: formData.organization,
         email: formData.email,
-        phone: formData.phone,
         service: formData.service,
         summary: formData.summary,
-        status: 'Pending',
-        replies: [],
         date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
-      };
-      await db.saveConsultation(newConsultation);
+      });
+      localStorage.setItem('mso_consultations', JSON.stringify(stored));
       setStatus('success'); 
     }
   };
 
   return (
-    <Layout title={t('nav.contact')} description="Request a formal legal briefing, consultation, or call back with M.S. Ochieng Legal advocates in Upper Hill, Nairobi.">
+    <Layout>
       <section className="pt-32 pb-16 md:pt-40 md:pb-32 px-4 sm:px-6 relative overflow-hidden bg-secondary min-h-screen flex items-center border-b border-border">
         <div className="absolute inset-0 z-0">
           <img 
@@ -108,15 +107,14 @@ export default function Consultation() {
           <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.02) 1px, transparent 0)', backgroundSize: '48px 48px' }} />
         </div>
 
-        <div className="max-w-5xl mx-auto w-full relative z-10 flex flex-col gap-12 lg:gap-16 items-center pt-24 lg:pt-0">
+        <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
           
-          {/* Top Section: Messaging */}
-          <div className="w-full text-center flex flex-col items-center">
-            <motion.div initial="hidden" animate="visible" variants={stagger} className="flex flex-col items-center w-full">
-              <motion.p variants={fadeUp} className="font-serif-sub text-primary tracking-[0.5em] uppercase text-[9px] sm:text-[10px] mb-6 flex items-center justify-center gap-4 font-bold w-full">
+          {/* Left Column: Messaging */}
+          <div className="lg:w-1/2 w-full text-left">
+            <motion.div initial="hidden" animate="visible" variants={stagger}>
+              <motion.p variants={fadeUp} className="font-serif-sub text-primary tracking-[0.5em] uppercase text-[9px] sm:text-[10px] mb-6 flex items-center gap-4 font-bold">
                 <span className="w-12 h-px bg-primary block" />
                 {t('consultation.label')}
-                <span className="w-12 h-px bg-primary block" />
               </motion.p>
               
               <motion.h1 variants={fadeUp} className="font-serif-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white mb-8 leading-tight font-bold tracking-tight">
@@ -124,18 +122,18 @@ export default function Consultation() {
                 <span className="text-[#cc2027] italic">{t('consultation.subtitle')}</span>
               </motion.h1>
               
-              <motion.p variants={fadeUp} className="font-sans text-white/60 text-base md:text-lg font-light leading-relaxed mb-12 max-w-2xl mx-auto">
+              <motion.p variants={fadeUp} className="font-sans text-white/60 text-base md:text-lg font-light leading-relaxed mb-12 max-w-xl">
                 {t('consultation.desc')}
               </motion.p>
 
-              <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-8 lg:gap-12 w-full max-w-4xl mx-auto">
+              <motion.div variants={fadeUp} className="space-y-8">
                 {[
                   { key: "institutional" },
                   { key: "strategic" },
                   { key: "bespoke" }
                 ].map((item, i) => (
-                  <div key={i} className="flex flex-col items-center text-center gap-3 w-48 group">
-                    <div className="w-8 h-px bg-primary/40 mb-2 transition-all group-hover:w-16 group-hover:bg-primary" />
+                  <div key={i} className="flex gap-6 items-start pb-6 border-b border-white/10 last:border-0 group">
+                    <div className="w-8 h-px bg-primary/40 mt-3 shrink-0 transition-all group-hover:w-16 group-hover:bg-primary" />
                     <div>
                       <h4 className="font-serif-sub tracking-widest uppercase text-[10px] md:text-[11px] text-white mb-2 font-bold">
                         {t(`consultation.sidebar.${item.key}_title`)}
@@ -150,8 +148,8 @@ export default function Consultation() {
             </motion.div>
           </div>
 
-          {/* Bottom Section: Form */}
-          <div className="w-full relative mt-8">
+          {/* Right Column: Form */}
+          <div className="lg:w-1/2 w-full relative">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -201,31 +199,17 @@ export default function Consultation() {
                           />
                         </div>
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
-                        <div className="flex flex-col gap-2 md:gap-3">
-                          <label className="font-serif-sub uppercase text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 font-bold">{t('consultation.email')}</label>
-                          <input 
-                            required
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                            type="email" 
-                            className="bg-white/5 border border-white/10 px-5 py-4 md:px-8 md:py-5 text-sm md:text-base text-white focus:outline-none focus:border-primary transition-all rounded-sm font-sans" 
-                            placeholder="counsel@organization.com" 
-                          />
-                        </div>
-                        <div className="flex flex-col gap-2 md:gap-3">
-                          <label className="font-serif-sub uppercase text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 font-bold">{t('consultation.phone')}</label>
-                          <input 
-                            required
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                            type="tel" 
-                            className="bg-white/5 border border-white/10 px-5 py-4 md:px-8 md:py-5 text-sm md:text-base text-white focus:outline-none focus:border-primary transition-all rounded-sm font-sans" 
-                            placeholder="e.g. +254 700 000 000" 
-                          />
-                        </div>
+                      <div className="flex flex-col gap-2 md:gap-3">
+                        <label className="font-serif-sub uppercase text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 font-bold">{t('consultation.email')}</label>
+                        <input 
+                          required
+                          name="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          type="email" 
+                          className="bg-white/5 border border-white/10 px-5 py-4 md:px-8 md:py-5 text-sm md:text-base text-white focus:outline-none focus:border-primary transition-all rounded-sm font-sans" 
+                          placeholder="counsel@organization.com" 
+                        />
                       </div>
                       <div className="flex flex-col gap-2 md:gap-3">
                         <label className="font-serif-sub uppercase text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 font-bold">{t('consultation.service')}</label>
@@ -352,27 +336,23 @@ export default function Consultation() {
       </section>
 
       {/* Strategic Privileges */}
-      <section className="py-16 md:py-24 px-4 sm:px-6 bg-muted/5 border-t border-border relative overflow-hidden">
-        <div className="max-w-5xl mx-auto flex flex-col items-center text-center gap-10 md:gap-14">
-           <div className="w-full">
-              <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[9px] md:text-[10px] mb-3 md:mb-4 font-bold flex justify-center gap-4 items-center">
-                 <span className="w-8 h-px bg-[#cc2027]" />
-                 {t('consultation.privileges_label')}
-                 <span className="w-8 h-px bg-[#cc2027]" />
-              </p>
+      <section className="py-8 md:py-16 px-4 sm:px-6 bg-muted/5 border-t border-border relative overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
+           <div className="md:w-1/3 text-center md:text-left">
+              <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[9px] md:text-[10px] mb-3 md:mb-4 font-bold">{t('consultation.privileges_label')}</p>
               <h2 className="font-serif-heading text-2xl md:text-4xl font-bold text-[#1c2f54] uppercase tracking-tight">{t('consultation.privileges')}</h2>
            </div>
            
-           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl">
-              <div className="p-8 md:p-10 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group text-center">
+           <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+              <div className="p-6 md:p-8 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
                  <h4 className="font-serif-sub tracking-widest uppercase text-[10px] md:text-[11px] text-[#1c2f54] mb-3 md:mb-4 font-bold">{t('consultation.ac_title')}</h4>
-                 <p className="font-sans text-foreground/50 text-[11px] md:text-xs font-light leading-relaxed mx-auto max-w-sm">
+                 <p className="font-sans text-foreground/50 text-[11px] md:text-xs font-light leading-relaxed">
                    {t('consultation.ac_desc')}
                  </p>
               </div>
-              <div className="p-8 md:p-10 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group text-center">
+              <div className="p-6 md:p-8 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
                  <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-[#1c2f54] mb-4 font-bold">{t('consultation.data_title')}</h4>
-                 <p className="font-sans text-foreground/50 text-xs font-light leading-relaxed mx-auto max-w-sm">
+                 <p className="font-sans text-foreground/50 text-xs font-light leading-relaxed">
                    {t('consultation.data_desc')}
                  </p>
               </div>

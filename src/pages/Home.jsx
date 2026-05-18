@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, ChevronRight, ChevronLeft, Scale, Shield, Users, Gavel, Briefcase, Home as HomeIcon, UserCheck, Target, Compass, Globe, Tv } from "lucide-react";
+import { ArrowRight, ChevronRight, ChevronLeft, Scale, Shield, Users, Gavel, Briefcase, Home as HomeIcon, UserCheck, Target, Compass, Globe, Tv, Calculator } from "lucide-react";
 import useEmblaCarousel from 'embla-carousel-react';
 import Layout from '../components/Layout';
 import LegalNewsWidget from "../components/LegalNewsWidget";
@@ -22,19 +22,20 @@ export default function Home() {
   const { language } = useLanguage();
   const { t } = useTranslation(language);
 
-  const expertiseKeys = ["family", "conveyancing", "commercial", "immigration", "litigation", "adr", "ip", "employment", "media"];
+  const expertiseKeys = ["family", "conveyancing", "commercial", "immigration", "litigation", "adr", "ip", "employment", "media", "taxation"];
   
   const expertiseAreas = expertiseKeys.map((key, idx) => {
     const icons = {
       family: Users, conveyancing: HomeIcon, commercial: Briefcase, immigration: Globe,
-      litigation: Gavel, adr: Scale, ip: Shield, employment: UserCheck, media: Tv
+      litigation: Gavel, adr: Scale, ip: Shield, employment: UserCheck, media: Tv, taxation: Calculator
     };
     const imgs = {
       family: "/practice/family-law.jpg", conveyancing: "/practice/conveyancing.jpg", commercial: "/practice/commercial.jpg",
       immigration: "https://images.unsplash.com/photo-1544027993-37dbfe43562a?auto=format&fit=crop&w=800&q=80",
       litigation: "/practice/litigation.jpg", adr: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80",
       ip: "/practice/intellectual-property.jpg", employment: "/practice/employment.jpg",
-      media: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80"
+      media: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80",
+      taxation: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?auto=format&fit=crop&w=800&q=80"
     };
     return { title: t(`practice.areas.${key}`), img: imgs[key], icon: icons[key] };
   });

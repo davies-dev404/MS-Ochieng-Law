@@ -42,7 +42,7 @@ export default function OurPeople() {
   }, []);
 
   return (
-    <Layout title={t('nav.people')} description="Meet our dedicated legal team and advocates at M.S. Ochieng Legal, committed to delivering clear strategic guidance.">
+    <Layout>
       <SocialSidebar />
       {/* Hero Section with Legal Excellence branding */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
@@ -71,70 +71,102 @@ export default function OurPeople() {
         </div>
       </section>
 
-      {/* Main Content Area — Two Column Layout */}
-      <section className="py-20 md:py-32 px-6 bg-white min-h-[60vh] relative overflow-hidden">
-        {/* Subtle background monogram */}
-        <div className="absolute top-0 left-0 font-serif-heading text-[200px] md:text-[300px] font-black text-gray-50 leading-none pointer-events-none select-none -translate-x-1/4 -translate-y-1/4">
-          MSO
-        </div>
-
-        <div className="max-w-[1200px] mx-auto relative z-10">
+      {/* Main Content Area */}
+      <section className="py-20 md:py-32 px-6 bg-[#fafafa] min-h-[60vh]">
+        <div className="max-w-[1200px] mx-auto">
           
-          {teamMembers.map((member, idx) => (
-            <div key={member.id} className="flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
-              {/* Left side: Image */}
+          <div className="flex flex-col items-center justify-center max-w-md mx-auto">
+            {teamMembers.map((member, idx) => (
               <motion.div
-                initial={{ opacity: 0, x: -40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8 }}
-                className="w-full lg:w-5/12 relative group"
+                key={member.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="group cursor-pointer flex flex-col items-center"
+                onClick={() => setSelectedMember(member)}
               >
-                <div className="relative overflow-hidden bg-white shadow-2xl aspect-3/4">
-                   {/* Overlay accent line */}
-                   <div className="absolute top-0 left-0 w-full h-1 bg-[#cc2027] z-20 transition-transform origin-left scale-x-0 group-hover:scale-x-100 duration-500 ease-out" />
-                   
+                <div className="w-full relative overflow-hidden rounded-sm bg-white shadow-xl border border-gray-100 aspect-3/4 mb-8">
+                   <div className="absolute inset-0 bg-[#cc2027] opacity-0 group-hover:opacity-10 transition-opacity duration-300 z-10" />
                    <img 
                      src={member.image} 
                      alt={member.name}
-                     className="w-full h-full object-cover object-top filter contrast-[1.05] brightness-[1.02]"
+                     className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                      loading="lazy"
                    />
                 </div>
                 
-                {/* Decorative dots / frame effect */}
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-[radial-gradient(#1c2f54_1px,transparent_1px)] bg-size-[16px_16px] opacity-20 -z-10" />
-                <div className="absolute -top-6 -left-6 w-32 h-32 bg-[radial-gradient(#cc2027_1px,transparent_1px)] bg-size-[16px_16px] opacity-20 -z-10" />
-              </motion.div>
-              
-              {/* Right side: Bio */}
-              <motion.div
-                initial={{ opacity: 0, x: 40 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="w-full lg:w-7/12"
-              >
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="h-px w-10 bg-[#cc2027]" />
-                  <span className="text-[#cc2027] font-sans font-bold tracking-[0.2em] uppercase text-[10px]">
-                    {member.role}
-                  </span>
-                </div>
-                
-                <h2 className="text-[#1c2f54] text-4xl md:text-5xl font-serif-heading font-bold mb-8 leading-[1.1] tracking-tight">
+                <h3 className="text-[#1c2f54] text-xl font-bold mb-1 text-center font-sans tracking-wide group-hover:text-[#cc2027] transition-colors">
                   {member.name}
-                </h2>
+                </h3>
+                <h4 className="text-gray-400 text-[11px] uppercase tracking-[0.2em] font-bold text-center">
+                  {member.role}
+                </h4>
                 
-                <div className="prose prose-lg text-gray-500 font-sans font-light leading-relaxed">
-                  {member.bio}
-                </div>
+                <div className="mt-6 w-12 h-1 bg-[#cc2027] group-hover:w-20 transition-all duration-500" />
               </motion.div>
-            </div>
-          ))}
+            ))}
+          </div>
 
         </div>
       </section>
+
+      {/* Lightbox / Modal Overlay */}
+      <AnimatePresence>
+        {selectedMember && (
+          <div className="fixed inset-0 z-100 flex items-center justify-center p-4 sm:p-6">
+            
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setSelectedMember(null)}
+            />
+            
+            {/* Modal Content */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.1 }}
+              className="relative w-full max-w-[650px] bg-white shadow-2xl flex flex-col max-h-[90vh] overflow-y-auto overflow-x-hidden"
+            >
+               {/* Close Button */}
+               <button 
+                 onClick={() => setSelectedMember(null)}
+                 className="absolute top-4 right-4 z-20 w-8 h-8 flex items-center justify-center bg-white/50 backdrop-blur-sm shadow hover:bg-white text-gray-700 rounded-full transition-colors"
+               >
+                 <X size={18} />
+               </button>
+
+               {/* Top: Image */}
+               <div className="w-full bg-[#1c2f54] relative shrink-0 flex justify-center items-center">
+                  <img 
+                    src={selectedMember.image} 
+                    alt={selectedMember.name} 
+                    className="w-full h-auto max-h-[60vh] object-contain block mb-0"
+                  />
+               </div>
+
+               {/* Bottom: Bio Content */}
+               <div className="w-full p-8 flex flex-col shrink-0 bg-white">
+                  <h3 className="text-[22px] font-bold text-[#333] mb-1 font-sans">
+                    {selectedMember.name}
+                  </h3>
+                  <h4 className="text-[#333] text-[15px] font-bold mb-6">
+                    {selectedMember.role}
+                  </h4>
+                  <div className="text-[14px] leading-[1.8] text-[#555]">
+                    {selectedMember.bio}
+                  </div>
+               </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
 
     </Layout>
   );

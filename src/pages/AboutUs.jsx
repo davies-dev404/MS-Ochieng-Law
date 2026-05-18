@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
+import { Target, Flag, Star, ShieldCheck, Scale, Quote } from 'lucide-react';
 import Layout from '../components/Layout';
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTranslation } from "../lib/translations";
@@ -10,45 +10,11 @@ const fadeUp = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } },
 };
 
-const AccordionItem = ({ title, isActive, onClick, children }) => {
-  return (
-    <div className="mb-px bg-white rounded-none overflow-hidden">
-      <button
-        type="button"
-        className="w-full px-6 py-4 flex text-left bg-[#1c2f54] text-white transition-colors duration-300 hover:bg-[#152340]"
-        onClick={onClick}
-      >
-        <div className="flex items-center gap-4">
-            <span className="font-bold text-xl leading-none w-4">{isActive ? '–' : '+'}</span>
-            <span className="font-bold font-sans text-[13px] uppercase tracking-[0.15em] whitespace-nowrap">
-              {title}
-            </span>
-        </div>
-      </button>
-
-      <AnimatePresence>
-        {isActive && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="py-8 px-2 text-gray-700 leading-relaxed font-medium text-[15px]">
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
-
 export default function AboutUs() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const { language } = useLanguage();
   const { t } = useTranslation(language);
+
+  const icons = [Target, Flag, Star, ShieldCheck, Scale];
 
   const sections = [
     {
@@ -95,6 +61,7 @@ export default function AboutUs() {
           <li>{t('practice.areas.ip')}</li>
           <li>{t('practice.areas.employment')}</li>
           <li>{t('practice.areas.media')}</li>
+          <li>{t('practice.areas.taxation')}</li>
         </ul>
       )
     }
@@ -135,7 +102,7 @@ export default function AboutUs() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
             
             {/* Left Image Column */}
-            <div className="lg:col-span-5 relative w-full group">
+            <div className="lg:col-span-5 relative w-full group lg:sticky lg:top-32">
               <motion.div 
                 initial={{ opacity: 0, x: -30 }} 
                 whileInView={{ opacity: 1, x: 0 }} 
@@ -166,34 +133,53 @@ export default function AboutUs() {
                 transition={{ duration: 1, delay: 0.2 }}
               >
                 
-                {/* Static Introduction */}
-                <div className="mb-px bg-white rounded-none overflow-hidden">
-                  <div className="w-full px-6 py-4 flex text-left bg-[#1c2f54] text-white">
-                    <div className="flex items-center gap-4">
-                        <span className="font-bold text-xl leading-none w-4">−</span>
-                        <span className="font-bold font-sans text-[13px] uppercase tracking-[0.15em]">
-                          {t('about.intro_title')}
-                        </span>
-                    </div>
+                {/* Refined Introduction */}
+                <div className="mb-14 bg-gray-50/50 p-8 md:p-10 rounded-3xl border border-gray-100">
+                  <div className="flex items-center gap-4 mb-8">
+                      <div className="h-px w-12 bg-[#cc2027]" />
+                      <span className="font-bold font-sans text-[14px] uppercase tracking-[0.2em] text-[#1c2f54]">
+                        {t('about.intro_title')}
+                      </span>
                   </div>
-                  <div className="py-8 px-2 text-gray-700 leading-relaxed font-medium text-[15px] space-y-4">
-                      <p>{t('about.intro_p1')}</p>
-                      <p>{t('about.intro_p2')}</p>
-                      <p>{t('about.intro_p3')}</p>
+                  <div className="text-gray-600 leading-relaxed text-base md:text-lg space-y-6">
+                      <p className="text-xl md:text-2xl font-serif text-[#1c2f54] leading-snug">
+                        {t('about.intro_p1')}
+                      </p>
+                      <p className="font-light">{t('about.intro_p2')}</p>
+                      <p className="font-light">{t('about.intro_p3')}</p>
                   </div>
                 </div>
                 
-                <div className="flex flex-col">
-                  {sections.map((section, idx) => (
-                    <AccordionItem 
-                      key={idx}
-                      title={section.title}
-                      isActive={activeIndex === idx}
-                      onClick={() => setActiveIndex(activeIndex === idx ? -1 : idx)}
-                    >
-                      {section.content}
-                    </AccordionItem>
-                  ))}
+                {/* Modern Card Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {sections.map((section, idx) => {
+                    const Icon = icons[idx] || Star;
+                    const isLast = idx === sections.length - 1;
+                    return (
+                      <motion.div 
+                        key={idx}
+                        whileHover={{ y: -8 }}
+                        className={`relative overflow-hidden bg-white border border-gray-100 p-8 rounded-3xl transition-all duration-500 group hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] hover:border-[#cc2027]/20 flex flex-col ${isLast ? 'md:col-span-2' : ''}`}
+                      >
+                        {/* Watermark Number */}
+                        <div className="absolute -bottom-8 -right-8 text-[150px] leading-none font-black text-gray-50 opacity-60 pointer-events-none group-hover:text-[#cc2027]/5 group-hover:-translate-y-4 group-hover:-translate-x-4 transition-all duration-700">
+                          0{idx + 1}
+                        </div>
+
+                        <div className="relative z-10 flex flex-col gap-6 mb-6">
+                          <div className="w-16 h-16 bg-gray-50/80 group-hover:bg-[#cc2027] group-hover:text-white text-[#1c2f54] rounded-2xl flex items-center justify-center transition-all duration-500 shrink-0 group-hover:shadow-lg group-hover:shadow-[#cc2027]/30">
+                            <Icon size={28} strokeWidth={1.5} />
+                          </div>
+                          <h3 className="text-[#1c2f54] font-bold font-sans text-lg uppercase tracking-wider group-hover:text-[#cc2027] transition-colors duration-500">
+                            {section.title}
+                          </h3>
+                        </div>
+                        <div className="relative z-10 text-gray-600 leading-relaxed font-normal text-[15px] flex-1">
+                          {section.content}
+                        </div>
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </motion.div>
             </div>
