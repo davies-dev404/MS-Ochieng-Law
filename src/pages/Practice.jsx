@@ -15,7 +15,7 @@ export default function Practice() {
   const { language } = useLanguage();
   const { t } = useTranslation(language);
 
-  const practiceKeys = ["family", "conveyancing", "commercial", "immigration", "litigation", "adr", "ip", "employment", "media"];
+  const practiceKeys = ["family", "conveyancing", "commercial", "immigration", "litigation", "adr", "ip", "employment", "media", "taxation"];
 
   const practices = practiceKeys.map((key, index) => {
     const icons = {
@@ -83,6 +83,21 @@ export default function Practice() {
           <line x1="17" y1="17" x2="22" y2="17" />
           <line x1="17" y1="7" x2="22" y2="7" />
         </svg>
+      ),
+      taxation: (
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+          <line x1="8" y1="6" x2="16" y2="6" />
+          <line x1="16" y1="14" x2="16" y2="14.01" />
+          <line x1="12" y1="14" x2="12" y2="14.01" />
+          <line x1="8" y1="14" x2="8" y2="14.01" />
+          <line x1="16" y1="18" x2="16" y2="18.01" />
+          <line x1="12" y1="18" x2="12" y2="18.01" />
+          <line x1="8" y1="18" x2="8" y2="18.01" />
+          <line x1="16" y1="10" x2="16" y2="10.01" />
+          <line x1="12" y1="10" x2="12" y2="10.01" />
+          <line x1="8" y1="10" x2="8" y2="10.01" />
+        </svg>
       )
     };
 
@@ -95,7 +110,8 @@ export default function Practice() {
       adr: "https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1920&q=80",
       ip: "/practice/intellectual-property.jpg",
       employment: "/practice/employment.jpg",
-      media: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1920&q=80"
+      media: "https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1920&q=80",
+      taxation: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1920&q=80"
     };
 
     return {

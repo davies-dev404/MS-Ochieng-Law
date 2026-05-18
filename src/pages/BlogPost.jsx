@@ -3,7 +3,7 @@ import Layout from "@/components/Layout";
 import SocialSidebar from "@/components/SocialSidebar";
 import { Link, useRoute } from "wouter";
 import NewsletterForm from "@/components/NewsletterForm";
-import { getBlogPosts } from "@/lib/blogData";
+import { getBlogPosts, defaultBlogPosts } from "@/lib/blogData";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -111,6 +111,16 @@ export default function BlogPost() {
                       </p>
                       <div className="mt-12 h-0.5 w-24 bg-[#cc2027] group-hover:w-full transition-all duration-1000" />
                     </div>
+                  </div>
+                )}
+
+                {/* Copyright Disclaimer - Only for default pre-existing posts */}
+                {defaultBlogPosts.some(p => p.id === post.id) && (
+                  <div className="mt-16 p-6 bg-gray-50 border-l-4 border-gray-300 rounded-r-lg">
+                    <p className="font-sans text-xs text-gray-500 leading-relaxed uppercase tracking-widest font-bold mb-2">Copyright Disclaimer</p>
+                    <p className="font-sans text-sm text-gray-400 leading-relaxed">
+                      M.S. Ochieng Legal does not claim copyright ownership of this published material. All rights belong to their respective original authors and publishers. This content is shared strictly for educational, informational, and strategic awareness purposes.
+                    </p>
                   </div>
                 )}
               </motion.div>

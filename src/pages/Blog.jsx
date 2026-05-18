@@ -51,7 +51,8 @@ export default function Blog() {
     { id: "ADR & Negotiation", label: t('blog.categories.adr') },
     { id: "IP & Data Privacy", label: t('blog.categories.ip') },
     { id: "Employment Law", label: t('blog.categories.employment') },
-    { id: "Media & Entertainment", label: t('blog.categories.media') }
+    { id: "Media & Entertainment", label: t('blog.categories.media') },
+    { id: "Taxation Law", label: t('blog.categories.taxation') }
   ];
 
   const handleCategoryChange = (catId) => {

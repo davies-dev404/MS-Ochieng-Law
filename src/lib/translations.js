@@ -111,7 +111,8 @@ export const translations = {
         adr: "ADR & Mediation",
         ip: "Intellectual Property",
         employment: "Employment & Labor",
-        media: "Media & Entertainment"
+        media: "Media & Entertainment",
+        taxation: "Taxation Law"
       },
       areas_detail: {
         family: {
@@ -176,6 +177,13 @@ export const translations = {
           details: "From talent contracts to production financing guidance, we provide the legal framework for the modern creative economy.",
           matters: "Providing strategic counsel to creative professionals to ensure fair monetization and long-term protection of intellectual property.",
           sub: ["Talent Representation & Agreements", "Production & Distribution Contracts", "Digital Rights Management", "Defamation & Media Counsel"]
+        },
+        taxation: {
+          subtitle: "Strategic Tax Structuring & Dispute Resolution",
+          desc: "We provide authoritative counsel on corporate tax structuring and represent clients proactively in KRA disputes.",
+          details: "Our expertise minimizes your tax liabilities while ensuring total regulatory compliance, safeguarding your profit margins from unnecessary exposure.",
+          matters: "Advising multinational enterprises on optimal tax structuring for cross-border investments and aggressive defense in complex tax audits.",
+          sub: ["Corporate Tax Planning", "KRA Dispute Resolution", "Cross-Border Tax Advisory", "Tax Compliance Audits"]
         }
       }
     },
@@ -289,7 +297,8 @@ export const translations = {
         adr: "ADR & Negotiation",
         ip: "IP & Data Privacy",
         employment: "Employment Law",
-        media: "Media & Entertainment"
+        media: "Media & Entertainment",
+        taxation: "Taxation Law"
       },
       intel_title: "Institutional Intelligence.",
       intel_desc: "Subscribe to receive preeminent legal briefings directly in your corporate inbox. No noise. Pure strategic foresight.",
@@ -432,7 +441,8 @@ export const translations = {
         adr: "MARC & Médiation",
         ip: "Propriété Intellectuelle",
         employment: "Emploi & Travail",
-        media: "Médias & Divertissement"
+        media: "Médias & Divertissement",
+        taxation: "Droit Fiscal"
       },
       areas_detail: {
         family: {
@@ -497,6 +507,13 @@ export const translations = {
           details: "Des contrats de talents aux conseils en financement de production, nous fournissons le cadre juridique de l'économie créative.",
           matters: "Fournir des conseils stratégiques aux professionnels de la création pour assurer une monétisation équitable.",
           sub: ["Représentation des Talents et Accords", "Contrats de Production et de Distribution", "Gestion des Droits Numériques", "Conseil en Diffamation et Médias"]
+        },
+        taxation: {
+          subtitle: "Structuration Fiscale Stratégique et Règlement des Différends",
+          desc: "Nous fournissons des conseils d'experts sur la structuration fiscale des entreprises et représentons agressivement les clients dans les litiges KRA.",
+          details: "Notre expertise minimise vos obligations fiscales tout en assurant une conformité réglementaire totale, protégeant vos marges bénéficiaires.",
+          matters: "Conseiller les entreprises multinationales sur la structuration fiscale optimale pour les investissements transfrontaliers et une défense agressive dans les audits fiscaux complexes.",
+          sub: ["Planification Fiscale des Entreprises", "Règlement des Différends KRA", "Conseil Fiscal Transfrontalier", "Audits de Conformité Fiscale"]
         }
       }
     },
@@ -610,7 +627,8 @@ export const translations = {
         adr: "MARC & Négociation",
         ip: "PI & Données",
         employment: "Droit du Travail",
-        media: "Médias & Divertissement"
+        media: "Médias & Divertissement",
+        taxation: "Droit Fiscal"
       },
       intel_title: "Intelligence Institutionnelle.",
       intel_desc: "Inscrivez-vous pour recevoir des briefings juridiques directement dans votre boîte de réception.",
@@ -753,7 +771,8 @@ export const translations = {
         adr: "ADR na Usuluhishi",
         ip: "Mali ya Akili",
         employment: "Sheria ya Ajira",
-        media: "Sheria ya Vyombo vya Habari"
+        media: "Sheria ya Vyombo vya Habari",
+        taxation: "Sheria ya Kodi"
       },
       areas_detail: {
         family: {
@@ -818,6 +837,13 @@ export const translations = {
           details: "Kuanzia mikataba ya talanta hadi mwongozo wa ufadhili wa uzalishaji, tunatoa mfumo wa kisheria kwa uchumi wa kisasa.",
           matters: "Kutoa ushauri wa kimkakati kwa wataalamu wa ubunifu ili kuhakikisha malipo ya haki na ulinzi wa muda mrefu.",
           sub: ["Uwakilishi wa Talanta na Mikataba", "Mikataba ya Uzalishaji na Usambaji", "Usimamizi wa Haki za Kidijitali", "Ushauri wa Kusingizia na Vyombo vya Habari"]
+        },
+        taxation: {
+          subtitle: "Upangaji wa Kodi wa Kimkakati na Utatuzi wa Migogoro",
+          desc: "Tunatoa ushauri wa kitaalam juu ya uundaji wa kodi ya ushirika na kuwawakilisha wateja kwa ukali katika migogoro ya KRA.",
+          details: "Utaalamu wetu hupunguza dhima yako ya kodi huku ukihakikisha uzingatiaji kamili wa kanuni, ukilinda viwango vyako vya faida.",
+          matters: "Kushauri biashara za kimataifa juu ya uundaji bora wa kodi kwa uwekezaji wa mipakani na utetezi mkali katika ukaguzi tata wa kodi.",
+          sub: ["Upangaji wa Kodi ya Ushirika", "Utatuzi wa Migogoro ya KRA", "Ushauri wa Kodi ya Mipakani", "Ukaguzi wa Uzingatiaji wa Kodi"]
         }
       }
     },
@@ -931,7 +957,8 @@ export const translations = {
         adr: "ADR na Majadiliano",
         ip: "IP na Data",
         employment: "Sheria ya Ajira",
-        media: "Media na Burudani"
+        media: "Media na Burudani",
+        taxation: "Sheria ya Kodi"
       },
       intel_title: "Akili ya Kitaasisi.",
       intel_desc: "Jisajili ili kupokea maelezo mashuhuri ya kisheria moja kwa moja kwenye kikasha chako cha ushirika.",

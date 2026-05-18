@@ -11,8 +11,8 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
   // Logical styling based on size prop
   const sizeStyles = {
     small: {
-      svgWidth: 44,
-      svgHeight: 38,
+      svgWidth: 48,
+      svgHeight: 40,
       nameSize: 'text-[10px]',
       legalGap: 'gap-2',
       legalText: 'text-[8px]',
@@ -23,7 +23,7 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
       svgMargin: 'mb-1'
     },
     medium: {
-      svgWidth: 80,
+      svgWidth: 84,
       svgHeight: 70,
       nameSize: 'text-lg',
       legalGap: 'gap-4',
@@ -35,7 +35,7 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
       svgMargin: 'mb-2'
     },
     large: {
-      svgWidth: 160,
+      svgWidth: 168,
       svgHeight: 140,
       nameSize: 'text-4xl md:text-6xl',
       legalGap: 'gap-10', // Significantly wider for hero
@@ -81,6 +81,7 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
         width={style.svgWidth} 
         height={style.svgHeight} 
         viewBox="0 0 120 100" 
+        preserveAspectRatio="xMidYMid meet"
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
         className={style.svgMargin}

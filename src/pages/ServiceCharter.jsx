@@ -1,77 +1,50 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
+import { motion } from 'framer-motion';
 import Layout from '../components/Layout';
 import SocialSidebar from '../components/SocialSidebar';
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTranslation } from "../lib/translations";
+import { Banknote, Star, Clock, Laptop } from 'lucide-react';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] } },
 };
 
-const AccordionItem = ({ title, isActive, onClick, children }) => {
-  return (
-    <div className="mb-px bg-white rounded-none overflow-hidden">
-      <button
-        type="button"
-        className="w-full px-6 py-4 flex text-left bg-[#1c2f54] text-white transition-colors duration-300 hover:bg-[#152340]"
-        onClick={onClick}
-      >
-        <div className="flex items-center gap-4">
-            <span className="font-bold text-xl leading-none w-4">{isActive ? '–' : '+'}</span>
-            <span className="font-bold font-sans text-[13px] uppercase tracking-[0.15em]">
-              {title}
-            </span>
-        </div>
-      </button>
-
-      <AnimatePresence>
-        {isActive && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <div className="py-5 px-1 text-gray-700 leading-relaxed font-medium text-[15px]">
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+const stagger = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
 };
 
 export default function ServiceCharter() {
-  const [activeIndex, setActiveIndex] = useState(0);
   const { language } = useLanguage();
   const { t } = useTranslation(language);
 
   const sections = [
     {
       title: t('charter.billing'),
+      icon: <Banknote size={32} strokeWidth={1.5} />,
       content: (
-        <div>
-          <h4 className="font-bold mb-2 text-[#1c2f54]">{t('charter.billing_title')}</h4>
+        <div className="text-sm font-light text-gray-600 leading-relaxed space-y-3">
+          <h4 className="font-bold text-[#1c2f54] text-base mb-2">{t('charter.billing_title')}</h4>
           <p>{t('charter.billing_desc')}</p>
         </div>
       )
     },
     {
       title: t('charter.service'),
+      icon: <Star size={32} strokeWidth={1.5} />,
       content: (
-        <div className="space-y-4">
+        <div className="text-sm font-light text-gray-600 leading-relaxed space-y-3">
           <p>{t('charter.service_desc')}</p>
         </div>
       )
     },
     {
       title: t('charter.delivery'),
+      icon: <Clock size={32} strokeWidth={1.5} />,
       content: (
-        <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
+        <ul className="text-sm font-light text-gray-600 leading-relaxed space-y-3 list-disc pl-4 marker:text-[#cc2027]">
           {t('charter.delivery_points').map((point, i) => (
             <li key={i}>{point}</li>
           ))}
@@ -80,8 +53,9 @@ export default function ServiceCharter() {
     },
     {
       title: t('charter.tech'),
+      icon: <Laptop size={32} strokeWidth={1.5} />,
       content: (
-        <p>{t('charter.tech_desc')}</p>
+        <p className="text-sm font-light text-gray-600 leading-relaxed">{t('charter.tech_desc')}</p>
       )
     }
   ];
@@ -117,54 +91,41 @@ export default function ServiceCharter() {
       </section>
 
       {/* Main Content Area */}
-      <section className="py-20 md:py-32 px-6 bg-white min-h-[60vh]">
+      <section className="py-24 md:py-32 px-6 bg-gray-50 min-h-[60vh] relative">
         <div className="max-w-[1200px] mx-auto">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-start">
-            
-            {/* Left Image Column - Technical Aesthetic */}
-            <div className="lg:col-span-5 relative w-full">
+          <motion.div 
+            variants={stagger}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          >
+            {sections.map((section, idx) => (
               <motion.div 
-                initial={{ opacity: 0, x: -30 }} 
-                whileInView={{ opacity: 1, x: 0 }} 
-                viewport={{ once: true }}
-                transition={{ duration: 1 }}
-                className="relative z-10 overflow-hidden shadow-2xl"
+                key={idx}
+                variants={fadeUp}
+                className="group bg-white p-10 md:p-12 border border-gray-100 hover:border-[#cc2027] hover:shadow-2xl transition-all duration-500 relative overflow-hidden rounded-xl flex flex-col h-full"
               >
-                <img 
-                  src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80" 
-                  alt="Digital Infrastructure and Strategy" 
-                  className="w-full h-auto object-cover rounded-sm" 
-                />
-                <div className="absolute inset-0 bg-[#1c2f54]/10" />
-              </motion.div>
-              {/* Decorative Red Bar */}
-              <div className="absolute -bottom-6 -left-6 w-24 h-24 border-l-4 border-b-4 border-[#cc2027] -z-10" />
-            </div>
-
-            {/* Right Accordion Column */}
-            <div className="lg:col-span-7">
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.2 }}
-              >
-                <div className="flex flex-col space-y-1">
-                  {sections.map((section, idx) => (
-                    <AccordionItem 
-                      key={idx}
-                      title={section.title}
-                      isActive={activeIndex === idx}
-                      onClick={() => setActiveIndex(activeIndex === idx ? -1 : idx)}
-                    >
-                      {section.content}
-                    </AccordionItem>
-                  ))}
+                {/* Decorative Hover Element */}
+                <div className="absolute top-0 right-0 w-32 h-32 bg-[#cc2027]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[#cc2027]/10 transition-colors duration-500" />
+                <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-[#cc2027] to-[#1c2f54] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700 ease-out" />
+                
+                <div className="flex items-center gap-6 mb-8">
+                  <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-[#1c2f54] group-hover:text-[#cc2027] group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-sm shrink-0">
+                    {section.icon}
+                  </div>
+                  <div>
+                    <span className="font-serif-sub tracking-[0.3em] uppercase text-[10px] text-gray-400 group-hover:text-[#cc2027] font-bold transition-colors">Section 0{idx + 1}</span>
+                    <h3 className="font-serif-heading text-2xl text-[#1c2f54] mt-1 uppercase tracking-widest">{section.title}</h3>
+                  </div>
+                </div>
+                
+                <div className="grow">
+                  {section.content}
                 </div>
               </motion.div>
-            </div>
-
-          </div>
+            ))}
+          </motion.div>
         </div>
       </section>
     </Layout>

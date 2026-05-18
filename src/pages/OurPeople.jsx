@@ -19,7 +19,7 @@ export default function OurPeople() {
   const teamMembers = [
     {
       id: 'msochieng',
-      name: 'M.S. Ochieng',
+      name: 'Martina Stacy Achieng',
       role: t('people.principal_role'),
       image: '/ms-ochieng.jpg',
       bio: (
@@ -143,11 +143,11 @@ export default function OurPeople() {
                </button>
 
                {/* Top: Image */}
-               <div className="w-full h-[400px] sm:h-[450px] bg-[#1c2f54] relative shrink-0">
+               <div className="w-full bg-[#1c2f54] relative shrink-0 flex justify-center items-center">
                   <img 
                     src={selectedMember.image} 
                     alt={selectedMember.name} 
-                    className="absolute inset-0 w-full h-full object-cover object-top mb-0"
+                    className="w-full h-auto max-h-[60vh] object-contain block mb-0"
                   />
                </div>
 

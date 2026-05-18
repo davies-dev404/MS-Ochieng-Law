@@ -7,10 +7,7 @@ const socials = [
   { icon: FaInstagram, color: "#C13584", label: "Instagram", href: "https://instagram.com/msochienglegal" },
   { icon: FaWhatsapp, color: "#25D366", label: "WhatsApp", href: "https://wa.me/254791857001" },
   { icon: FaLinkedinIn, color: "#0077B5", label: "LinkedIn", href: "https://www.linkedin.com/in/m-s-ochieng-legal-consultants-b4b1b1b1/" },
-  { icon: FaTiktok, color: "#000000", label: "TikTok", href: "https://www.tiktok.com/@msochienglegal" },
-  { icon: FaYoutube, color: "#FF0000", label: "YouTube", href: "https://www.youtube.com/@msochienglegal" },
-  { icon: FaPinterestP, color: "#E60023", label: "Pinterest", href: "https://www.pinterest.com/msochienglegal" },
-  { icon: FaRedditAlien, color: "#FF4500", label: "Reddit", href: "https://www.reddit.com/user/msochienglegal" },
+  { icon: FaTiktok, color: "#000000", label: "TikTok", href: "https://www.tiktok.com/@msochienglegal" }
 ];
 
 export default function SocialSidebar() {

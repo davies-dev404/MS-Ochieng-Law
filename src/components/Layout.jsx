@@ -43,6 +43,13 @@ export default function Layout({ children }) {
   }, []);
 
   useEffect(() => {
+    const sessionTracker = sessionStorage.getItem('mso_tracked');
+    if (!sessionTracker) {
+      const visitors = parseInt(localStorage.getItem('mso_visitors') || '0', 10);
+      localStorage.setItem('mso_visitors', (visitors + 1).toString());
+      sessionStorage.setItem('mso_tracked', 'true');
+    }
+
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -294,6 +301,8 @@ export default function Layout({ children }) {
                   <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.adr')}</Link>
                   <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.ip')}</Link>
                   <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.employment')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.media')}</Link>
+                  <Link href="/practice" className="font-sans text-[13px] font-bold hover:text-gray-300 transition-colors">{t('practice.areas.taxation')}</Link>
               </div>
             </div>
 

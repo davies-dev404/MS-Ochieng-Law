@@ -58,12 +58,37 @@ export default function Consultation() {
 
       const result = await response.json();
       
+      const saveLocal = () => {
+        const stored = JSON.parse(localStorage.getItem('mso_consultations') || '[]');
+        stored.unshift({
+          id: Math.random().toString(36).substr(2, 9),
+          name: formData.name,
+          email: formData.email,
+          service: formData.service,
+          summary: formData.summary,
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+        });
+        localStorage.setItem('mso_consultations', JSON.stringify(stored));
+      };
+
       if (result.success) {
+        saveLocal();
         setStatus('success');
       } else {
+        saveLocal();
         setStatus('success'); 
       }
     } catch (error) {
+      const stored = JSON.parse(localStorage.getItem('mso_consultations') || '[]');
+      stored.unshift({
+        id: Math.random().toString(36).substr(2, 9),
+        name: formData.name,
+        email: formData.email,
+        service: formData.service,
+        summary: formData.summary,
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+      });
+      localStorage.setItem('mso_consultations', JSON.stringify(stored));
       setStatus('success'); 
     }
   };
@@ -203,6 +228,7 @@ export default function Consultation() {
                             <option className="bg-secondary" value="ADR & Strategic Negotiation">{t('practice.areas.adr')}</option>
                             <option className="bg-secondary" value="IP, Tech & Data Privacy">{t('practice.areas.ip')}</option>
                             <option className="bg-secondary" value="Employment & Labor Law">{t('practice.areas.employment')}</option>
+                            <option className="bg-secondary" value="Taxation Law">Taxation Law</option>
                             <option className="bg-secondary" value="Other Strategic Matter">Other Strategic Matter</option>
                           </select>
                           <div className="absolute right-5 md:right-8 top-1/2 -translate-y-1/2 pointer-events-none text-white/30">

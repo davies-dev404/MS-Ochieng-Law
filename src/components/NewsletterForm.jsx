@@ -30,16 +30,39 @@ export default function NewsletterForm({ fadeUp }) {
 
       const result = await response.json();
       
+      const saveLocal = () => {
+        const stored = JSON.parse(localStorage.getItem('mso_subscribers') || '[]');
+        if (!stored.find(s => s.email === email)) {
+          stored.unshift({
+            id: Math.random().toString(36).substr(2, 9),
+            email: email,
+            date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+          });
+          localStorage.setItem('mso_subscribers', JSON.stringify(stored));
+        }
+      };
+
       if (result.success) {
+        saveLocal();
         setStatus('success');
         setEmail('');
       } else {
         console.error("Subscription failed:", result);
+        saveLocal();
         setStatus('success'); // Fallback for UI
         setEmail('');
       }
     } catch (error) {
       console.error("Subscription error:", error);
+      const stored = JSON.parse(localStorage.getItem('mso_subscribers') || '[]');
+      if (!stored.find(s => s.email === email)) {
+        stored.unshift({
+          id: Math.random().toString(36).substr(2, 9),
+          email: email,
+          date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+        });
+        localStorage.setItem('mso_subscribers', JSON.stringify(stored));
+      }
       setStatus('success'); // Fallback for UI
       setEmail('');
     }
