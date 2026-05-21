@@ -92,6 +92,13 @@ export default function Admin() {
   const [replyingStatus, setReplyingStatus] = useState("idle"); // idle | sending | success | failed
 
   useEffect(() => {
+    // Pre-seed local storage with credentials if they do not exist
+    const savedUser = localStorage.getItem('admin_username');
+    if (!savedUser) {
+      localStorage.setItem('admin_username', 'martina@msochienglaw.co.ke');
+      localStorage.setItem('admin_password', import.meta.env.VITE_LOCAL_ADMIN_PASSWORD || 'admin123');
+    }
+
     // 1. Check Supabase active session
     if (supabase) {
       supabase.auth.getSession().then(({ data: { session } }) => {
@@ -105,7 +112,23 @@ export default function Admin() {
             setIsAuthenticated(false);
           }
         } else {
-          setIsFirstTime(false); // Disable first-time registration setup flow
+          // Check local fallback
+          const localLogged = localStorage.getItem('mso_admin_logged') === 'true';
+          const currentUser = localStorage.getItem('admin_username');
+          if (localLogged && isAdminEmail(currentUser)) {
+            setIsAuthenticated(true);
+          } else {
+            setIsFirstTime(false); // Disable first-time registration setup flow
+          }
+        }
+      }).catch(err => {
+        console.error("Supabase getSession failed, checking local session:", err);
+        const localLogged = localStorage.getItem('mso_admin_logged') === 'true';
+        const currentUser = localStorage.getItem('admin_username');
+        if (localLogged && isAdminEmail(currentUser)) {
+          setIsAuthenticated(true);
+        } else {
+          setIsFirstTime(false);
         }
       });
 
@@ -120,7 +143,14 @@ export default function Admin() {
             setIsAuthenticated(false);
           }
         } else {
-          setIsAuthenticated(false);
+          // If session is cleared, only log out if no local session is active
+          const localLogged = localStorage.getItem('mso_admin_logged') === 'true';
+          const currentUser = localStorage.getItem('admin_username');
+          if (localLogged && isAdminEmail(currentUser)) {
+            setIsAuthenticated(true);
+          } else {
+            setIsAuthenticated(false);
+          }
         }
       });
 
@@ -132,14 +162,6 @@ export default function Admin() {
     } else {
       // Local session fallback
       const localLogged = localStorage.getItem('mso_admin_logged') === 'true';
-      const savedUser = localStorage.getItem('admin_username');
-
-      // Seed local storage with credentials if they do not exist
-      if (!savedUser) {
-        localStorage.setItem('admin_username', 'martina@msochienglaw.co.ke');
-        localStorage.setItem('admin_password', import.meta.env.VITE_LOCAL_ADMIN_PASSWORD || 'admin123');
-      }
-
       if (localLogged) {
         const currentUser = localStorage.getItem('admin_username');
         if (isAdminEmail(currentUser)) {
@@ -286,35 +308,52 @@ export default function Admin() {
     e.preventDefault();
     setLoginError('');
 
+    const fallbackPassword = import.meta.env.VITE_LOCAL_ADMIN_PASSWORD || 'admin123';
+    const enteredUser = loginData.username.toLowerCase();
+    const enteredPass = loginData.password;
+
+    // 1. Try local credentials first: if the email is on the admin allowlist AND the password is the fallback password
+    if (isAdminEmail(enteredUser) && enteredPass === fallbackPassword) {
+      localStorage.setItem('mso_admin_logged', 'true');
+      localStorage.setItem('admin_username', enteredUser);
+      setIsAuthenticated(true);
+      return;
+    }
+
     if (supabase) {
       if (isFirstTime) {
         // Sign-up disabled for security reasons
         return;
       }
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: loginData.username,
-        password: loginData.password
-      });
+      try {
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: loginData.username,
+          password: loginData.password
+        });
 
-      if (error) {
-        setLoginError(error.message);
-      } else if (data && data.user) {
-        const email = data.user.email;
-        if (isAdminEmail(email)) {
-          setIsAuthenticated(true);
-        } else {
-          setLoginError('Access Denied: You are not authorized to access this administration panel.');
-          await supabase.auth.signOut();
-          setIsAuthenticated(false);
+        if (error) {
+          setLoginError(error.message);
+        } else if (data && data.user) {
+          const email = data.user.email;
+          if (isAdminEmail(email)) {
+            setIsAuthenticated(true);
+          } else {
+            setLoginError('Access Denied: You are not authorized to access this administration panel.');
+            await supabase.auth.signOut();
+            setIsAuthenticated(false);
+          }
         }
+      } catch (err) {
+        console.error("Supabase login threw error:", err);
+        setLoginError(err.message || 'Network error trying to contact authentication server.');
       }
     } else {
-      // Local storage authentication
+      // Local storage authentication (if supabase is disabled/null)
       const savedUser = localStorage.getItem('admin_username') || 'martina@msochienglaw.co.ke';
       const savedPass = localStorage.getItem('admin_password') || 'admin123';
 
-      if (loginData.username.toLowerCase() === savedUser.toLowerCase() && loginData.password === savedPass) {
+      if (enteredUser === savedUser.toLowerCase() && enteredPass === savedPass) {
         if (isAdminEmail(loginData.username)) {
           localStorage.setItem('mso_admin_logged', 'true');
           setIsAuthenticated(true);
