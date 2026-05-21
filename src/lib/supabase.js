@@ -11,12 +11,8 @@ const supabaseAnonKey =
   import.meta.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ||
   '';
 
-// Validate that the key is a proper Supabase JWT (must contain dots, typically 3 parts)
-// Publishable keys (sb_publishable_...) are NOT valid as anon keys and will cause network errors
-const isValidJwt = (key) => typeof key === 'string' && key.split('.').length === 3;
-
-// Initialize client only if credentials are properly configured
-export const supabase = (supabaseUrl && supabaseAnonKey && isValidJwt(supabaseAnonKey))
+// Initialize client only if credentials are provided to avoid runtime errors
+export const supabase = supabaseUrl && supabaseAnonKey
   ? createClient(supabaseUrl, supabaseAnonKey, {
       auth: {
         persistSession: true,
@@ -24,13 +20,5 @@ export const supabase = (supabaseUrl && supabaseAnonKey && isValidJwt(supabaseAn
       },
     })
   : null;
-
-// Warns in dev if the key looks misconfigured
-if (import.meta.env.DEV && supabaseAnonKey && !isValidJwt(supabaseAnonKey)) {
-  console.warn(
-    '[Supabase] VITE_SUPABASE_ANON_KEY does not look like a valid JWT.\n' +
-    'It should be a long JWT (e.g. eyJh...). Supabase will run in offline mode (localStorage fallback).'
-  );
-}
 
 export const isSupabaseActive = () => supabase !== null;

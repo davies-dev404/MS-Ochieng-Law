@@ -61,7 +61,7 @@ export default function ServiceCharter() {
   ];
 
   return (
-    <Layout>
+    <Layout title={t('nav.charter')} description="Our commitment to legal excellence, transparency in billing, professional delivery standards, and technology-driven operations.">
       <SocialSidebar />
       {/* Hero Section with Legal Excellence branding */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">

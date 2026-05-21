@@ -4,6 +4,7 @@ import { CheckCircle2, ShieldCheck, Mail, ArrowRight } from "lucide-react";
 import Layout from "@/components/Layout";
 import { useLanguage } from "../contexts/LanguageContext";
 import { useTranslation } from "../lib/translations";
+import { db } from "../lib/db";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
@@ -23,6 +24,7 @@ export default function Consultation() {
     name: '',
     organization: '',
     email: '',
+    phone: '',
     service: 'Commercial & Corporate Law',
     summary: ''
   });
@@ -58,43 +60,42 @@ export default function Consultation() {
 
       const result = await response.json();
       
-      const saveLocal = () => {
-        const stored = JSON.parse(localStorage.getItem('mso_consultations') || '[]');
-        stored.unshift({
-          id: Math.random().toString(36).substr(2, 9),
-          name: formData.name,
-          email: formData.email,
-          service: formData.service,
-          summary: formData.summary,
-          date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
-        });
-        localStorage.setItem('mso_consultations', JSON.stringify(stored));
-      };
-
-      if (result.success) {
-        saveLocal();
-        setStatus('success');
-      } else {
-        saveLocal();
-        setStatus('success'); 
-      }
-    } catch (error) {
-      const stored = JSON.parse(localStorage.getItem('mso_consultations') || '[]');
-      stored.unshift({
+      const newConsultation = {
         id: Math.random().toString(36).substr(2, 9),
         name: formData.name,
+        organization: formData.organization,
         email: formData.email,
+        phone: formData.phone,
         service: formData.service,
         summary: formData.summary,
+        status: 'Pending',
+        replies: [],
         date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
-      });
-      localStorage.setItem('mso_consultations', JSON.stringify(stored));
+      };
+
+      await db.saveConsultation(newConsultation);
+      setStatus('success');
+    } catch (error) {
+      console.error("Consultation submission error", error);
+      const newConsultation = {
+        id: Math.random().toString(36).substr(2, 9),
+        name: formData.name,
+        organization: formData.organization,
+        email: formData.email,
+        phone: formData.phone,
+        service: formData.service,
+        summary: formData.summary,
+        status: 'Pending',
+        replies: [],
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: '2-digit', year: 'numeric' })
+      };
+      await db.saveConsultation(newConsultation);
       setStatus('success'); 
     }
   };
 
   return (
-    <Layout>
+    <Layout title={t('nav.contact')} description="Request a formal legal briefing, consultation, or call back with M.S. Ochieng Legal advocates in Upper Hill, Nairobi.">
       <section className="pt-32 pb-16 md:pt-40 md:pb-32 px-4 sm:px-6 relative overflow-hidden bg-secondary min-h-screen flex items-center border-b border-border">
         <div className="absolute inset-0 z-0">
           <img 
@@ -199,17 +200,31 @@ export default function Consultation() {
                           />
                         </div>
                       </div>
-                      <div className="flex flex-col gap-2 md:gap-3">
-                        <label className="font-serif-sub uppercase text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 font-bold">{t('consultation.email')}</label>
-                        <input 
-                          required
-                          name="email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          type="email" 
-                          className="bg-white/5 border border-white/10 px-5 py-4 md:px-8 md:py-5 text-sm md:text-base text-white focus:outline-none focus:border-primary transition-all rounded-sm font-sans" 
-                          placeholder="counsel@organization.com" 
-                        />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+                        <div className="flex flex-col gap-2 md:gap-3">
+                          <label className="font-serif-sub uppercase text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 font-bold">{t('consultation.email')}</label>
+                          <input 
+                            required
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            type="email" 
+                            className="bg-white/5 border border-white/10 px-5 py-4 md:px-8 md:py-5 text-sm md:text-base text-white focus:outline-none focus:border-primary transition-all rounded-sm font-sans" 
+                            placeholder="counsel@organization.com" 
+                          />
+                        </div>
+                        <div className="flex flex-col gap-2 md:gap-3">
+                          <label className="font-serif-sub uppercase text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 font-bold">{t('consultation.phone')}</label>
+                          <input 
+                            required
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleChange}
+                            type="tel" 
+                            className="bg-white/5 border border-white/10 px-5 py-4 md:px-8 md:py-5 text-sm md:text-base text-white focus:outline-none focus:border-primary transition-all rounded-sm font-sans" 
+                            placeholder="e.g. +254 700 000 000" 
+                          />
+                        </div>
                       </div>
                       <div className="flex flex-col gap-2 md:gap-3">
                         <label className="font-serif-sub uppercase text-[8px] md:text-[9px] tracking-[0.2em] text-white/50 font-bold">{t('consultation.service')}</label>
