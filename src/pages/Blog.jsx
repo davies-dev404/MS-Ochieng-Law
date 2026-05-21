@@ -77,7 +77,7 @@ export default function Blog() {
   );
 
   return (
-    <Layout>
+    <Layout title={t('nav.blog')} description={t('blog.desc')}>
       <SocialSidebar />
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-6 bg-[#1c2f54] text-white relative overflow-hidden">
         {/* Decorative Background Element */}

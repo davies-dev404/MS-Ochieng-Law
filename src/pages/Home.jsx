@@ -82,7 +82,7 @@ export default function Home() {
   const scrollNextBlog = useCallback(() => blogApi && blogApi.scrollNext(), [blogApi]);
 
   return (
-    <Layout>
+    <Layout title={t('nav.home')} description="M.S. Ochieng Legal is a premium law firm in Nairobi providing clear, strategic legal solutions in Corporate Law, Conveyancing, Taxation, Family, and Litigation.">
       <section className="relative h-[600px] md:h-[800px] w-full overflow-hidden bg-[#1c2f54]">
         <AnimatePresence mode="wait">
           <motion.div

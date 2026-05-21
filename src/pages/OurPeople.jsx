@@ -42,7 +42,7 @@ export default function OurPeople() {
   }, []);
 
   return (
-    <Layout>
+    <Layout title={t('nav.people')} description="Meet our dedicated legal team and advocates at M.S. Ochieng Legal, committed to delivering clear strategic guidance.">
       <SocialSidebar />
       {/* Hero Section with Legal Excellence branding */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">

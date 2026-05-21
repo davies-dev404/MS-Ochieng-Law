@@ -54,7 +54,7 @@ export default function Search() {
   const suggestedSearches = ["Commercial", "Property", "Family", "Litigation", "Immigration", "Mission", "Team"];
 
   return (
-    <Layout>
+    <Layout title={query ? `${t('search.results')}: "${query}"` : "Search"} description="Search across our strategic briefings and expertise areas.">
       <section className="pt-40 pb-20 px-6 bg-[#f8fafc] min-h-screen">
         <div className="max-w-4xl mx-auto">
           <div className="mb-12">

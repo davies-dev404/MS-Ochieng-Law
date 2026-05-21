@@ -23,7 +23,7 @@ export default function BlogPost() {
   const post = blogPosts.find(p => p.id === params?.id) || blogPosts[0];
 
   return (
-    <Layout>
+    <Layout title={post.title} description={post.snippet}>
       <SocialSidebar />
       <article className="bg-white">
         {/* Post Hero */}

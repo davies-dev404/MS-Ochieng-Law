@@ -9,7 +9,7 @@ export default function NotFound() {
   const { t } = useTranslation(language);
 
   return (
-    <Layout>
+    <Layout title="Page Not Found" description="The requested page could not be located on our server.">
       <div className="min-h-screen w-full flex items-center justify-center bg-[#FBFBFB] px-6">
         <div className="max-w-4xl w-full">
           <motion.div

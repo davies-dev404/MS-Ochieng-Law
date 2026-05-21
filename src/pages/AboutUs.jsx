@@ -68,7 +68,7 @@ export default function AboutUs() {
   ];
 
   return (
-    <Layout>
+    <Layout title={t('nav.about')} description="Learn about M.S. Ochieng Legal, our mission, vision, values, and history of delivering top-tier advocacy, corporate advisory, and strategic litigation in East Africa.">
       {/* Hero Section with Legal Excellence branding */}
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
         {/* Decorative Background Element */}

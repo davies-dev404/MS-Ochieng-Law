@@ -5,7 +5,7 @@ import React from 'react';
  * Replaces transform: scale with logical sizes to ensure proper flex layout.
  * Sizes: 'small' (nav), 'medium' (footer), 'large' (hero)
  */
-const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
+const BrandMark = ({ variant = 'gold', size = 'medium', className = '', collapsed = false }) => {
   const isGold = variant === 'gold';
   
   // Logical styling based on size prop
@@ -61,7 +61,7 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
     useGlow = false;
   } else if (variant === 'gold') {
     svgStroke = 'url(#goldGradient)'; // Gold gradient for the mark
-    nameColor = '#7A5901'; // Original Dark Rich Gold
+    nameColor = '#F1E1C6'; // Bright Premium Ivory Gold for perfect dark background contrast
     legalColor = '#D4AF37'; // Classic Gold
     taglineColor = '#C5A059'; // Soft Gold
     useGlow = size !== 'small';
@@ -72,6 +72,59 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
     legalColor = '#800000';
     taglineColor = '#800000';
     useGlow = false;
+  }
+
+  if (collapsed) {
+    return (
+      <div className={`flex flex-col items-center justify-center select-none ${className}`}>
+        <svg 
+          width={style.svgWidth} 
+          height={style.svgHeight} 
+          viewBox="0 0 120 100" 
+          preserveAspectRatio="xMidYMid meet"
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#C5A059" />
+              <stop offset="25%" stopColor="#F1E1C6" />
+              <stop offset="50%" stopColor="#C5A059" />
+              <stop offset="75%" stopColor="#D4AF37" />
+              <stop offset="100%" stopColor="#C5A059" />
+            </linearGradient>
+            <linearGradient id="maroonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#800000" />
+              <stop offset="50%" stopColor="#A30029" />
+              <stop offset="100%" stopColor="#800000" />
+            </linearGradient>
+            <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="1.5" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+          </defs>
+          
+          <circle cx="60" cy="50" r="46" stroke={svgStroke} strokeWidth="1" opacity="0.6" />
+          <circle cx="60" cy="50" r="42" stroke={svgStroke} strokeWidth="0.5" strokeDasharray="3 2" opacity="0.4" />
+          
+          <g 
+            stroke={svgStroke} 
+            strokeWidth={size === 'small' ? "2.5" : "1.8"}
+            strokeLinecap="round" 
+            strokeLinejoin="round"
+            filter={useGlow ? "url(#goldGlow)" : "none"}
+          >
+            <path d="M60 16V80M52 80H68M55 20H65" />
+            <path d="M36 28H84" />
+            <path d="M36 28L28 48H44L36 28" />
+            <path d="M84 28L76 48H92L84 28" />
+            <path d="M46 54V72L60 62L74 72V54" opacity="0.8" />
+            <path d="M48 60C48 56 72 56 72 64C72 72 48 70 48 76" opacity="0.7" />
+            <circle cx="60" cy="62" r="14" strokeWidth="1.2" opacity="0.8" />
+          </g>
+        </svg>
+      </div>
+    );
   }
   
   return (
@@ -105,16 +158,33 @@ const BrandMark = ({ variant = 'gold', size = 'medium', className = '' }) => {
           </filter>
         </defs>
         
+        {/* Outer Circular Crest */}
+        <circle cx="60" cy="50" r="46" stroke={svgStroke} strokeWidth="1" opacity="0.6" />
+        <circle cx="60" cy="50" r="42" stroke={svgStroke} strokeWidth="0.5" strokeDasharray="3 2" opacity="0.4" />
+        
         <g 
           stroke={svgStroke} 
-          strokeWidth={size === 'small' ? "3" : "2"}
+          strokeWidth={size === 'small' ? "2.5" : "1.8"}
           strokeLinecap="round" 
           strokeLinejoin="round"
           filter={useGlow ? "url(#goldGlow)" : "none"}
         >
-          <path d="M10 80V20L35 55L60 20V80" />
-          <path d="M40 30C25 30 20 40 20 50C20 65 70 65 70 80C70 90 60 95 45 95" />
-          <circle cx="85" cy="50" r="30" strokeWidth="2.5" />
+          {/* Scales of Justice Balance Pillar */}
+          <path d="M60 16V80M52 80H68M55 20H65" />
+          {/* Crossbeam */}
+          <path d="M36 28H84" />
+          {/* Left Pan */}
+          <path d="M36 28L28 48H44L36 28" />
+          {/* Right Pan */}
+          <path d="M84 28L76 48H92L84 28" />
+          
+          {/* Intertwined 'M', 'S', 'O' monogram inside */}
+          {/* Stylized 'M' */}
+          <path d="M46 54V72L60 62L74 72V54" opacity="0.8" />
+          {/* Stylized 'S' looping between elements */}
+          <path d="M48 60C48 56 72 56 72 64C72 72 48 70 48 76" opacity="0.7" />
+          {/* Stylized 'O' surrounding the center intersection */}
+          <circle cx="60" cy="62" r="14" strokeWidth="1.2" opacity="0.8" />
         </g>
       </svg>
 

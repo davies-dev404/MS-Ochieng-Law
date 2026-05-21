@@ -94,7 +94,7 @@ export default function Terms() {
   ];
 
   return (
-    <Layout>
+    <Layout title={t('terms.title')} description={t('terms.desc')}>
       {/* Hero Section with Legal Excellence branding */}
       <section className="pt-48 pb-20 px-6 bg-[#1c2f54] text-white relative overflow-hidden text-center">
         {/* Decorative Background Element */}

@@ -148,7 +148,7 @@ export default function Practice() {
   };
 
   return (
-    <Layout>
+    <Layout title={t('nav.expertise')} description="Explore our legal practice areas: Commercial Law, Conveyancing & Property, Immigration, Family Law, Litigation, ADR, Intellectual Property, Employment, Media, and Taxation Law.">
       <section className="pt-32 pb-12 md:pt-40 md:pb-16 px-6 bg-[#1c2f54] text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-linear-to-l from-white/5 to-transparent pointer-none" />
         <div className="max-w-7xl mx-auto relative z-10">
