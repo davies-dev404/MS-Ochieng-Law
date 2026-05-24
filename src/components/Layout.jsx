@@ -5,7 +5,7 @@ import { useLocation, Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, MapPin, Home as HomeIcon, Headphones } from "lucide-react";
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import { FaXTwitter, FaTiktok } from "react-icons/fa6";
 import BrandMark from "./BrandMark";
 import FloatingWhatsApp from "./FloatingWhatsApp";
 import AIChatBox from "./AIChatBox";
@@ -179,36 +179,14 @@ export default function Layout({ children, title, description }) {
                               ))}
                             </div>
 
-                            <div id="search" className="grow-0 lg:grow-0">
-                                <form 
-                                  role="search" 
-                                  className="search-form flex h-7 shadow-sm" 
-                                  onSubmit={(e) => {
-                                    e.preventDefault();
-                                    const formData = new FormData(e.target);
-                                    const query = formData.get('s');
-                                    if (query && query.trim()) {
-                                      setLocation(`/search?q=${encodeURIComponent(query.trim())}`);
-                                    }
-                                  }}
-                                >
-                                    <label className="m-0 grow">
-                                        <input 
-                                          type="search" 
-                                          className="search-field px-2 h-full text-gray-700 text-[11px] outline-none w-[100px] sm:w-[130px] bg-white rounded-l-[2px] border-none placeholder:text-gray-400" 
-                                          placeholder={t('search.placeholder')} 
-                                          name="s" 
-                                          title="Search for:" 
-                                        />
-                                    </label>
-                                    <input type="submit" className="search-submit bg-[#cc2027] text-white px-3 font-bold text-[10px] h-full border-none cursor-pointer hover:bg-red-800 tracking-wider rounded-r-[2px] transition-colors" value={t('search.button')} />
-                                </form>
-                            </div>
+
                             <ul className="items-center gap-1 md:gap-2 m-0 p-0 list-none text-white flex">
                                 <li className="flex gap-1.5 md:gap-2">                                        
                                     <a target="_blank" rel="noreferrer" href="https://www.facebook.com/profile.php?id=61551090343152" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#1877F2] hover:border-[#1877F2] transition-all text-white" title="Facebook"><FaFacebookF size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="https://x.com/pakadvocates" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white" title="X (Twitter)"><FaXTwitter size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-linear-to-tr hover:from-[#f9ce34] hover:to-[#ee2a7b] hover:border-transparent transition-all text-white" title="Instagram"><FaInstagram size={10} /></a>
+                                    <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/company/msochienglaw" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#0A66C2] hover:border-[#0A66C2] transition-all text-white" title="LinkedIn"><FaLinkedinIn size={10} /></a>
+                                    <a target="_blank" rel="noreferrer" href="https://www.tiktok.com/@msochienglaw" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-black hover:border-black transition-all text-white" title="TikTok"><FaTiktok size={10} /></a>
                                     <a target="_blank" rel="noreferrer" href="tel:+254791857001" className="w-[22px] h-[22px] md:w-[28px] md:h-[28px] rounded-full border border-white/40 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all text-white" title="Call Us"><Phone size={10} /></a>
                                 </li>
                             </ul>
@@ -288,6 +266,12 @@ export default function Layout({ children, title, description }) {
                         </a>
                         <a target="_blank" rel="noreferrer" href="https://instagram.com/pakadvocates" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-pink-600 hover:text-white hover:border-pink-600 transition-all shadow-sm" title="Instagram">
                             <FaInstagram size={18} />
+                        </a>
+                        <a target="_blank" rel="noreferrer" href="https://www.linkedin.com/company/msochienglaw" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-[#0A66C2] hover:text-white hover:border-[#0A66C2] transition-all shadow-sm" title="LinkedIn">
+                            <FaLinkedinIn size={18} />
+                        </a>
+                        <a target="_blank" rel="noreferrer" href="https://www.tiktok.com/@msochienglaw" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-black hover:text-white hover:border-black transition-all shadow-sm" title="TikTok">
+                            <FaTiktok size={18} />
                         </a>
                         <a target="_blank" rel="noreferrer" href="tel:+254791857001" className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-[#1c2f54] hover:bg-[#cc2027] hover:text-white hover:border-[#cc2027] transition-all shadow-sm" title="Call Us">
                             <Phone size={18} />
