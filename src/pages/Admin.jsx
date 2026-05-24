@@ -8,6 +8,7 @@ import BrandMark from "@/components/BrandMark";
 import { supabase } from "@/lib/supabase";
 import { db } from "@/lib/db";
 import { emailService } from "@/lib/emailService";
+import { useTranslation } from "@/lib/translations";
 
 const ADMIN_EMAILS = (import.meta.env.VITE_ADMIN_EMAILS || 'martina@msochienglaw.co.ke,admin@msochienglaw.co.ke,info@msochienglaw.co.ke')
   .split(',')
@@ -68,6 +69,13 @@ export default function Admin() {
   const [newClient, setNewClient] = useState({ name: '', organization: '', email: '', status: 'Active' });
   const [editingId, setEditingId] = useState(null);
   const [view, setView] = useState("overview"); // overview, editor, manage
+  const [adminLanguage, setAdminLanguage] = useState(() => localStorage.getItem('mso_admin_lang') || 'EN');
+  const { t } = useTranslation(adminLanguage);
+
+  const toggleAdminLanguage = (lang) => {
+    setAdminLanguage(lang);
+    localStorage.setItem('mso_admin_lang', lang);
+  };
   
   // Responsive sidebar state
   const [isMobileSidebarOpen, setIsMobileSidebarOpen] = useState(false);
@@ -375,24 +383,6 @@ export default function Admin() {
     window.location.reload();
   };
 
-  const handleGoogleLogin = async () => {
-    if (supabase) {
-      const { error } = await supabase.auth.signInWithOAuth({
-        provider: 'google',
-        options: {
-          redirectTo: window.location.origin + '/admin'
-        }
-      });
-      if (error) setLoginError(error.message);
-    } else {
-      localStorage.setItem('admin_username', 'martina@msochienglaw.co.ke');
-      localStorage.setItem('mso_admin_logged', 'true');
-      setIsAuthenticated(true);
-      setLoginError('');
-      alert('Google Login Simulated (Local Mode - No Supabase keys detected)');
-    }
-  };
-
   const handleAddClient = (e) => {
     e.preventDefault();
     const newClientData = {
@@ -464,19 +454,6 @@ export default function Admin() {
             <button type="submit" className="bg-[#cc2027] text-white font-sans tracking-widest uppercase text-xs px-10 py-4 rounded-lg font-bold hover:bg-[#c5a059] transition-all w-full mt-4 shadow-lg shadow-[#cc2027]/20 cursor-pointer">
               {isFirstTime ? "Create Account" : "Access Chambers"}
             </button>
-            <div className="relative mt-6 mb-6">
-              <div className="absolute inset-0 flex items-center"><div className="w-full border-t border-white/5"></div></div>
-              <div className="relative flex justify-center text-[10px]"><span className="bg-[#121c33] px-3 text-gray-500 uppercase tracking-widest font-bold">Single Sign-On</span></div>
-            </div>
-            <button type="button" onClick={handleGoogleLogin} className="w-full border border-white/10 bg-white/5 text-white hover:bg-white/10 transition-all font-sans tracking-widest uppercase text-xs px-10 py-4 rounded-lg font-bold flex items-center justify-center shadow-sm cursor-pointer">
-              <svg className="w-4 h-4 mr-3" viewBox="0 0 24 24">
-                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-              </svg>
-              Google Auth
-            </button>
           </form>
 
           <Link href="/" className="mt-8 text-xs text-gray-400 hover:text-[#c5a059] font-medium transition-colors">
@@ -522,41 +499,41 @@ export default function Admin() {
           {isSidebarCollapsed ? (
             <>
               <hr className="hidden md:block border-white/10 my-6 mx-2" />
-              <p className="md:hidden text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4 px-4">Management</p>
+              <p className="md:hidden text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4 px-4">{t('admin.management') || 'Management'}</p>
             </>
           ) : (
-            <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4 px-4">Management</p>
+            <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-4 px-4">{t('admin.management') || 'Management'}</p>
           )}
           <nav className="space-y-1.5">
-            <SidebarButton icon={LayoutDashboard} label="Dashboard Overview" active={view === 'overview'} collapsed={isSidebarCollapsed} onClick={() => { setView('overview'); setIsMobileSidebarOpen(false); }} />
-            <SidebarButton icon={FileText} label="Article Editor" active={view === 'editor'} collapsed={isSidebarCollapsed} onClick={() => { resetForm(); setView('editor'); setIsMobileSidebarOpen(false); }} />
-            <SidebarButton icon={Activity} label="Manage Content" active={view === 'manage'} collapsed={isSidebarCollapsed} onClick={() => { setView('manage'); setIsMobileSidebarOpen(false); }} />
+            <SidebarButton icon={LayoutDashboard} label={t('admin.dashboard') || 'Dashboard Overview'} active={view === 'overview'} collapsed={isSidebarCollapsed} onClick={() => { setView('overview'); setIsMobileSidebarOpen(false); }} />
+            <SidebarButton icon={FileText} label={t('admin.editor') || 'Article Editor'} active={view === 'editor'} collapsed={isSidebarCollapsed} onClick={() => { resetForm(); setView('editor'); setIsMobileSidebarOpen(false); }} />
+            <SidebarButton icon={Activity} label={t('admin.manage') || 'Manage Content'} active={view === 'manage'} collapsed={isSidebarCollapsed} onClick={() => { setView('manage'); setIsMobileSidebarOpen(false); }} />
           </nav>
 
           {isSidebarCollapsed ? (
             <>
               <hr className="hidden md:block border-white/10 my-6 mx-2" />
-              <p className="md:hidden text-[10px] uppercase tracking-widest text-white/40 font-bold mt-10 mb-4 px-4">Client Relations</p>
+              <p className="md:hidden text-[10px] uppercase tracking-widest text-white/40 font-bold mt-10 mb-4 px-4">{t('admin.client_relations') || 'Client Relations'}</p>
             </>
           ) : (
-            <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mt-10 mb-4 px-4">Client Relations</p>
+            <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mt-10 mb-4 px-4">{t('admin.client_relations') || 'Client Relations'}</p>
           )}
           <nav className="space-y-1.5">
-            <SidebarButton icon={MessageSquare} label="Consultation Requests" active={view === 'consultations'} badge={localConsultations.length || null} collapsed={isSidebarCollapsed} onClick={() => { setView('consultations'); setIsMobileSidebarOpen(false); }} />
-            <SidebarButton icon={Users} label="Client Directory" active={view === 'clients'} collapsed={isSidebarCollapsed} onClick={() => { setView('clients'); setIsMobileSidebarOpen(false); }} />
-            <SidebarButton icon={Mail} label="Newsletter Subs" active={view === 'subscribers'} badge={localSubscribers.length || null} collapsed={isSidebarCollapsed} onClick={() => { setView('subscribers'); setIsMobileSidebarOpen(false); }} />
+            <SidebarButton icon={MessageSquare} label={t('admin.consultations') || 'Consultation Requests'} active={view === 'consultations'} badge={localConsultations.length || null} collapsed={isSidebarCollapsed} onClick={() => { setView('consultations'); setIsMobileSidebarOpen(false); }} />
+            <SidebarButton icon={Users} label={t('admin.clients') || 'Client Directory'} active={view === 'clients'} collapsed={isSidebarCollapsed} onClick={() => { setView('clients'); setIsMobileSidebarOpen(false); }} />
+            <SidebarButton icon={Mail} label={t('admin.subscribers') || 'Newsletter Subs'} active={view === 'subscribers'} badge={localSubscribers.length || null} collapsed={isSidebarCollapsed} onClick={() => { setView('subscribers'); setIsMobileSidebarOpen(false); }} />
           </nav>
 
           {isSidebarCollapsed ? (
             <>
               <hr className="hidden md:block border-white/10 my-6 mx-2" />
-              <p className="md:hidden text-[10px] uppercase tracking-widest text-white/40 font-bold mt-10 mb-4 px-4">System</p>
+              <p className="md:hidden text-[10px] uppercase tracking-widest text-white/40 font-bold mt-10 mb-4 px-4">{t('admin.system') || 'System'}</p>
             </>
           ) : (
-            <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mt-10 mb-4 px-4">System</p>
+            <p className="text-[10px] uppercase tracking-widest text-white/40 font-bold mt-10 mb-4 px-4">{t('admin.system') || 'System'}</p>
           )}
           <nav className="space-y-1.5">
-            <SidebarButton icon={Settings} label="Global Settings" active={view === 'settings'} collapsed={isSidebarCollapsed} onClick={() => { setView('settings'); setIsMobileSidebarOpen(false); }} />
+            <SidebarButton icon={Settings} label={t('admin.settings') || 'Global Settings'} active={view === 'settings'} collapsed={isSidebarCollapsed} onClick={() => { setView('settings'); setIsMobileSidebarOpen(false); }} />
           </nav>
         </div>
 
@@ -568,7 +545,7 @@ export default function Admin() {
           >
             <div className="flex items-center gap-3">
               <LogOut size={18} className="shrink-0" />
-              <span className={`font-bold transition-all duration-300 ${isSidebarCollapsed ? 'block md:hidden' : 'block'}`}>End Session</span>
+              <span className={`font-bold transition-all duration-300 ${isSidebarCollapsed ? 'block md:hidden' : 'block'}`}>{t('admin.end_session') || 'End Session'}</span>
             </div>
           </button>
         </div>
@@ -607,21 +584,21 @@ export default function Admin() {
 
             <div>
               <h1 className="font-serif-heading text-lg md:text-2xl font-bold text-[#1c2f54]">
-                {view === 'overview' && 'Dashboard Overview'}
-                {view === 'editor' && (editingId ? 'Edit Article' : 'Compose Article')}
-                {view === 'manage' && 'Content Management'}
-                {view === 'consultations' && 'Consultation Requests'}
-                {view === 'subscribers' && 'Newsletter Subscribers'}
-                {view === 'clients' && 'Client Directory'}
-                {view === 'settings' && 'Global Settings'}
+                {view === 'overview' && (t('admin.dashboard') || 'Dashboard Overview')}
+                {view === 'editor' && (editingId ? 'Edit Article' : (t('admin.editor') || 'Article Editor'))}
+                {view === 'manage' && (t('admin.manage') || 'Content Management')}
+                {view === 'consultations' && (t('admin.consultations') || 'Consultation Requests')}
+                {view === 'subscribers' && (t('admin.subscribers') || 'Newsletter Subscribers')}
+                {view === 'clients' && (t('admin.clients') || 'Client Directory')}
+                {view === 'settings' && (t('admin.settings') || 'Global Settings')}
               </h1>
-              <p className="text-[10px] md:text-xs text-gray-400 font-medium mt-0.5">M.S. Ochieng Legal Administration Portal</p>
+              <p className="text-[10px] md:text-xs text-gray-400 font-medium mt-0.5">{t('admin.portal_title') || 'M.S. Ochieng Legal Administration Portal'}</p>
             </div>
           </div>
           
           <div className="flex items-center gap-2 md:gap-5">
             <Link href="/" className="text-[10px] md:text-sm font-bold text-[#cc2027] hover:text-[#1c2f54] transition-colors flex items-center gap-1 bg-gray-50 px-2.5 py-1.5 md:px-4 md:py-2 rounded-lg border border-gray-200">
-              <span className="hidden sm:inline">View Live Site</span> &rarr;
+              <span className="hidden sm:inline">{t('admin.view_site') || 'View Live Site'}</span> &rarr;
             </Link>
             <div className="w-px h-8 bg-gray-200 hidden sm:block" />
             <div className="flex items-center gap-3">
@@ -1082,31 +1059,65 @@ export default function Admin() {
               <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
                 <div className="p-8 border-b border-gray-100 flex justify-between items-center bg-white">
                   <div>
-                    <h2 className="font-serif-heading text-2xl text-[#1c2f54] font-bold">Global Settings</h2>
-                    <p className="text-sm text-gray-400 mt-1">Configure system parameters and preferences</p>
+                    <h2 className="font-serif-heading text-2xl text-[#1c2f54] font-bold">{t('admin.settings') || 'Global Settings'}</h2>
+                    <p className="text-sm text-gray-400 mt-1">{t('admin.settings_desc') || 'Configure system parameters and preferences'}</p>
                   </div>
                 </div>
-                <div className="p-8 space-y-8">
+                <div className="p-8 space-y-10">
+                  {/* Firm Preferences */}
                   <div className="space-y-4">
-                    <h3 className="font-serif-heading text-lg font-bold text-[#1c2f54] border-b border-gray-100 pb-2">Firm Preferences</h3>
+                    <h3 className="font-serif-heading text-lg font-bold text-[#1c2f54] border-b border-gray-100 pb-2">Localization & Communication</h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="flex flex-col gap-2">
-                        <label className="font-sans text-xs font-bold text-gray-500 uppercase tracking-wider">Default Language</label>
-                        <select className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#cc2027]/20 focus:border-[#cc2027] transition-all bg-gray-50 text-gray-800">
-                          <option>English</option>
-                          <option>French</option>
-                          <option>Swahili</option>
+                        <label className="font-sans text-xs font-bold text-gray-500 uppercase tracking-wider">{t('admin.admin_lang') || 'Admin Portal Language'}</label>
+                        <select 
+                          value={adminLanguage}
+                          onChange={(e) => toggleAdminLanguage(e.target.value)}
+                          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#cc2027]/20 focus:border-[#cc2027] transition-all bg-gray-50 focus:bg-white text-gray-800"
+                        >
+                          <option value="EN">English</option>
+                          <option value="FR">Français</option>
+                          <option value="SW">Kiswahili</option>
                         </select>
+                        <p className="text-[10px] text-gray-400 mt-1">{t('admin.admin_lang_desc') || 'Changes the language for this administration dashboard only.'}</p>
                       </div>
                       <div className="flex flex-col gap-2">
-                        <label className="font-sans text-xs font-bold text-gray-500 uppercase tracking-wider">Primary Email</label>
+                        <label className="font-sans text-xs font-bold text-gray-500 uppercase tracking-wider">Primary Support Email</label>
                         <input type="email" defaultValue="info@msochienglaw.co.ke" className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#cc2027]/20 focus:border-[#cc2027] transition-all bg-gray-50 focus:bg-white text-gray-800" />
+                        <p className="text-[10px] text-gray-400 mt-1">Used for consultation form submissions and general inquiries.</p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="pt-4 flex justify-end">
-                    <button className="bg-[#cc2027] text-white px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-[#1c2f54] transition-all cursor-pointer" onClick={() => alert('Settings saved successfully!')}>Save Changes</button>
+                  {/* SEO & Analytics */}
+                  <div className="space-y-4">
+                    <h3 className="font-serif-heading text-lg font-bold text-[#1c2f54] border-b border-gray-100 pb-2">SEO & Discovery</h3>
+                    <div className="grid grid-cols-1 gap-6">
+                      <div className="flex flex-col gap-2">
+                        <label className="font-sans text-xs font-bold text-gray-500 uppercase tracking-wider">Global Meta Description</label>
+                        <textarea rows="3" defaultValue="M.S. Ochieng Legal provides clear corporate, Conveyancing, Property, Immigration, and Litigation legal advice in Nairobi, Kenya and globally." className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#cc2027]/20 focus:border-[#cc2027] transition-all bg-gray-50 focus:bg-white resize-none text-gray-800" />
+                        <p className="text-[10px] text-gray-400 mt-1">Default meta description for pages that do not have one set explicitly.</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* System Settings */}
+                  <div className="space-y-4">
+                    <h3 className="font-serif-heading text-lg font-bold text-[#1c2f54] border-b border-gray-100 pb-2">System Maintenance</h3>
+                    <div className="flex items-center justify-between p-4 border border-gray-100 rounded-xl bg-gray-50/50">
+                      <div>
+                        <h4 className="text-sm font-bold text-[#1c2f54]">Maintenance Mode</h4>
+                        <p className="text-[11px] text-gray-500 mt-0.5">Temporarily disable the live site for updates.</p>
+                      </div>
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" className="sr-only peer" />
+                        <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#cc2027]"></div>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="pt-6 mt-6 border-t border-gray-100 flex justify-end">
+                    <button className="bg-[#cc2027] text-white px-8 py-3 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-[#1c2f54] transition-all shadow-md hover:shadow-lg cursor-pointer" onClick={() => alert('Settings saved successfully!')}>{t('admin.save') || 'Save All Changes'}</button>
                   </div>
                 </div>
               </div>

@@ -328,6 +328,25 @@ export const translations = {
       desc: "We use cookies to improve your experience and analyze site traffic. By continuing to browse, you agree to our use of cookies and our terms of service.",
       accept: "Accept All",
       details: "Details"
+    },
+    admin: {
+      dashboard: "Dashboard Overview",
+      editor: "Article Editor",
+      manage: "Manage Content",
+      consultations: "Consultation Requests",
+      clients: "Client Directory",
+      subscribers: "Newsletter Subs",
+      settings: "Admin Settings",
+      end_session: "End Session",
+      management: "Management",
+      client_relations: "Client Relations",
+      system: "System",
+      view_site: "View Live Site",
+      portal_title: "M.S. Ochieng Legal Administration Portal",
+      settings_desc: "Configure system parameters and preferences",
+      admin_lang: "Admin Portal Language",
+      admin_lang_desc: "Changes the language for this administration dashboard only.",
+      save: "Save Changes"
     }
   },
   FR: {
@@ -659,6 +678,25 @@ export const translations = {
       desc: "Nous utilisons des cookies pour améliorer votre expérience et analyser le trafic du site. En continuant à naviguer, vous acceptez notre utilisation des cookies et nos conditions d'utilisation.",
       accept: "Tout Accepter",
       details: "Détails"
+    },
+    admin: {
+      dashboard: "Aperçu du tableau de bord",
+      editor: "Éditeur d'articles",
+      manage: "Gérer le contenu",
+      consultations: "Demandes de consultation",
+      clients: "Annuaire des clients",
+      subscribers: "Abonnés à la newsletter",
+      settings: "Paramètres d'administration",
+      end_session: "Fin de session",
+      management: "Gestion",
+      client_relations: "Relations clients",
+      system: "Système",
+      view_site: "Voir le site en direct",
+      portal_title: "Portail d'administration légale M.S. Ochieng",
+      settings_desc: "Configurer les paramètres et préférences du système",
+      admin_lang: "Langue du portail d'administration",
+      admin_lang_desc: "Modifie la langue pour ce tableau de bord d'administration uniquement.",
+      save: "Enregistrer les modifications"
     }
   },
   SW: {
@@ -990,6 +1028,25 @@ export const translations = {
       desc: "Tunatumia vidakuzi kuboresha matumizi yako na kuchambua trafiki ya tovuti. Kwa kuendelea kuvinjari, unakubali matumizi yetu ya vidakuzi na masharti yetu ya huduma.",
       accept: "Kubali Zote",
       details: "Maelezo"
+    },
+    admin: {
+      dashboard: "Muhtasari wa Dashibodi",
+      editor: "Mhariri wa Makala",
+      manage: "Dhibiti Maudhui",
+      consultations: "Maombi ya Ushauri",
+      clients: "Saraka ya Wateja",
+      subscribers: "Wanaofuatilia Jarida",
+      settings: "Mipangilio ya Msimamizi",
+      end_session: "Funga Kikao",
+      management: "Usimamizi",
+      client_relations: "Mahusiano ya Wateja",
+      system: "Mfumo",
+      view_site: "Tazama Tovuti",
+      portal_title: "Lango la Utawala la Kisheria la M.S. Ochieng",
+      settings_desc: "Sanidi vigezo na mapendeleo ya mfumo",
+      admin_lang: "Lugha ya Lango la Msimamizi",
+      admin_lang_desc: "Inabadilisha lugha ya dashibodi hii ya usimamizi pekee.",
+      save: "Hifadhi Mabadiliko"
     }
   }
 };
