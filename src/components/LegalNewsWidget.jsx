@@ -30,31 +30,44 @@ export default function LegalNewsWidget({ hideHeader = false, itemsLimit, showMo
     async function fetchNews() {
       try {
         setLoading(true);
-        const apiKey = import.meta.env.VITE_SERP_API_KEY;
-        if (!apiKey) throw new Error("Missing Serper API Key");
-
-        const response = await fetch('/api/serper/news', {
-          method: 'POST',
-          headers: {
-            'X-API-KEY': apiKey,
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            q: language === 'sw' ? "Sheria Kenya OR mahakama Kenya" : "Kenya legal updates OR court decisions OR law news",
-            num: 8
-          })
-        });
+        // Using a free public RSS to JSON converter fetching Kenya Legal news from Google News
+        const rssUrl = encodeURIComponent(`https://news.google.com/rss/search?q=Kenya+law+court+legal&hl=en-KE&gl=KE&ceid=KE:en`);
+        const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${rssUrl}`);
 
         if (!response.ok) throw new Error("Failed to fetch news");
 
         const data = await response.json();
-        if (data && data.news) {
-          setNews(data.news);
+        if (data && data.status === 'ok' && data.items) {
+          // Map RSS items to our expected format
+          const formattedNews = data.items.map(item => {
+            // Google News puts the source at the end of the title after a dash
+            const titleParts = item.title.split(' - ');
+            const source = titleParts.length > 1 ? titleParts.pop() : 'Legal Update';
+            const cleanTitle = titleParts.join(' - ');
+            
+            // Create a clean snippet from the description (removing HTML tags)
+            const cleanSnippet = item.description 
+              ? item.description.replace(/<[^>]*>?/gm, '').substring(0, 150) + '...'
+              : 'Click to read full legal update...';
+
+            // Format date nicely
+            const dateObj = new Date(item.pubDate);
+            const dateStr = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+
+            return {
+              title: cleanTitle,
+              snippet: cleanSnippet,
+              link: item.link,
+              date: dateStr,
+              source: source
+            };
+          });
+          setNews(formattedNews);
         } else {
           setNews([]);
         }
       } catch (err) {
-        setError(err.message);
+        setError(err.message || "Failed to load recent news.");
       } finally {
         setLoading(false);
       }

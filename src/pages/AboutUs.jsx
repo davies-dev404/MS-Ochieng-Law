@@ -28,41 +28,61 @@ export default function AboutUs() {
     {
       title: t('about.values_title'),
       content: (
-        <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li>{t('hero.innovation')}</li>
-          <li>{t('hero.integrity')}</li>
-          <li>{t('hero.commitment')}</li>
-          <li>{t('hero.excellence')}</li>
-        </ul>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {[t('hero.innovation'), t('hero.integrity'), t('hero.commitment'), t('hero.excellence')].map((val, i) => (
+            <span key={i} className="px-3 py-1.5 bg-gray-50 text-[#1c2f54] text-[13px] font-bold rounded-lg border border-gray-100 group-hover:border-[#cc2027]/30 group-hover:bg-[#cc2027]/5 transition-all duration-500">
+              {val}
+            </span>
+          ))}
+        </div>
       )
     },
     {
       title: t('about.why_choose_title'),
       content: (
-         <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li><strong>{t('about.why_team').split(':')[0]}:</strong> {t('about.why_team').split(':')[1]}</li>
-          <li><strong>{t('about.why_personal').split(':')[0]}:</strong> {t('about.why_personal').split(':')[1]}</li>
-          <li><strong>{t('about.why_rep').split(':')[0]}:</strong> {t('about.why_rep').split(':')[1]}</li>
-          <li><strong>{t('about.why_results').split(':')[0]}:</strong> {t('about.why_results').split(':')[1]}</li>
-          <li><strong>{t('about.why_local').split(':')[0]}:</strong> {t('about.why_local').split(':')[1]}</li>
-        </ul>
+        <div className="space-y-3 mt-2">
+          {[
+            t('about.why_team'),
+            t('about.why_personal'),
+            t('about.why_rep'),
+            t('about.why_results'),
+            t('about.why_local')
+          ].map((item, i) => {
+            const [bold, text] = item.split(':');
+            return (
+              <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-gray-50/50 border border-transparent group-hover:bg-white group-hover:border-gray-100 transition-all duration-300 group-hover:shadow-sm">
+                <div className="mt-1 w-1.5 h-1.5 rounded-full bg-[#cc2027] shrink-0" />
+                <p className="text-[14px] leading-relaxed">
+                  <strong className="text-[#1c2f54] font-bold block mb-0.5">{bold}</strong>
+                  <span className="text-gray-500">{text}</span>
+                </p>
+              </div>
+            );
+          })}
+        </div>
       )
     },
     {
       title: t('about.domains_title'),
       content: (
-        <ul className="list-disc pl-6 space-y-2 marker:text-[#cc2027]">
-          <li>{t('practice.areas.conveyancing')}</li>
-          <li>{t('practice.areas.commercial')}</li>
-          <li>{t('practice.areas.immigration')}</li>
-          <li>{t('practice.areas.family')}</li>
-          <li>{t('practice.areas.litigation')}</li>
-          <li>{t('practice.areas.adr')}</li>
-          <li>{t('practice.areas.ip')}</li>
-          <li>{t('practice.areas.employment')}</li>
-          <li>{t('practice.areas.media')}</li>
-          <li>{t('practice.areas.taxation')}</li>
-        </ul>
+        <div className="flex flex-wrap gap-2 mt-2">
+          {[
+            t('practice.areas.conveyancing'),
+            t('practice.areas.commercial'),
+            t('practice.areas.immigration'),
+            t('practice.areas.family'),
+            t('practice.areas.litigation'),
+            t('practice.areas.adr'),
+            t('practice.areas.ip'),
+            t('practice.areas.employment'),
+            t('practice.areas.media'),
+            t('practice.areas.taxation')
+          ].map((area, i) => (
+            <span key={i} className="px-3 py-1.5 bg-[#1c2f54]/5 text-[#1c2f54] text-[13px] font-medium rounded-full border border-[#1c2f54]/10 group-hover:bg-[#1c2f54] group-hover:text-white transition-all duration-500">
+              {area}
+            </span>
+          ))}
+        </div>
       )
     }
   ];
@@ -158,16 +178,20 @@ export default function AboutUs() {
                     return (
                       <motion.div 
                         key={idx}
-                        whileHover={{ y: -8 }}
-                        className={`relative overflow-hidden bg-white border border-gray-100 p-8 rounded-3xl transition-all duration-500 group hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] hover:border-[#cc2027]/20 flex flex-col ${isLast ? 'md:col-span-2' : ''}`}
+                        whileHover={{ y: -8, scale: 1.01 }}
+                        whileTap={{ scale: 0.98 }}
+                        className={`relative overflow-hidden bg-white border border-gray-100 p-8 rounded-3xl transition-all duration-500 group hover:shadow-[0_20px_40px_-15px_rgba(204,32,39,0.15)] hover:border-[#cc2027]/40 flex flex-col ${isLast ? 'md:col-span-2' : ''}`}
                       >
+                        {/* Gradient Overlay on Hover */}
+                        <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#cc2027]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                        
                         {/* Watermark Number */}
-                        <div className="absolute -bottom-8 -right-8 text-[150px] leading-none font-black text-gray-50 opacity-60 pointer-events-none group-hover:text-[#cc2027]/5 group-hover:-translate-y-4 group-hover:-translate-x-4 transition-all duration-700">
+                        <div className="absolute -bottom-4 -right-4 text-[120px] md:text-[150px] leading-none font-black text-gray-50 opacity-80 pointer-events-none group-hover:text-[#cc2027]/10 group-hover:-translate-y-4 group-hover:-translate-x-4 transition-all duration-700">
                           0{idx + 1}
                         </div>
 
                         <div className="relative z-10 flex flex-col gap-6 mb-6">
-                          <div className="w-16 h-16 bg-gray-50/80 group-hover:bg-[#cc2027] group-hover:text-white text-[#1c2f54] rounded-2xl flex items-center justify-center transition-all duration-500 shrink-0 group-hover:shadow-lg group-hover:shadow-[#cc2027]/30">
+                          <div className="w-16 h-16 bg-gray-50/80 group-hover:bg-[#cc2027] group-hover:text-white text-[#1c2f54] rounded-2xl flex items-center justify-center transition-all duration-500 shrink-0 group-hover:shadow-lg group-hover:shadow-[#cc2027]/40 group-hover:-rotate-3 group-hover:scale-110">
                             <Icon size={28} strokeWidth={1.5} />
                           </div>
                           <h3 className="text-[#1c2f54] font-bold font-sans text-lg uppercase tracking-wider group-hover:text-[#cc2027] transition-colors duration-500">

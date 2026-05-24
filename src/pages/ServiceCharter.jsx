@@ -44,11 +44,16 @@ export default function ServiceCharter() {
       title: t('charter.delivery'),
       icon: <Clock size={32} strokeWidth={1.5} />,
       content: (
-        <ul className="text-sm font-light text-gray-600 leading-relaxed space-y-3 list-disc pl-4 marker:text-[#cc2027]">
+        <div className="space-y-3 mt-2">
           {t('charter.delivery_points').map((point, i) => (
-            <li key={i}>{point}</li>
+            <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-gray-50/50 border border-transparent group-hover:bg-white group-hover:border-gray-100 transition-all duration-300 group-hover:shadow-sm">
+                <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-[#cc2027] shrink-0" />
+                <p className="text-[14px] leading-relaxed text-gray-600 font-light">
+                  {point}
+                </p>
+            </div>
           ))}
-        </ul>
+        </div>
       )
     },
     {
@@ -104,23 +109,33 @@ export default function ServiceCharter() {
               <motion.div 
                 key={idx}
                 variants={fadeUp}
-                className="group bg-white p-10 md:p-12 border border-gray-100 hover:border-[#cc2027] hover:shadow-2xl transition-all duration-500 relative overflow-hidden rounded-xl flex flex-col h-full"
+                whileHover={{ y: -8, scale: 1.01 }}
+                whileTap={{ scale: 0.98 }}
+                className="group bg-white p-10 md:p-12 border border-gray-100 hover:border-[#cc2027]/40 hover:shadow-[0_20px_40px_-15px_rgba(204,32,39,0.15)] transition-all duration-500 relative overflow-hidden rounded-3xl flex flex-col h-full"
               >
+                {/* Gradient Overlay on Hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-transparent to-[#cc2027]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                
                 {/* Decorative Hover Element */}
                 <div className="absolute top-0 right-0 w-32 h-32 bg-[#cc2027]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-[#cc2027]/10 transition-colors duration-500" />
                 <div className="absolute bottom-0 left-0 w-full h-1 bg-linear-to-r from-[#cc2027] to-[#1c2f54] scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-700 ease-out" />
                 
+                {/* Watermark Number */}
+                <div className="absolute -bottom-4 -right-4 text-[120px] md:text-[150px] leading-none font-black text-gray-50 opacity-80 pointer-events-none group-hover:text-[#cc2027]/10 group-hover:-translate-y-4 group-hover:-translate-x-4 transition-all duration-700">
+                  0{idx + 1}
+                </div>
+                
                 <div className="flex items-center gap-6 mb-8">
-                  <div className="w-16 h-16 rounded-2xl bg-gray-50 border border-gray-100 flex items-center justify-center text-[#1c2f54] group-hover:text-[#cc2027] group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-sm shrink-0">
+                  <div className="w-16 h-16 rounded-2xl bg-gray-50/80 group-hover:bg-[#cc2027] group-hover:text-white border border-gray-100 flex items-center justify-center text-[#1c2f54] group-hover:scale-110 group-hover:-rotate-3 transition-all duration-500 shadow-sm shrink-0 group-hover:shadow-lg group-hover:shadow-[#cc2027]/40 relative z-10">
                     {section.icon}
                   </div>
-                  <div>
+                  <div className="relative z-10">
                     <span className="font-serif-sub tracking-[0.3em] uppercase text-[10px] text-gray-400 group-hover:text-[#cc2027] font-bold transition-colors">Section 0{idx + 1}</span>
-                    <h3 className="font-serif-heading text-2xl text-[#1c2f54] mt-1 uppercase tracking-widest">{section.title}</h3>
+                    <h3 className="font-serif-heading text-2xl text-[#1c2f54] mt-1 uppercase tracking-widest group-hover:text-[#cc2027] transition-colors">{section.title}</h3>
                   </div>
                 </div>
                 
-                <div className="grow">
+                <div className="grow relative z-10">
                   {section.content}
                 </div>
               </motion.div>
