@@ -252,8 +252,12 @@ export const db = {
         const { error } = await supabase
           .from('visitors')
           .insert([{ session_id: sessionId }]);
-        if (error && error.code !== '23505') {
-          console.error("Supabase track visitor error", error);
+        if (error) {
+          // 23505 = unique violation (session already recorded – expected & fine)
+          // PGRST205 = table not in schema cache yet – migration pending, ignore silently
+          if (error.code !== '23505' && error.code !== 'PGRST205') {
+            console.error("Supabase track visitor error", error);
+          }
         }
       } catch (err) {
         console.error("Supabase track visitor failed", err);
@@ -275,8 +279,9 @@ export const db = {
         const { count, error } = await supabase
           .from('visitors')
           .select('*', { count: 'exact', head: true });
-        if (error) throw error;
-        return count || 0;
+        // PGRST205 means the table doesn't exist yet – fall through to local count
+        if (error && error.code !== 'PGRST205') throw error;
+        if (!error) return count || 0;
       } catch (err) {
         console.warn("Supabase fetch visitors count failed, using local", err);
       }
