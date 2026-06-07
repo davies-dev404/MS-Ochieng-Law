@@ -170,105 +170,160 @@ export default function Practice() {
         </div>
       </section>
 
+      {/* Main Content: Sidebar + Detail */}
       <section className="bg-white border-b border-border min-h-screen">
         <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row">
-          <div className="md:w-[360px] lg:w-[420px] border-r border-border bg-muted/5 flex flex-col">
-            {practices.map((p) => {
-              const isActive = p.id === activeId;
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => handleSelect(p.id)}
-                  className={`flex items-start gap-6 px-10 py-8 border-b border-border transition-all duration-500 text-left group relative ${isActive ? 'bg-white shadow-xl z-10' : 'hover:bg-white/60'}`}
-                >
-                  <span className={`absolute left-0 top-0 bottom-0 w-1.5 bg-[#cc2027] transition-all duration-500 ${isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-40'}`} />
-                  <div className={`mt-1 shrink-0 transition-colors duration-500 ${isActive ? 'text-[#cc2027]' : 'text-secondary/30 group-hover:text-[#cc2027]/60'}`}>
-                    {p.icon}
-                  </div>
-                  <div>
-                    <span className={`font-serif-sub tracking-[0.2em] uppercase text-[9px] mb-2 block font-bold transition-colors ${isActive ? 'text-[#cc2027]' : 'text-secondary/30 group-hover:text-[#cc2027]/50'}`}>
-                      {String(p.id).padStart(2,"0")}
-                    </span>
-                    <h3 className={`font-serif-heading text-lg leading-tight transition-colors duration-500 font-bold ${isActive ? 'text-secondary' : 'text-secondary/60 group-hover:text-secondary/80'}`}>
-                      {p.title}
-                    </h3>
-                  </div>
-                </button>
-              );
-            })}
+
+          {/* ─── Left: Modern Vertical Sidebar ─── */}
+          <div className="md:w-[340px] lg:w-[400px] shrink-0 border-r border-border bg-[#0b1628] flex flex-col md:sticky md:top-0 md:h-screen md:overflow-y-auto">
+            {/* Sidebar header */}
+            <div className="px-8 pt-10 pb-6 border-b border-white/10">
+              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[10px] block mb-3">Practice Areas</span>
+              <p className="font-sans text-white/40 text-xs font-light leading-relaxed">Select a discipline to explore our expertise in depth.</p>
+            </div>
+
+            {/* Navigation list */}
+            <nav className="flex-1 py-4">
+              {practices.map((p) => {
+                const isActive = p.id === activeId;
+                return (
+                  <button
+                    key={p.id}
+                    onClick={() => handleSelect(p.id)}
+                    className={`w-full flex items-center gap-5 px-8 py-5 text-left group relative transition-all duration-300 ${
+                      isActive
+                        ? 'bg-white/6 border-r-0'
+                        : 'hover:bg-white/3'
+                    }`}
+                  >
+                    {/* Active left-edge accent */}
+                    <span className={`absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-[#cc2027] transition-all duration-300 ${isActive ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}`} />
+
+                    {/* Icon */}
+                    <div className={`shrink-0 transition-all duration-300 ${isActive ? 'text-[#cc2027]' : 'text-white/25 group-hover:text-white/50'}`}>
+                      {p.icon}
+                    </div>
+
+                    {/* Text */}
+                    <div className="flex-1 min-w-0">
+                      <span className={`block font-serif-sub tracking-[0.2em] uppercase text-[9px] mb-1 font-bold transition-colors ${isActive ? 'text-[#cc2027]' : 'text-white/25 group-hover:text-white/40'}`}>
+                        {String(p.id).padStart(2, '0')}
+                      </span>
+                      <span className={`block font-serif-heading text-[15px] leading-tight font-bold transition-colors duration-300 truncate ${isActive ? 'text-white' : 'text-white/50 group-hover:text-white/70'}`}>
+                        {p.title}
+                      </span>
+                    </div>
+
+                    {/* Active dot */}
+                    <div className={`w-1.5 h-1.5 rounded-full bg-[#cc2027] shrink-0 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
+                  </button>
+                );
+              })}
+            </nav>
+
+            {/* Sidebar footer */}
+            <div className="px-8 py-8 border-t border-white/10">
+              <Link
+                href="/consultation"
+                className="flex items-center gap-3 text-white/40 hover:text-[#cc2027] transition-colors group"
+              >
+                <span className="font-serif-sub tracking-[0.2em] uppercase text-[10px] font-bold">Book a Consultation</span>
+                <div className="w-5 h-px bg-current flex-1" />
+              </Link>
+            </div>
           </div>
 
-          <div id="practice-detail" className="grow bg-white p-12 md:p-20 lg:p-28 relative overflow-hidden">
+          {/* ─── Right: Active Content Panel ─── */}
+          <div id="practice-detail" className="flex-1 bg-white relative overflow-hidden min-h-[80vh]">
+
+            {/* Subtle background image watermark */}
             <div className="absolute inset-0 z-0">
               <img
                 key={activePractice.id}
                 src={activePractice.img}
                 alt={activePractice.title}
                 loading="lazy"
-                className="w-full h-full object-cover opacity-[0.04] grayscale scale-110 transition-all duration-1000"
+                className="w-full h-full object-cover opacity-[0.035] grayscale scale-105 transition-all duration-1000"
               />
             </div>
 
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeId}
-                initial={{ opacity: 0, x: 40 }}
+                initial={{ opacity: 0, x: 30 }}
                 animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -40 }}
-                transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-                className="relative z-10 max-w-5xl"
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+                className="relative z-10 p-10 md:p-16 lg:p-20 xl:p-24"
               >
-                <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[10px] mb-6 flex items-center gap-4 font-bold">
-                  {activePractice.subtitle}
-                </p>
-                <h2 className="font-serif-heading text-4xl md:text-7xl text-secondary mb-8 leading-tight font-bold uppercase tracking-tighter">
+                {/* Practice number + subtitle */}
+                <div className="flex items-center gap-4 mb-8">
+                  <span className="font-serif-sub text-[#cc2027]/50 tracking-[0.4em] uppercase text-[10px] font-bold">
+                    {String(activeId).padStart(2, '0')}
+                  </span>
+                  <div className="h-px flex-1 max-w-[48px] bg-[#cc2027]/20" />
+                  <span className="font-serif-sub text-[#cc2027] tracking-[0.35em] uppercase text-[10px] font-bold">
+                    {activePractice.subtitle}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <h2 className="font-serif-heading text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-[#1c2f54] mb-6 leading-[0.95] font-bold uppercase tracking-tighter">
                   {activePractice.title}
                 </h2>
-                <div className="h-1 w-24 bg-[#cc2027]/30 mb-16" />
 
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                  <div className="space-y-10">
-                    <p className="font-sans text-foreground/70 text-xl font-light leading-relaxed">
+                {/* Red accent underline */}
+                <div className="h-1 w-20 bg-[#cc2027] mb-12 rounded-full" />
+
+                {/* Body content grid */}
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-14">
+                  {/* Left column: Description + Quote */}
+                  <div className="space-y-8">
+                    <p className="font-sans text-[#1c2f54]/75 text-xl font-light leading-relaxed">
                       {activePractice.desc}
                     </p>
-                    <p className="font-sans text-foreground/50 text-base font-light leading-relaxed">
+                    <p className="font-sans text-[#1c2f54]/50 text-base font-light leading-relaxed">
                       {activePractice.details}
                     </p>
-                    
-                    <div className="p-10 border-l-8 border-[#cc2027] bg-secondary text-white shadow-2xl">
-                      <p className="font-serif-sub uppercase tracking-[0.3em] text-[10px] text-[#cc2027] mb-5 font-bold">{t('practice.strategic')}</p>
-                      <p className="font-serif-sub text-lg text-white/80 leading-relaxed italic">
+
+                    <div className="relative pl-6 border-l-4 border-[#cc2027] bg-[#0b1628] p-8 rounded-sm">
+                      <p className="font-serif-sub text-[#cc2027] tracking-[0.3em] uppercase text-[10px] font-bold mb-4">{t('practice.strategic')}</p>
+                      <p className="font-sans text-white/70 text-base leading-relaxed italic">
                         "{activePractice.matters}"
                       </p>
                     </div>
                   </div>
 
-                  <div className="space-y-10">
-                    <h4 className="font-serif-heading text-2xl text-secondary font-bold uppercase tracking-widest border-b border-border pb-6">
+                  {/* Right column: Specializations */}
+                  <div>
+                    <h4 className="font-serif-heading text-xl text-[#1c2f54] font-bold uppercase tracking-widest mb-8 pb-4 border-b border-gray-100">
                       {t('practice.specialization')}
                     </h4>
-                    <div className="grid grid-cols-1 gap-5">
+
+                    <div className="space-y-1 mb-10">
                       {activePractice.subPractices.map((sub, i) => (
                         <motion.div
-                          initial={{ opacity: 0, x: 10 }}
+                          initial={{ opacity: 0, x: 12 }}
                           animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: i * 0.08 }}
+                          transition={{ delay: i * 0.06, duration: 0.35 }}
                           key={i}
-                          className="flex items-center gap-5 group/item py-3 border-b border-border/40 last:border-0"
+                          className="flex items-center gap-4 py-3.5 px-4 rounded-lg hover:bg-[#cc2027]/5 group/item cursor-default transition-colors"
                         >
-                          <div className="w-2 h-2 rounded-full bg-[#cc2027]/40 shrink-0 group-hover/item:scale-150 transition-transform" />
-                          <span className="font-serif-sub tracking-[0.2em] uppercase text-[11px] text-secondary/80 font-bold group-hover/item:text-[#cc2027] transition-colors">{sub}</span>
+                          <div className="w-1.5 h-1.5 rounded-full bg-[#cc2027]/40 shrink-0 group-hover/item:bg-[#cc2027] transition-colors" />
+                          <span className="font-serif-sub tracking-[0.18em] uppercase text-[11px] text-[#1c2f54]/70 font-bold group-hover/item:text-[#cc2027] transition-colors">
+                            {sub}
+                          </span>
                         </motion.div>
                       ))}
                     </div>
-                    <div className="pt-10">
-                      <Link
-                        href="/consultation"
-                        className="inline-block font-serif-sub tracking-[0.3em] uppercase text-[11px] bg-secondary text-white px-16 py-6 hover:bg-[#cc2027] transition-all duration-500 font-bold no-underline shadow-2xl"
-                      >
-                        {t('practice.consultation')} →
-                      </Link>
-                    </div>
+
+                    <Link
+                      href="/consultation"
+                      className="inline-flex items-center gap-4 font-serif-sub tracking-[0.25em] uppercase text-[11px] bg-[#0b1628] text-white px-10 py-5 hover:bg-[#cc2027] transition-all duration-400 font-bold no-underline shadow-lg group/cta"
+                    >
+                      {t('practice.consultation')}
+                      <span className="inline-block transition-transform duration-300 group-hover/cta:translate-x-1">→</span>
+                    </Link>
                   </div>
                 </div>
               </motion.div>

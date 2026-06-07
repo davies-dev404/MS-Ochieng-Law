@@ -108,14 +108,15 @@ export default function Consultation() {
           <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.02) 1px, transparent 0)', backgroundSize: '48px 48px' }} />
         </div>
 
-        <div className="max-w-7xl mx-auto w-full relative z-10 flex flex-col lg:flex-row gap-16 lg:gap-24 items-center">
+        <div className="max-w-5xl mx-auto w-full relative z-10 flex flex-col gap-12 lg:gap-16 items-center pt-24 lg:pt-0">
           
-          {/* Left Column: Messaging */}
-          <div className="lg:w-1/2 w-full text-left">
-            <motion.div initial="hidden" animate="visible" variants={stagger}>
-              <motion.p variants={fadeUp} className="font-serif-sub text-primary tracking-[0.5em] uppercase text-[9px] sm:text-[10px] mb-6 flex items-center gap-4 font-bold">
+          {/* Top Section: Messaging */}
+          <div className="w-full text-center flex flex-col items-center">
+            <motion.div initial="hidden" animate="visible" variants={stagger} className="flex flex-col items-center w-full">
+              <motion.p variants={fadeUp} className="font-serif-sub text-primary tracking-[0.5em] uppercase text-[9px] sm:text-[10px] mb-6 flex items-center justify-center gap-4 font-bold w-full">
                 <span className="w-12 h-px bg-primary block" />
                 {t('consultation.label')}
+                <span className="w-12 h-px bg-primary block" />
               </motion.p>
               
               <motion.h1 variants={fadeUp} className="font-serif-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl text-white mb-8 leading-tight font-bold tracking-tight">
@@ -123,18 +124,18 @@ export default function Consultation() {
                 <span className="text-[#cc2027] italic">{t('consultation.subtitle')}</span>
               </motion.h1>
               
-              <motion.p variants={fadeUp} className="font-sans text-white/60 text-base md:text-lg font-light leading-relaxed mb-12 max-w-xl">
+              <motion.p variants={fadeUp} className="font-sans text-white/60 text-base md:text-lg font-light leading-relaxed mb-12 max-w-2xl mx-auto">
                 {t('consultation.desc')}
               </motion.p>
 
-              <motion.div variants={fadeUp} className="space-y-8">
+              <motion.div variants={fadeUp} className="flex flex-wrap justify-center gap-8 lg:gap-12 w-full max-w-4xl mx-auto">
                 {[
                   { key: "institutional" },
                   { key: "strategic" },
                   { key: "bespoke" }
                 ].map((item, i) => (
-                  <div key={i} className="flex gap-6 items-start pb-6 border-b border-white/10 last:border-0 group">
-                    <div className="w-8 h-px bg-primary/40 mt-3 shrink-0 transition-all group-hover:w-16 group-hover:bg-primary" />
+                  <div key={i} className="flex flex-col items-center text-center gap-3 w-48 group">
+                    <div className="w-8 h-px bg-primary/40 mb-2 transition-all group-hover:w-16 group-hover:bg-primary" />
                     <div>
                       <h4 className="font-serif-sub tracking-widest uppercase text-[10px] md:text-[11px] text-white mb-2 font-bold">
                         {t(`consultation.sidebar.${item.key}_title`)}
@@ -149,8 +150,8 @@ export default function Consultation() {
             </motion.div>
           </div>
 
-          {/* Right Column: Form */}
-          <div className="lg:w-1/2 w-full relative">
+          {/* Bottom Section: Form */}
+          <div className="w-full relative mt-8">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -351,23 +352,27 @@ export default function Consultation() {
       </section>
 
       {/* Strategic Privileges */}
-      <section className="py-8 md:py-16 px-4 sm:px-6 bg-muted/5 border-t border-border relative overflow-hidden">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-8 md:gap-12">
-           <div className="md:w-1/3 text-center md:text-left">
-              <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[9px] md:text-[10px] mb-3 md:mb-4 font-bold">{t('consultation.privileges_label')}</p>
+      <section className="py-16 md:py-24 px-4 sm:px-6 bg-muted/5 border-t border-border relative overflow-hidden">
+        <div className="max-w-5xl mx-auto flex flex-col items-center text-center gap-10 md:gap-14">
+           <div className="w-full">
+              <p className="font-serif-sub text-[#cc2027] tracking-[0.4em] uppercase text-[9px] md:text-[10px] mb-3 md:mb-4 font-bold flex justify-center gap-4 items-center">
+                 <span className="w-8 h-px bg-[#cc2027]" />
+                 {t('consultation.privileges_label')}
+                 <span className="w-8 h-px bg-[#cc2027]" />
+              </p>
               <h2 className="font-serif-heading text-2xl md:text-4xl font-bold text-[#1c2f54] uppercase tracking-tight">{t('consultation.privileges')}</h2>
            </div>
            
-           <div className="md:w-2/3 grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              <div className="p-6 md:p-8 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
+           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-4xl">
+              <div className="p-8 md:p-10 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group text-center">
                  <h4 className="font-serif-sub tracking-widest uppercase text-[10px] md:text-[11px] text-[#1c2f54] mb-3 md:mb-4 font-bold">{t('consultation.ac_title')}</h4>
-                 <p className="font-sans text-foreground/50 text-[11px] md:text-xs font-light leading-relaxed">
+                 <p className="font-sans text-foreground/50 text-[11px] md:text-xs font-light leading-relaxed mx-auto max-w-sm">
                    {t('consultation.ac_desc')}
                  </p>
               </div>
-              <div className="p-6 md:p-8 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group">
+              <div className="p-8 md:p-10 bg-white border border-border shadow-sm hover:border-[#cc2027]/40 transition-all group text-center">
                  <h4 className="font-serif-sub tracking-widest uppercase text-[11px] text-[#1c2f54] mb-4 font-bold">{t('consultation.data_title')}</h4>
-                 <p className="font-sans text-foreground/50 text-xs font-light leading-relaxed">
+                 <p className="font-sans text-foreground/50 text-xs font-light leading-relaxed mx-auto max-w-sm">
                    {t('consultation.data_desc')}
                  </p>
               </div>

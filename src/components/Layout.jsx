@@ -409,7 +409,7 @@ function CookieConsent() {
           initial={{ y: 100, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: 100, opacity: 0 }}
-          className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:w-[420px] bg-white text-[#1c2f54] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-[100] border-t-4 border-[#cc2027] rounded-lg"
+          className="fixed bottom-6 left-6 right-6 md:left-auto md:right-8 md:w-[420px] bg-white text-[#1c2f54] p-6 shadow-[0_20px_50px_rgba(0,0,0,0.3)] z-100 border-t-4 border-[#cc2027] rounded-lg"
         >
           {!showSettings ? (
             <>

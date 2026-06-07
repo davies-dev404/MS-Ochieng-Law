@@ -41,9 +41,8 @@ const AI_CONFIG = {
   model: 'llama-3.3-70b-versatile' // Updated to Groq's currently supported LLaMA 3.3 model
 };
 
-console.log('Chatbot initialized with OpenAI model:', AI_CONFIG.model);
+import { globalChannel } from '../lib/pusher';
 
-import { onStaffStatusChange } from '../lib/pusher';
 
 export default function AIChatBox() {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,13 +51,17 @@ export default function AIChatBox() {
     { role: 'bot', text: 'Welcome to M.S. Ochieng AI Legal Assistant. I can help you with general legal queries, information about our practice areas, or guide you to the right advocate. How can I assist you today?' }
   ]);
 
-  // Real-time listener for staff status
+  // Real-time listener for staff status — unbind on unmount to prevent memory leak
   useEffect(() => {
-    onStaffStatusChange((data) => {
+    const handler = (data) => {
       if (data && typeof data.online === 'boolean') {
         setIsStaffOnline(data.online);
       }
-    });
+    };
+    globalChannel.bind('staff-status', handler);
+    return () => {
+      globalChannel.unbind('staff-status', handler);
+    };
   }, []);
 
   const [input, setInput] = useState('');

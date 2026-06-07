@@ -106,37 +106,57 @@ export default function Blog() {
       </section>
 
       <section className="bg-white border-b border-border">
-        <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row min-h-[800px]">
-          {/* Sidebar Categories */}
-          <div className="md:w-1/3 lg:w-1/4 border-r border-border flex flex-col bg-muted/5 pt-10">
-            {categories.map((cat, idx) => {
-              const isActive = cat.id === activeCategory;
-              return (
-                <button
-                  key={cat.id}
-                  onClick={() => handleCategoryChange(cat.id)}
-                  className={`flex items-center gap-6 px-10 py-10 border-b border-border transition-all duration-300 text-left relative ${
-                    isActive ? "bg-white shadow-sm z-10" : "hover:bg-white/50"
-                  }`}
-                >
-                  {isActive && <div className="absolute left-0 top-0 bottom-0 w-2 bg-[#cc2027]" />}
-                  <span className={`font-serif-heading w-8 text-sm font-bold ${isActive ? "text-[#cc2027]" : "text-secondary/30"}`}>
-                    {String(idx + 1).padStart(2, "0")}
-                  </span>
-                  <span className={`font-serif-sub tracking-[0.2em] uppercase text-[11px] font-bold ${isActive ? "text-[#cc2027]" : "text-secondary/60"}`}>
-                    {cat.label}
-                  </span>
-                </button>
-              );
-            })}
-            
-            <div className="px-6 pb-10">
-              <LegalNewsWidget />
+        <div className="max-w-[1440px] mx-auto flex flex-col md:flex-row">
+          
+          {/* ─── Left: Modern Vertical Sidebar ─── */}
+          <div className="md:w-[340px] lg:w-[400px] shrink-0 border-r border-border bg-[#0b1628] flex flex-col md:sticky md:top-0 md:h-screen md:overflow-y-auto z-20">
+            {/* Sidebar header */}
+            <div className="px-8 pt-10 pb-6 border-b border-white/10">
+              <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[10px] block mb-3">Categories</span>
+              <p className="font-sans text-white/40 text-xs font-light leading-relaxed">Filter our legal insights by practice area.</p>
+            </div>
+
+            {/* Navigation list */}
+            <nav className="flex-1 py-4">
+              {categories.map((cat, idx) => {
+                const isActive = cat.id === activeCategory;
+                return (
+                  <button
+                    key={cat.id}
+                    onClick={() => handleCategoryChange(cat.id)}
+                    className={`w-full flex items-center gap-5 px-8 py-5 text-left group relative transition-all duration-300 ${
+                      isActive
+                        ? 'bg-white/6 border-r-0'
+                        : 'hover:bg-white/3'
+                    }`}
+                  >
+                    {/* Active left-edge accent */}
+                    <span className={`absolute left-0 top-2 bottom-2 w-[3px] rounded-r-full bg-[#cc2027] transition-all duration-300 ${isActive ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0'}`} />
+
+                    {/* Text */}
+                    <div className="flex-1 min-w-0">
+                      <span className={`block font-serif-sub tracking-[0.2em] uppercase text-[9px] mb-1 font-bold transition-colors ${isActive ? 'text-[#cc2027]' : 'text-white/25 group-hover:text-white/40'}`}>
+                        {String(idx + 1).padStart(2, "0")}
+                      </span>
+                      <span className={`block font-serif-heading text-[15px] leading-tight font-bold transition-colors duration-300 truncate ${isActive ? 'text-white' : 'text-white/50 group-hover:text-white/70'}`}>
+                        {cat.label}
+                      </span>
+                    </div>
+
+                    {/* Active dot */}
+                    <div className={`w-1.5 h-1.5 rounded-full bg-[#cc2027] shrink-0 transition-all duration-300 ${isActive ? 'opacity-100' : 'opacity-0'}`} />
+                  </button>
+                );
+              })}
+            </nav>
+
+            <div className="px-8 py-8 border-t border-white/10">
+              <LegalNewsWidget hideHeader={true} itemsLimit={1} showMoreLink={false} />
             </div>
           </div>
 
-          {/* Blog Posts List */}
-          <div id="blog-list" className="md:w-2/3 lg:w-3/4 bg-white p-10 md:p-20 relative overflow-hidden">
+          {/* ─── Right: Active Content Panel ─── */}
+          <div id="blog-list" className="flex-1 bg-white p-8 md:p-16 lg:p-24 relative min-h-[80vh]">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeCategory}

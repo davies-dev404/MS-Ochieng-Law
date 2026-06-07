@@ -157,17 +157,18 @@ export default function Home() {
       <section id="expertise-section" className="py-24 bg-[#1c2f54] text-white overflow-hidden relative border-t border-white/5">
         <div className="absolute top-0 right-0 w-1/2 h-full bg-linear-to-l from-white/5 to-transparent pointer-none" />
         <div className="max-w-[1240px] mx-auto px-6 relative z-10">
-          <div className="flex flex-col mb-16">
-            <div className="flex items-center gap-4 mb-8">
+          <div className="flex flex-col items-center text-center mb-16">
+            <div className="flex items-center justify-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">{t('home.practice_label')}</span>
+              <div className="h-px w-12 bg-[#cc2027]" />
             </div>
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+            <div className="flex flex-col items-center gap-10">
               <div className="max-w-3xl">
-                <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[1.1] md:leading-[0.9] tracking-tight translate-x-[-4px]">{t('home.practice_title')}</h2>
-                <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">{t('home.practice_desc')}</p>
+                <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[1.1] md:leading-[0.9] tracking-tight">{t('home.practice_title')}</h2>
+                <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide mx-auto">{t('home.practice_desc')}</p>
               </div>
-              <div className="flex gap-3">
+              <div className="flex gap-3 justify-center">
                 <button onClick={scrollPrevExpertise} className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-[#cc2027] hover:border-[#cc2027] transition-all duration-300">
                   <ChevronLeft size={24} strokeWidth={1.5} />
                 </button>
@@ -208,17 +209,18 @@ export default function Home() {
       <section id="blog-section" className="py-32 bg-[#1c2f54] text-white relative overflow-hidden border-t border-white/5">
         <div className="absolute top-0 left-0 w-1/3 h-full bg-linear-to-r from-white/5 to-transparent pointer-none" />
         <div className="max-w-[1240px] mx-auto px-6 relative z-10">
-          <div className="flex flex-col mb-16">
-            <div className="flex items-center gap-4 mb-8">
+          <div className="flex flex-col items-center text-center mb-16">
+            <div className="flex items-center justify-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">Latest Intelligence</span>
+              <div className="h-px w-12 bg-[#cc2027]" />
             </div>
-            <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-10">
+            <div className="flex flex-col items-center gap-10">
               <div className="max-w-3xl">
-                <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] whitespace-nowrap overflow-visible uppercase">{t('home.insights_title')}</h2>
-                <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide">{t('home.insights_desc')}</p>
+                <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight uppercase">{t('home.insights_title')}</h2>
+                <p className="text-white/80 font-sans text-lg md:text-xl leading-relaxed max-w-xl font-light tracking-wide mx-auto">{t('home.insights_desc')}</p>
               </div>
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-4 items-center justify-center">
                 <div className="flex gap-2 mr-4">
                   <button onClick={scrollPrevBlog} className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:bg-[#cc2027] transition-all">
                     <ChevronLeft size={20} />
@@ -265,14 +267,15 @@ export default function Home() {
 
       <section className="py-32 bg-white overflow-hidden relative border-t border-gray-100">
         <div className="max-w-[1240px] mx-auto px-6 relative z-10">
-          <div className="flex flex-col mb-16 text-left">
-            <div className="flex items-center gap-4 mb-8">
+          <div className="flex flex-col items-center text-center mb-16">
+            <div className="flex items-center justify-center gap-4 mb-8">
               <div className="h-px w-12 bg-[#cc2027]" />
               <span className="text-[#cc2027] font-sans font-bold tracking-[0.3em] uppercase text-[11px]">Global Intelligence</span>
+              <div className="h-px w-12 bg-[#cc2027]" />
             </div>
-            <div className="max-w-4xl">
-              <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight translate-x-[-4px] text-[#1c2f54] whitespace-nowrap uppercase">Strategic <span className="italic">Frontiers.</span></h2>
-              <p className="text-gray-500 font-sans text-lg md:text-xl leading-relaxed max-w-2xl font-light tracking-wide italic">"Global legal perspectives and industry intelligence curated in real-time by our legal chambers."</p>
+            <div className="max-w-4xl flex flex-col items-center">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-serif-heading mb-8 leading-[0.9] tracking-tight text-[#1c2f54] uppercase">Strategic <span className="italic">Frontiers.</span></h2>
+              <p className="text-gray-500 font-sans text-lg md:text-xl leading-relaxed max-w-2xl font-light tracking-wide italic text-center">"Global legal perspectives and industry intelligence curated in real-time by our legal chambers."</p>
             </div>
           </div>
           <LegalNewsWidget hideHeader={true} itemsLimit={3} showMoreLink="/blog" />
