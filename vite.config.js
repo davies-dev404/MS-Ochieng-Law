@@ -31,12 +31,7 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
-    minify: "esbuild",
     cssMinify: true,
-  },
-  esbuild: {
-    drop: ['console', 'debugger'],
-    legalComments: 'none',
   },
   server: {
     port,
